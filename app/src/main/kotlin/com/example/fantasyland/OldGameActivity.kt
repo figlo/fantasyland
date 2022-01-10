@@ -29,11 +29,11 @@ class OldGameActivity : AppCompatActivity() {
 //        Log.d("farbyPocet", playerCards.numberOfSuits.toString())
 
         binding.apply {
-            textViewFantasyCards.text = playerCards.display()
+            oldTextViewFantasyCards.text = playerCards.display()
 
             buttonSort.setOnClickListener {
                 playerCards.sort()
-                binding.textViewFantasyCards.text = playerCards.display()
+                binding.oldTextViewFantasyCards.text = playerCards.display()
             }
         }
     }
