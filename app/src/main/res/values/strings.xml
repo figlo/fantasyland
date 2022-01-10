@@ -3,7 +3,8 @@
 
     <string name="your_nickname">Your nickname:</string>
     <string name="fantasy_land_cards">FantasyLand cards:</string>
-    <string name="start_game">Play</string>
+    <string name="start_game">Play old</string>
+    <string name="play">Play</string>
     <string name="sort">Sort</string>
 
     <!-- Menu -->

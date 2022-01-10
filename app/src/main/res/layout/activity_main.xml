@@ -65,7 +65,7 @@
     </TableLayout>
 
     <Button
-        android:id="@+id/buttonNewGame"
+        android:id="@+id/buttonPlayOld"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/start_game"
@@ -73,5 +73,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/prefsTable" />
+
+    <Button
+        android:id="@+id/buttonPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/play"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonPlayOld" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

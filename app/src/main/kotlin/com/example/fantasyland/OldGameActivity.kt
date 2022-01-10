@@ -5,14 +5,14 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
-import com.example.fantasyland.databinding.ActivityGameBinding
+import com.example.fantasyland.databinding.ActivityOldGameBinding
 import com.google.android.material.snackbar.Snackbar
 
-class GameActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityGameBinding
+class OldGameActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityOldGameBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityGameBinding.inflate(layoutInflater)
+        binding = ActivityOldGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val toolbar = binding.includedLayout.toolbar
