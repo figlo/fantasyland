@@ -21,10 +21,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".OldGameActivity"
-            android:screenOrientation="landscape"
-            android:exported="false" />
-        <activity
             android:name=".GameActivity"
             android:screenOrientation="landscape"
             android:exported="false" />

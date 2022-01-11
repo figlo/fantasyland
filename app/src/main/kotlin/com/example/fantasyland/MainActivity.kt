@@ -26,10 +26,6 @@ class MainActivity : AppCompatActivity() {
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
         val nickName = preferences.getString("nickName", "")
 
-        binding.buttonPlayOld.setOnClickListener {
-            startActivity(Intent(this, OldGameActivity::class.java))
-        }
-
         binding.buttonPlay.setOnClickListener {
             startActivity(Intent(this, GameActivity::class.java))
         }
