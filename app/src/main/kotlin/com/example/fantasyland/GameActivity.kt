@@ -1,5 +1,6 @@
 package com.example.fantasyland
 
+import android.content.res.Resources
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
@@ -31,6 +32,12 @@ class GameActivity : AppCompatActivity() {
 
         val layout = binding.linearLayoutDealtCards
 
+        val displayWidth = Resources.getSystem().displayMetrics.widthPixels
+        val cardWidth = displayWidth / 21
+        val cardHeight = (cardWidth * 1.4).toInt()
+
+//        Snackbar.make(layout, cardWidth.toString(), Snackbar.LENGTH_LONG).show()
+
         NewCard.values().forEach { it.cardState = DECK }
 
         var dealtCards = mutableListOf<NewCard>()
@@ -40,11 +47,11 @@ class GameActivity : AppCompatActivity() {
 
         for (card in dealtCards) {
             val cardView = ImageView(this)
-            cardView.layoutParams = LinearLayout.LayoutParams(101, 141)
+            cardView.layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
 
             val cardImage = resources.getIdentifier(card.file, "drawable", packageName)
             cardView.setImageResource(cardImage)
-            cardView.updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(5) }
+            cardView.updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(8) }
             cardView.setPadding(1)
             cardView.setBackgroundColor(Color.parseColor("#000000"))
 
@@ -64,11 +71,11 @@ class GameActivity : AppCompatActivity() {
 
             for (card in dealtCards) {
                 val cardView = ImageView(this)
-                cardView.layoutParams = LinearLayout.LayoutParams(101, 141)
+                cardView.layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
 
                 val cardImage = resources.getIdentifier(card.file, "drawable", packageName)
                 cardView.setImageResource(cardImage)
-                cardView.updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(5) }
+                cardView.updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(8) }
                 cardView.setPadding(1)
                 cardView.setBackgroundColor(Color.parseColor("#000000"))
 
