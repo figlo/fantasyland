@@ -1,7 +1,6 @@
 package com.example.fantasyland
 
 import com.example.fantasyland.CardFace.*
-import com.example.fantasyland.CardState.DECK
 import com.example.fantasyland.CardSuit.*
 
 enum class CardFace(val abbr: Char, val rankAceHigh: Int) {
@@ -32,63 +31,105 @@ enum class CardSuit(val abbr: Char, val hexColor: String) {
     CLUBS('c', "#00bb00");          // green
 }
 
-enum class NewCard(val face: CardFace, val suit: CardSuit, val file: String, var cardState: CardState = DECK) {
-    CARD_AS(ACE, SPADES, "card_as.png"),
-    CARD_2S(TWO, SPADES, "card_2s.png"),
-    CARD_3S(THREE, SPADES, "card_3s.png"),
-    CARD_4S(FOUR, SPADES, "card_4s.png"),
-    CARD_5S(FIVE, SPADES, "card_5s.png"),
-    CARD_6S(SIX, SPADES, "card_6s.png"),
-    CARD_7S(SEVEN, SPADES, "card_7s.png"),
-    CARD_8S(EIGHT, SPADES, "card_8s.png"),
-    CARD_9S(NINE, SPADES, "card_9s.png"),
-    CARD_TS(TEN, SPADES, "card_ts.png"),
-    CARD_JS(JACK, SPADES, "card_js.png"),
-    CARD_QS(QUEEN, SPADES, "card_qs.png"),
-    CARD_KS(KING, SPADES, "card_ks.png"),
+enum class NewCard(val face: CardFace, val suit: CardSuit, val file: String, var cardState: CardState = CardState.DECK) {
+    CARD_AS(ACE, SPADES, "card_as"),
+    CARD_2S(TWO, SPADES, "card_2s"),
+    CARD_3S(THREE, SPADES, "card_3s"),
+    CARD_4S(FOUR, SPADES, "card_4s"),
+    CARD_5S(FIVE, SPADES, "card_5s"),
+    CARD_6S(SIX, SPADES, "card_6s"),
+    CARD_7S(SEVEN, SPADES, "card_7s"),
+    CARD_8S(EIGHT, SPADES, "card_8s"),
+    CARD_9S(NINE, SPADES, "card_9s"),
+    CARD_TS(TEN, SPADES, "card_ts"),
+    CARD_JS(JACK, SPADES, "card_js"),
+    CARD_QS(QUEEN, SPADES, "card_qs"),
+    CARD_KS(KING, SPADES, "card_ks"),
 
-    CARD_AH(ACE, HEARTS, "card_ah.png"),
-    CARD_2H(TWO, HEARTS, "card_2h.png"),
-    CARD_3H(THREE, HEARTS, "card_3h.png"),
-    CARD_4H(FOUR, HEARTS, "card_4h.png"),
-    CARD_5H(FIVE, HEARTS, "card_5h.png"),
-    CARD_6H(SIX, HEARTS, "card_6h.png"),
-    CARD_7H(SEVEN, HEARTS, "card_7h.png"),
-    CARD_8H(EIGHT, HEARTS, "card_8h.png"),
-    CARD_9H(NINE, HEARTS, "card_9h.png"),
-    CARD_TH(TEN, HEARTS, "card_th.png"),
-    CARD_JH(JACK, HEARTS, "card_jh.png"),
-    CARD_QH(QUEEN, HEARTS, "card_qh.png"),
-    CARD_KH(KING, HEARTS, "card_kh.png"),
+    CARD_AH(ACE, HEARTS, "card_ah"),
+    CARD_2H(TWO, HEARTS, "card_2h"),
+    CARD_3H(THREE, HEARTS, "card_3h"),
+    CARD_4H(FOUR, HEARTS, "card_4h"),
+    CARD_5H(FIVE, HEARTS, "card_5h"),
+    CARD_6H(SIX, HEARTS, "card_6h"),
+    CARD_7H(SEVEN, HEARTS, "card_7h"),
+    CARD_8H(EIGHT, HEARTS, "card_8h"),
+    CARD_9H(NINE, HEARTS, "card_9h"),
+    CARD_TH(TEN, HEARTS, "card_th"),
+    CARD_JH(JACK, HEARTS, "card_jh"),
+    CARD_QH(QUEEN, HEARTS, "card_qh"),
+    CARD_KH(KING, HEARTS, "card_kh"),
 
-    CARD_AD(ACE, DIAMONDS, "card_ad.png"),
-    CARD_2D(TWO, DIAMONDS, "card_2d.png"),
-    CARD_3D(THREE, DIAMONDS, "card_3d.png"),
-    CARD_4D(FOUR, DIAMONDS, "card_4d.png"),
-    CARD_5D(FIVE, DIAMONDS, "card_5d.png"),
-    CARD_6D(SIX, DIAMONDS, "card_6d.png"),
-    CARD_7D(SEVEN, DIAMONDS, "card_7d.png"),
-    CARD_8D(EIGHT, DIAMONDS, "card_8d.png"),
-    CARD_9D(NINE, DIAMONDS, "card_9d.png"),
-    CARD_TD(TEN, DIAMONDS, "card_td.png"),
-    CARD_JD(JACK, DIAMONDS, "card_jd.png"),
-    CARD_QD(QUEEN, DIAMONDS, "card_qd.png"),
-    CARD_KD(KING, DIAMONDS, "card_kd.png"),
+    CARD_AD(ACE, DIAMONDS, "card_ad"),
+    CARD_2D(TWO, DIAMONDS, "card_2d"),
+    CARD_3D(THREE, DIAMONDS, "card_3d"),
+    CARD_4D(FOUR, DIAMONDS, "card_4d"),
+    CARD_5D(FIVE, DIAMONDS, "card_5d"),
+    CARD_6D(SIX, DIAMONDS, "card_6d"),
+    CARD_7D(SEVEN, DIAMONDS, "card_7d"),
+    CARD_8D(EIGHT, DIAMONDS, "card_8d"),
+    CARD_9D(NINE, DIAMONDS, "card_9d"),
+    CARD_TD(TEN, DIAMONDS, "card_td"),
+    CARD_JD(JACK, DIAMONDS, "card_jd"),
+    CARD_QD(QUEEN, DIAMONDS, "card_qd"),
+    CARD_KD(KING, DIAMONDS, "card_kd"),
 
-    CARD_AC(ACE, CLUBS, "card_ac.png"),
-    CARD_2C(TWO, CLUBS, "card_2c.png"),
-    CARD_3C(THREE, CLUBS, "card_3c.png"),
-    CARD_4C(FOUR, CLUBS, "card_4c.png"),
-    CARD_5C(FIVE, CLUBS, "card_5c.png"),
-    CARD_6C(SIX, CLUBS, "card_6c.png"),
-    CARD_7C(SEVEN, CLUBS, "card_7c.png"),
-    CARD_8C(EIGHT, CLUBS, "card_8c.png"),
-    CARD_9C(NINE, CLUBS, "card_9c.png"),
-    CARD_TC(TEN, CLUBS, "card_tc.png"),
-    CARD_JC(JACK, CLUBS, "card_jc.png"),
-    CARD_QC(QUEEN, CLUBS, "card_qc.png"),
-    CARD_KC(KING, CLUBS, "card_kc.png");
+    CARD_AC(ACE, CLUBS, "card_ac"),
+    CARD_2C(TWO, CLUBS, "card_2c"),
+    CARD_3C(THREE, CLUBS, "card_3c"),
+    CARD_4C(FOUR, CLUBS, "card_4c"),
+    CARD_5C(FIVE, CLUBS, "card_5c"),
+    CARD_6C(SIX, CLUBS, "card_6c"),
+    CARD_7C(SEVEN, CLUBS, "card_7c"),
+    CARD_8C(EIGHT, CLUBS, "card_8c"),
+    CARD_9C(NINE, CLUBS, "card_9c"),
+    CARD_TC(TEN, CLUBS, "card_tc"),
+    CARD_JC(JACK, CLUBS, "card_jc"),
+    CARD_QC(QUEEN, CLUBS, "card_qc"),
+    CARD_KC(KING, CLUBS, "card_kc");
+
+    companion object {
+        fun sortByRankAndColor() =
+           values()
+                .filter { it.cardState == CardState.DEALT }
+                .sortedWith(
+                    compareBy(
+                        { -it.face.rankAceHigh },
+                        { it.suit }
+                    )
+                )
+
+        fun sortByColorAndRank() =
+            values()
+                .filter { it.cardState == CardState.DEALT }
+                .sortedWith(
+                    compareBy(
+                        { it.suit },
+                        { -it.face.rankAceHigh }
+                    )
+                )
+
+        protected fun sortByCountAndRank() =
+            values()
+                .filter { it.cardState == CardState.DEALT }
+                .sortedWith(
+                    compareBy(
+                        { card -> -values().count { otherCard -> card.face == otherCard.face } },
+                        { -it.face.rankAceHigh }
+                    )
+                )
+
+        fun dealCard(): NewCard {
+            val dealtCard =
+                values()
+                    .filter { it.cardState == CardState.DECK }
+                    .random()
+            dealtCard.cardState = CardState.DEALT
+            return dealtCard
+        }
+    }
 }
+
 
 enum class CardState {
     DECK,

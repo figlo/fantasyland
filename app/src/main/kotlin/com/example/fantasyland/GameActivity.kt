@@ -3,8 +3,11 @@ package com.example.fantasyland
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
+import com.example.fantasyland.CardState.DECK
 import com.example.fantasyland.databinding.ActivityGameBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -21,19 +24,44 @@ class GameActivity : AppCompatActivity() {
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
         val numberOfCardsInFantasyLand = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
 
-        Game.start()
+        val layout = binding.linearLayoutDealtCards
 
-        val playerCards = Game.deck.drawCards(numberOfCardsInFantasyLand)
-//        Log.d("hodnoty", playerCards.toString())
-//        Log.d("hodnotyMax", playerCards.max.toString())
-//        Log.d("farbyPocet", playerCards.numberOfSuits.toString())
+        NewCard.values().forEach { it.cardState = DECK  }
 
-        binding.apply {
-            textViewFantasyCards.text = playerCards.display()
+        var dealtCards = mutableListOf<NewCard>()
+        for (i in 1..numberOfCardsInFantasyLand) {
+            dealtCards.add(NewCard.dealCard())
+        }
 
-            buttonSort.setOnClickListener {
-                playerCards.sort()
-                binding.textViewFantasyCards.text = playerCards.display()
+        for (card in dealtCards) {
+            val cardView = ImageView(this)
+            cardView.layoutParams = LinearLayout.LayoutParams(100, 140)
+
+            val cardImage = resources.getIdentifier(card.file, "drawable", packageName)
+            cardView.setImageResource(cardImage)
+
+            layout.addView(cardView)
+        }
+
+        var sortSwitch = true
+        binding.buttonSort.setOnClickListener {
+            layout.removeAllViews()
+
+            dealtCards = if (sortSwitch) {
+                NewCard.sortByRankAndColor().toMutableList()
+            } else {
+                NewCard.sortByColorAndRank().toMutableList()
+            }
+            sortSwitch = !sortSwitch
+
+            for (card in dealtCards) {
+                val cardView = ImageView(this)
+                cardView.layoutParams = LinearLayout.LayoutParams(100, 140)
+
+                val cardImage = resources.getIdentifier(card.file, "drawable", packageName)
+                cardView.setImageResource(cardImage)
+
+                layout.addView(cardView)
             }
         }
     }
@@ -49,11 +77,11 @@ class GameActivity : AppCompatActivity() {
                 this.startActivity(intent)
                 true
             }
-            R.id.about -> {
+            R.id.about    -> {
                 Snackbar.make(binding.root, "About", Snackbar.LENGTH_SHORT).show()
                 true
             }
-            else -> super.onOptionsItemSelected(item)
+            else          -> super.onOptionsItemSelected(item)
         }
     }
 }
