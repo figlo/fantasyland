@@ -28,30 +28,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:padding="4dp"
-                android:text="@string/your_nickname"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/nickname_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/nickname_hint"
-                android:inputType="textPersonName"
-                android:padding="4dp"
-                android:textAlignment="textStart"
-                android:textSize="20sp" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:padding="4dp"
                 android:text="@string/fantasy_land_cards"
                 android:textSize="20sp" />
 

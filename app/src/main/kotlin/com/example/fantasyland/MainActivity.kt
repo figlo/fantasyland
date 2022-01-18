@@ -23,9 +23,6 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.includedLayout.toolbar)
 
-        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-//        val nickName = preferences.getString("nickName", "")
-
         binding.buttonPlay.setOnClickListener {
             startActivity(Intent(this, GameActivity::class.java))
         }
@@ -35,8 +32,6 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-
-//        binding.textViewNickName.text = preferences.getString("nickName", "")
 
         val spinnerValue = preferences.getString("number_of_cards_in_fantasy_land", "14") ?: "14"
         val spinnerIndex = spinnerValue.toInt() - 13
