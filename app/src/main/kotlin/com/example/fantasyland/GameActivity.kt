@@ -30,11 +30,51 @@ class GameActivity : AppCompatActivity() {
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
         val numberOfCardsInFantasyLand = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
 
-        val layout = binding.linearLayoutDealtCards
-
         val displayWidth = Resources.getSystem().displayMetrics.widthPixels
         val cardWidth = displayWidth / 21
         val cardHeight = (cardWidth * 1.4).toInt()
+
+        val layoutTopRow= binding.linearLayoutTopRow
+        val layoutMiddleRow= binding.linearLayoutMiddleRow
+        val layoutBottomRow= binding.linearLayoutBottomRow
+
+        for (i in 1..3) {
+            val cardView = ImageView(this)
+            cardView.layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
+            val cardImage = resources.getIdentifier("empty_card", "drawable", packageName)
+            cardView.setImageResource(cardImage)
+            cardView.updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(8) }
+            cardView.setPadding(1)
+            cardView.setBackgroundColor(Color.parseColor("#000000"))
+
+            layoutTopRow.addView(cardView)
+        }
+
+        for (i in 1..5) {
+            val cardView = ImageView(this)
+            cardView.layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
+            val cardImage = resources.getIdentifier("empty_card", "drawable", packageName)
+            cardView.setImageResource(cardImage)
+            cardView.updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(8) }
+            cardView.setPadding(1)
+            cardView.setBackgroundColor(Color.parseColor("#000000"))
+
+            layoutMiddleRow.addView(cardView)
+        }
+
+        for (i in 1..5) {
+            val cardView = ImageView(this)
+            cardView.layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
+            val cardImage = resources.getIdentifier("empty_card", "drawable", packageName)
+            cardView.setImageResource(cardImage)
+            cardView.updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(8) }
+            cardView.setPadding(1)
+            cardView.setBackgroundColor(Color.parseColor("#000000"))
+
+            layoutBottomRow.addView(cardView)
+        }
+
+        val layout = binding.linearLayoutDealtCards
 
 //        Snackbar.make(layout, cardWidth.toString(), Snackbar.LENGTH_LONG).show()
 
