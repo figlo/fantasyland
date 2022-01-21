@@ -12,14 +12,27 @@
         layout="@layout/toolbar" />
 
     <LinearLayout
+        android:id="@+id/board"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/linearLayoutDealtCards"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/includedLayout"
+        app:layout_constraintVertical_chainStyle="spread">
+
+    <LinearLayout
         android:id="@+id/linearLayoutTopRow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
         app:layout_constraintBottom_toTopOf="@id/linearLayoutMiddleRow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/includedLayout" />
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
 
     <LinearLayout
         android:id="@+id/linearLayoutMiddleRow"
@@ -36,10 +49,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/linearLayoutDealtCards"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearLayoutMiddleRow" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayoutDealtCards"
@@ -49,7 +64,7 @@
         app:layout_constraintBottom_toTopOf="@+id/buttonSort"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayoutBottomRow" />
+        app:layout_constraintTop_toBottomOf="@id/board" />
 
     <Button
         android:id="@+id/buttonSort"
