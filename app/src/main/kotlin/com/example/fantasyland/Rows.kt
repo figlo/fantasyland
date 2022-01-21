@@ -44,28 +44,23 @@ open class RowCards(cards: MutableList<Card>) : Cards(cards) {
     }
 }
 
-class TopRowCards(cards: MutableList<Card>) : RowCards(cards) {
+class BottomRowCards(cards: MutableList<Card>) : RowCards(cards) {
     init {
-        require(cards.size == 3) { "Number of top row cards (must be 3): ${cards.size}" }
-    }
-
-    override fun pokerCombination(): PokerCombination {
-        return when (numberOfFaces) {
-            1    -> TRIPS
-            2    -> PAIR
-            3    -> HIGH_CARD
-            else -> throw IllegalArgumentException("Number of faces (must be 1, 2, or 3 for TopRowCards): $numberOfFaces")
-        }
+        require(cards.size == 5) { "Number of bottom row cards (must be 5): ${cards.size}" }
     }
 
     fun value(): Int {
-        val firstCardRank = sortedCards.cards[0].face.rankAceHigh
-
         return when (pokerCombination()) {
-            HIGH_CARD -> 0
-            PAIR      -> if (firstCardRank >= 6) firstCardRank - 5 else 0
-            TRIPS     -> firstCardRank + 8
-            else      -> throw IllegalArgumentException("Poker combination out of range for top row")
+            HIGH_CARD      -> 0
+            PAIR           -> 0
+            TWO_PAIRS      -> 0
+            TRIPS          -> 0
+            STRAIGHT       -> 2
+            FLUSH          -> 4
+            FULL_HOUSE     -> 6
+            QUADS          -> 10
+            STRAIGHT_FLUSH -> 15
+            ROYAL_FLUSH    -> 25
         }
     }
 }
@@ -91,23 +86,28 @@ class MiddleRowCards(cards: MutableList<Card>) : RowCards(cards) {
     }
 }
 
-class BottomRowCards(cards: MutableList<Card>) : RowCards(cards) {
+class TopRowCards(cards: MutableList<Card>) : RowCards(cards) {
     init {
-        require(cards.size == 5) { "Number of bottom row cards (must be 5): ${cards.size}" }
+        require(cards.size == 3) { "Number of top row cards (must be 3): ${cards.size}" }
+    }
+
+    override fun pokerCombination(): PokerCombination {
+        return when (numberOfFaces) {
+            1    -> TRIPS
+            2    -> PAIR
+            3    -> HIGH_CARD
+            else -> throw IllegalArgumentException("Number of faces (must be 1, 2, or 3 for TopRowCards): $numberOfFaces")
+        }
     }
 
     fun value(): Int {
+        val firstCardRank = sortedCards.cards[0].face.rankAceHigh
+
         return when (pokerCombination()) {
-            HIGH_CARD      -> 0
-            PAIR           -> 0
-            TWO_PAIRS      -> 0
-            TRIPS          -> 0
-            STRAIGHT       -> 2
-            FLUSH          -> 4
-            FULL_HOUSE     -> 6
-            QUADS          -> 10
-            STRAIGHT_FLUSH -> 15
-            ROYAL_FLUSH    -> 25
+            HIGH_CARD -> 0
+            PAIR      -> if (firstCardRank >= 6) firstCardRank - 5 else 0
+            TRIPS     -> firstCardRank + 8
+            else      -> throw IllegalArgumentException("Poker combination out of range for top row")
         }
     }
 }

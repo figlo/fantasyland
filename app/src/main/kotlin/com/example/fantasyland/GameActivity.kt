@@ -33,48 +33,30 @@ class GameActivity : AppCompatActivity() {
         val displayWidth = Resources.getSystem().displayMetrics.widthPixels
         val cardWidth = displayWidth / 21
         val cardHeight = (cardWidth * 1.4).toInt()
+        val emptyCardImage = resources.getIdentifier("empty_card", "drawable", packageName)
 
-        val layoutTopRow= binding.linearLayoutTopRow
-        val layoutMiddleRow= binding.linearLayoutMiddleRow
-        val layoutBottomRow= binding.linearLayoutBottomRow
+        val layoutBottomRow = binding.linearLayoutBottomRow
+        val layoutMiddleRow = binding.linearLayoutMiddleRow
+        val layoutTopRow = binding.linearLayoutTopRow
 
-        for (i in 1..3) {
-            val cardView = ImageView(this)
-            cardView.layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
-            val cardImage = resources.getIdentifier("empty_card", "drawable", packageName)
-            cardView.setImageResource(cardImage)
-            cardView.updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(8) }
-            cardView.setPadding(1)
-            cardView.setBackgroundColor(Color.parseColor("#000000"))
+        for (i in 1..13) {
+            val layoutRow = when (i) {
+                in 1..5  -> layoutBottomRow
+                in 6..10  -> layoutMiddleRow
+                else -> layoutTopRow
+            }
 
-            layoutTopRow.addView(cardView)
+            ImageView(this).apply {
+                layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
+                setImageResource(emptyCardImage)
+                updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(8) }
+                setPadding(1)
+                setBackgroundColor(Color.parseColor("#000000"))
+                layoutRow.addView(this)
+            }
         }
 
-        for (i in 1..5) {
-            val cardView = ImageView(this)
-            cardView.layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
-            val cardImage = resources.getIdentifier("empty_card", "drawable", packageName)
-            cardView.setImageResource(cardImage)
-            cardView.updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(8) }
-            cardView.setPadding(1)
-            cardView.setBackgroundColor(Color.parseColor("#000000"))
-
-            layoutMiddleRow.addView(cardView)
-        }
-
-        for (i in 1..5) {
-            val cardView = ImageView(this)
-            cardView.layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
-            val cardImage = resources.getIdentifier("empty_card", "drawable", packageName)
-            cardView.setImageResource(cardImage)
-            cardView.updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(8) }
-            cardView.setPadding(1)
-            cardView.setBackgroundColor(Color.parseColor("#000000"))
-
-            layoutBottomRow.addView(cardView)
-        }
-
-        val layout = binding.linearLayoutDealtCards
+        val layoutDealtCards = binding.linearLayoutDealtCards
 
 //        Snackbar.make(layout, cardWidth.toString(), Snackbar.LENGTH_LONG).show()
 
@@ -95,12 +77,12 @@ class GameActivity : AppCompatActivity() {
             cardView.setPadding(1)
             cardView.setBackgroundColor(Color.parseColor("#000000"))
 
-            layout.addView(cardView)
+            layoutDealtCards.addView(cardView)
         }
 
         var sortSwitch = true
         binding.buttonSort.setOnClickListener {
-            layout.removeAllViews()
+            layoutDealtCards.removeAllViews()
 
             dealtCards = if (sortSwitch) {
                 NewCard.sortByColorAndRank().toMutableList()
@@ -119,7 +101,7 @@ class GameActivity : AppCompatActivity() {
                 cardView.setPadding(1)
                 cardView.setBackgroundColor(Color.parseColor("#000000"))
 
-                layout.addView(cardView)
+                layoutDealtCards.addView(cardView)
             }
         }
     }
