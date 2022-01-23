@@ -133,6 +133,7 @@ enum class NewCard(val face: CardFace, val suit: CardSuit, val file: String, var
 enum class CardState {
     DECK,
     DEALT,
+    CLICKED,
     BOTTOM_ROW,
     MIDDLE_ROW,
     TOP_ROW;
