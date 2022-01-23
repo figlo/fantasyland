@@ -133,9 +133,9 @@ enum class NewCard(val face: CardFace, val suit: CardSuit, val file: String, var
 enum class CardState {
     DECK,
     DEALT,
-    TOP_ROW,
+    BOTTOM_ROW,
     MIDDLE_ROW,
-    BOTTOM_ROW;
+    TOP_ROW;
 }
 
 enum class PokerCombination {

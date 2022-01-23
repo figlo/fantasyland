@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -68,16 +69,20 @@ class GameActivity : AppCompatActivity() {
         }
 
         for (card in dealtCards) {
-            val cardView = ImageView(this)
-            cardView.layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
+            val dealtCardView = ImageView(this)
+            val id = View.generateViewId()
+            dealtCardView.id = id
+
+            dealtCardView.layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
 
             val cardImage = resources.getIdentifier(card.file, "drawable", packageName)
-            cardView.setImageResource(cardImage)
-            cardView.updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(8) }
-            cardView.setPadding(1)
-            cardView.setBackgroundColor(Color.parseColor("#000000"))
+            dealtCardView.setImageResource(cardImage)
+            dealtCardView.updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(8) }
+            dealtCardView.setPadding(1)
+            dealtCardView.setBackgroundColor(Color.parseColor("#000000"))
+//            Log.d("asdfjkl", dealtCardView.id.toString())
 
-            layoutDealtCards.addView(cardView)
+            layoutDealtCards.addView(dealtCardView)
         }
 
         var sortSwitch = true
@@ -92,16 +97,16 @@ class GameActivity : AppCompatActivity() {
             sortSwitch = !sortSwitch
 
             for (card in dealtCards) {
-                val cardView = ImageView(this)
-                cardView.layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
+                val dealtCardView = ImageView(this)
+                dealtCardView.layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
 
                 val cardImage = resources.getIdentifier(card.file, "drawable", packageName)
-                cardView.setImageResource(cardImage)
-                cardView.updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(8) }
-                cardView.setPadding(1)
-                cardView.setBackgroundColor(Color.parseColor("#000000"))
+                dealtCardView.setImageResource(cardImage)
+                dealtCardView.updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(8) }
+                dealtCardView.setPadding(1)
+                dealtCardView.setBackgroundColor(Color.parseColor("#000000"))
 
-                layoutDealtCards.addView(cardView)
+                layoutDealtCards.addView(dealtCardView)
             }
         }
     }
