@@ -93,6 +93,12 @@ class GameActivity : AppCompatActivity() {
 
 //        Snackbar.make(this, i.toString(), Snackbar.LENGTH_LONG).show()
 
+        for (tile in tiles) {
+            tile.imageView.setOnClickListener {
+                tile.select()
+            }
+        }
+
         var sortSwitch = true
 
         binding.buttonSort.setOnClickListener {
