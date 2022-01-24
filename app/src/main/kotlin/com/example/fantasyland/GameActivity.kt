@@ -13,7 +13,7 @@ import androidx.core.view.setMargins
 import androidx.core.view.setPadding
 import androidx.core.view.updateLayoutParams
 import androidx.preference.PreferenceManager
-import com.example.fantasyland.CardState.*
+import com.example.fantasyland.CardState.DECK
 import com.example.fantasyland.databinding.ActivityGameBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -40,6 +40,9 @@ class GameActivity : AppCompatActivity() {
         val layoutTopRow = binding.linearLayoutTopRow
 
         val boardCardViews = mutableListOf<ImageView>()
+
+        val tiles = mutableListOf<Tile>()
+
         for (i in 1..13) {
             val layoutRow = when (i) {
                 in 1..5  -> layoutBottomRow
@@ -56,7 +59,10 @@ class GameActivity : AppCompatActivity() {
 
                 boardCardViews.add(this)
                 layoutRow.addView(this)
+
+                tiles.add(Tile("board_$i", this))
             }
+
         }
 
         val layoutDealtCards = binding.linearLayoutDealtCards
@@ -80,50 +86,17 @@ class GameActivity : AppCompatActivity() {
 
                 dealtCardViews.add(this)
                 layoutDealtCards.addView(this)
+
+                tiles.add(Tile("dealt_$i", this))
             }
         }
 
-        fun allCardsDeselect() {
-            for (view in boardCardViews) {
-                view.setBackgroundColor(Color.parseColor("#000000"))
-                view.setPadding(1)
-            }
-            for (view in dealtCardViews) {
-                view.setBackgroundColor(Color.parseColor("#000000"))
-                view.setPadding(1)
-            }
-            for (card in dealtCards) {
-                card.cardState = DEALT
-            }
-        }
-
-        fun select(view: ImageView) {
-            allCardsDeselect()
-
-            view.setBackgroundColor(Color.parseColor("#ff0000"))
-            view.setPadding(4)
-
-            val index = dealtCardViews.indexOf(view)
-            dealtCards[index].cardState = CLICKED
-//                    Snackbar.make(this, i.toString(), Snackbar.LENGTH_LONG).show()
-        }
-
-        for (view in boardCardViews) {
-            view.setOnClickListener {
-//                select(view)
-            }
-        }
-
-        for (view in dealtCardViews) {
-            view.setOnClickListener {
-                select(view)
-            }
-        }
+//        Snackbar.make(this, i.toString(), Snackbar.LENGTH_LONG).show()
 
         var sortSwitch = true
 
         binding.buttonSort.setOnClickListener {
-            allCardsDeselect()
+            Tile.selectedTile?.deSelect()
             dealtCards = when (sortSwitch) {
                 true  -> NewCard.sortByColorAndRank().toMutableList()
                 false -> NewCard.sortByRankAndColor().toMutableList()
