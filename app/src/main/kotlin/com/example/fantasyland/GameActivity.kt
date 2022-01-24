@@ -97,7 +97,7 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
-        fun clickOnCard(view: ImageView) {
+        fun select(view: ImageView) {
             allCardsDeselect()
 
             view.setBackgroundColor(Color.parseColor("#ff0000"))
@@ -110,13 +110,13 @@ class GameActivity : AppCompatActivity() {
 
         for (view in boardCardViews) {
             view.setOnClickListener {
-//                clickOnCard(view)
+//                select(view)
             }
         }
 
         for (view in dealtCardViews) {
             view.setOnClickListener {
-                clickOnCard(view)
+                select(view)
             }
         }
 
