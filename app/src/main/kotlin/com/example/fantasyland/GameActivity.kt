@@ -83,7 +83,7 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
-        fun allCardsUnFocus() {
+        fun allCardsDeselect() {
             for (view in boardCardViews) {
                 view.setBackgroundColor(Color.parseColor("#000000"))
                 view.setPadding(1)
@@ -98,7 +98,7 @@ class GameActivity : AppCompatActivity() {
         }
 
         fun clickOnCard(view: ImageView) {
-            allCardsUnFocus()
+            allCardsDeselect()
 
             view.setBackgroundColor(Color.parseColor("#ff0000"))
             view.setPadding(4)
@@ -123,7 +123,7 @@ class GameActivity : AppCompatActivity() {
         var sortSwitch = true
 
         binding.buttonSort.setOnClickListener {
-            allCardsUnFocus()
+            allCardsDeselect()
             dealtCards = when (sortSwitch) {
                 true  -> NewCard.sortByColorAndRank().toMutableList()
                 false -> NewCard.sortByRankAndColor().toMutableList()
