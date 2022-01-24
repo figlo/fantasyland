@@ -43,6 +43,8 @@ class GameActivity : AppCompatActivity() {
 
         val tiles = mutableListOf<Tile>()
 
+        Tile.selectedTile = null
+
         for (i in 1..13) {
             val layoutRow = when (i) {
                 in 1..5  -> layoutBottomRow
@@ -53,6 +55,7 @@ class GameActivity : AppCompatActivity() {
             ImageView(this).apply {
                 layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
                 setImageResource(emptyCardImage)
+                tag = emptyCardImage
                 updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(8) }
                 setPadding(1)
                 setBackgroundColor(Color.parseColor("#000000"))
@@ -60,7 +63,7 @@ class GameActivity : AppCompatActivity() {
                 boardCardViews.add(this)
                 layoutRow.addView(this)
 
-                tiles.add(Tile("board_$i", this))
+                tiles.add(Tile(i, this))
             }
 
         }
@@ -80,6 +83,7 @@ class GameActivity : AppCompatActivity() {
             ImageView(this).apply {
                 layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
                 setImageResource(cardImage)
+                tag = cardImage
                 updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(8) }
                 setPadding(1)
                 setBackgroundColor(Color.parseColor("#000000"))
@@ -87,7 +91,7 @@ class GameActivity : AppCompatActivity() {
                 dealtCardViews.add(this)
                 layoutDealtCards.addView(this)
 
-                tiles.add(Tile("dealt_$i", this))
+                tiles.add(Tile(i + 13, this, card))
             }
         }
 
@@ -95,7 +99,7 @@ class GameActivity : AppCompatActivity() {
 
         for (tile in tiles) {
             tile.imageView.setOnClickListener {
-                tile.select()
+                tile.onClickHandler()
             }
         }
 
@@ -103,16 +107,30 @@ class GameActivity : AppCompatActivity() {
 
         binding.buttonSort.setOnClickListener {
             Tile.selectedTile?.deSelect()
+            Tile.selectedTile = null
+
             dealtCards = when (sortSwitch) {
                 true  -> NewCard.sortByColorAndRank().toMutableList()
                 false -> NewCard.sortByRankAndColor().toMutableList()
             }
             sortSwitch = !sortSwitch
 
-            for ((i, view) in dealtCardViews.withIndex()) {
-                val card = dealtCards[i]
-                val cardImage = resources.getIdentifier(card.file, "drawable", packageName)
-                view.setImageResource(cardImage)
+            for (i in 1..numberOfCardsInFantasyLand) {
+                val cardImage: Int
+                var tempCard: NewCard? = null
+                if (i <= dealtCards.size) {
+                    tempCard = dealtCards[i - 1]
+                    cardImage = resources.getIdentifier(tempCard.file, "drawable", packageName)
+                } else {
+                    cardImage = resources.getIdentifier("empty_card", "drawable", packageName)
+                }
+                dealtCardViews[i - 1].setImageResource(cardImage)
+                dealtCardViews[i - 1].tag = cardImage
+                if (tempCard == null) {
+                    tiles[i + 12].card = null
+                } else {
+                    tiles[i + 12].card = tempCard
+                }
             }
         }
     }
