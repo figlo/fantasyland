@@ -132,22 +132,23 @@ class GameActivity : AppCompatActivity() {
         binding.buttonSetAllCards.setOnClickListener {
             Tile.selectedTile?.deSelect()
 
-            dealtCards = NewCard.values().filter { it.cardState == DEALT}.toMutableList()
+            dealtCards = NewCard.values().filter { it.cardState == DEALT }.toMutableList()
 
             val emptyBoardTiles = mutableListOf<Tile>()
-            if (dealtCards.size > 0) {
-                for (i in 0..12) {
-                    if (tiles[i].card == null) emptyBoardTiles.add(tiles[i])
-                }
+            for (i in 0..12) {
+                if (tiles[i].card == null) emptyBoardTiles.add(tiles[i])
             }
 
-            for (i in 1..numberOfCardsInFantasyLand) {
-                val viewHasCard = tiles[i + 12].card != null
+            if (emptyBoardTiles.size > 0) {
+                for (i in 1..numberOfCardsInFantasyLand) {
+                    val viewHasCard = tiles[i + 12].card != null
 
-                if (viewHasCard) {
-                    Tile.selectedTile = tiles[i + 12]
-                    emptyBoardTiles[0].makeMove()
-                    emptyBoardTiles.removeAt(0)
+                    if (viewHasCard) {
+                        Tile.selectedTile = tiles[i + 12]
+                        emptyBoardTiles[0].makeMove()
+                        emptyBoardTiles.removeAt(0)
+                        if (emptyBoardTiles.size == 0) break
+                    }
                 }
             }
         }
