@@ -4,5 +4,7 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#E25822</color>
     <color name="background">#ECECEB</color>
+    <color name="cardViewBackground">#000000</color>
+    <color name="cardViewSelected">#ff0000</color>
     <!--    <color name="colorBackground">#999999</color>-->
 </resources>

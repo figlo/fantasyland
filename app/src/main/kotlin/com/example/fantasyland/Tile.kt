@@ -1,7 +1,7 @@
 package com.example.fantasyland
 
-import android.graphics.Color
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 
 class Tile(private val id: Int, val imageView: ImageView, var card: NewCard? = null) {
@@ -13,8 +13,10 @@ class Tile(private val id: Int, val imageView: ImageView, var card: NewCard? = n
     }
 
     private fun select() {
-        imageView.setBackgroundColor(Color.parseColor("#ff0000"))
-        imageView.setPadding(4)
+        with(imageView) {
+            setBackgroundColor(ContextCompat.getColor(context, R.color.cardViewSelected))
+            setPadding(4)
+        }
 
         selectedTile = this
     }
@@ -37,8 +39,10 @@ class Tile(private val id: Int, val imageView: ImageView, var card: NewCard? = n
     }
 
     fun deSelect() {
-        imageView.setBackgroundColor(Color.parseColor("#000000"))
-        imageView.setPadding(1)
+        with(imageView) {
+            setBackgroundColor(ContextCompat.getColor(context, R.color.cardViewBackground))
+            setPadding(1)
+        }
 
         selectedTile = null
     }

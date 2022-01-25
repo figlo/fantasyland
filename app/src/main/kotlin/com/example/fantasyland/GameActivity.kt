@@ -1,7 +1,6 @@
 package com.example.fantasyland
 
 import android.content.res.Resources
-import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -9,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.setMargins
 import androidx.core.view.setPadding
 import androidx.core.view.updateLayoutParams
@@ -58,7 +58,7 @@ class GameActivity : AppCompatActivity() {
                 tag = emptyCardImage
                 updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(8) }
                 setPadding(1)
-                setBackgroundColor(Color.parseColor("#000000"))
+                setBackgroundColor(ContextCompat.getColor(context, R.color.cardViewBackground))
 
                 boardCardViews.add(this)
                 layoutRow.addView(this)
@@ -86,7 +86,7 @@ class GameActivity : AppCompatActivity() {
                 tag = cardImage
                 updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(8) }
                 setPadding(1)
-                setBackgroundColor(Color.parseColor("#000000"))
+                setBackgroundColor(ContextCompat.getColor(context, R.color.cardViewBackground))
 
                 dealtCardViews.add(this)
                 layoutDealtCards.addView(this)
