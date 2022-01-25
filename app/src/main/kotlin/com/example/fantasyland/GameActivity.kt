@@ -33,15 +33,17 @@ class GameActivity : AppCompatActivity() {
         val displayWidth = Resources.getSystem().displayMetrics.widthPixels
         val cardWidth = displayWidth / 21
         val cardHeight = (cardWidth * 1.4).toInt()
-        val emptyCardImage = resources.getIdentifier("empty_card", "drawable", packageName)
 
+        // board views
         val layoutBottomRow = binding.linearLayoutBottomRow
         val layoutMiddleRow = binding.linearLayoutMiddleRow
         val layoutTopRow = binding.linearLayoutTopRow
 
-        val boardCardViews = mutableListOf<ImageView>()
-
         val tiles = mutableListOf<Tile>()
+
+        val imageViewMargin = 8
+        val imageViewPadding = 1
+        val imageViewBackgroundColor = ContextCompat.getColor(this, R.color.cardViewBackground)
 
         Tile.selectedTile = null
 
@@ -52,43 +54,43 @@ class GameActivity : AppCompatActivity() {
                 else     -> layoutTopRow
             }
 
+            val emptyCardImage = resources.getIdentifier("empty_card", "drawable", packageName)
+
             ImageView(this).apply {
                 layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
                 setImageResource(emptyCardImage)
                 tag = emptyCardImage
-                updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(8) }
-                setPadding(1)
-                setBackgroundColor(ContextCompat.getColor(context, R.color.cardViewBackground))
+                updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(imageViewMargin) }
+                setPadding(imageViewPadding)
+                setBackgroundColor(imageViewBackgroundColor)
 
-                boardCardViews.add(this)
                 layoutRow.addView(this)
 
                 tiles.add(Tile(i, this))
             }
-
         }
 
+        // dealt cards views
         val layoutDealtCards = binding.linearLayoutDealtCards
-
-        NewCard.values().forEach { it.cardState = DECK }
 
         var dealtCards = mutableListOf<NewCard>()
 
-        val dealtCardViews = mutableListOf<ImageView>()
+        NewCard.values().forEach { it.cardState = DECK }
+
         for (i in 1..numberOfCardsInFantasyLand) {
             val card = NewCard.dealCard()
             dealtCards.add(card)
+
             val cardImage = resources.getIdentifier(card.file, "drawable", packageName)
 
             ImageView(this).apply {
                 layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
                 setImageResource(cardImage)
                 tag = cardImage
-                updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(8) }
-                setPadding(1)
-                setBackgroundColor(ContextCompat.getColor(context, R.color.cardViewBackground))
+                updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(imageViewMargin) }
+                setPadding(imageViewPadding)
+                setBackgroundColor(imageViewBackgroundColor)
 
-                dealtCardViews.add(this)
                 layoutDealtCards.addView(this)
 
                 tiles.add(Tile(i + 13, this, card))
@@ -103,6 +105,7 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
+        // sort button
         var sortSwitch = true
 
         binding.buttonSort.setOnClickListener {
@@ -115,20 +118,17 @@ class GameActivity : AppCompatActivity() {
             sortSwitch = !sortSwitch
 
             for (i in 1..numberOfCardsInFantasyLand) {
-                val cardImage: Int
-                var tempCard: NewCard? = null
-                if (i <= dealtCards.size) {
-                    tempCard = dealtCards[i - 1]
-                    cardImage = resources.getIdentifier(tempCard.file, "drawable", packageName)
-                } else {
-                    cardImage = resources.getIdentifier("empty_card", "drawable", packageName)
-                }
-                dealtCardViews[i - 1].setImageResource(cardImage)
-                dealtCardViews[i - 1].tag = cardImage
-                if (tempCard == null) {
-                    tiles[i + 12].card = null
-                } else {
-                    tiles[i + 12].card = tempCard
+                val isDealt = i <= dealtCards.size
+
+                val dealtCard: NewCard? = if (isDealt) dealtCards[i - 1] else null
+                tiles[i + 12].card = dealtCard
+
+                val cardFile = if (isDealt) dealtCards[i - 1].file else "empty_card"
+                val cardImage = resources.getIdentifier(cardFile, "drawable", packageName)
+
+                tiles[i + 12].imageView.apply {
+                    setImageResource(cardImage)
+                    tag = cardImage
                 }
             }
         }
