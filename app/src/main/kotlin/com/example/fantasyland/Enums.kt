@@ -113,7 +113,7 @@ enum class NewCard(val face: CardFace, val suit: CardSuit, val file: String, var
 
         fun sort(): List<NewCard> {
             sortSwitch = !sortSwitch
-            
+
             return when (sortSwitch) {
                 true  -> sortByColorAndRank()
                 false -> sortByRankAndColor()

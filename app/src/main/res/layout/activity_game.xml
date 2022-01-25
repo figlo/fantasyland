@@ -74,8 +74,32 @@
         android:text="@string/sort"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/buttonSetAllCards"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutDealtCards" />
+
+    <Button
+        android:id="@+id/buttonSetAllCards"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/set_all_cards"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/buttonDone"
+        app:layout_constraintStart_toEndOf="@id/buttonSort"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutDealtCards" />
+
+    <Button
+        android:id="@+id/buttonDone"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/done"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/buttonSetAllCards"
         app:layout_constraintTop_toBottomOf="@id/linearLayoutDealtCards" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

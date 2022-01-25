@@ -13,6 +13,7 @@ import androidx.core.view.setMargins
 import androidx.core.view.setPadding
 import androidx.core.view.updateLayoutParams
 import androidx.preference.PreferenceManager
+import com.example.fantasyland.CardState.DEALT
 import com.example.fantasyland.CardState.DECK
 import com.example.fantasyland.databinding.ActivityGameBinding
 import com.google.android.material.snackbar.Snackbar
@@ -112,17 +113,41 @@ class GameActivity : AppCompatActivity() {
             dealtCards = NewCard.sort().toMutableList()
 
             for (i in 1..numberOfCardsInFantasyLand) {
-                val isDealt = i <= dealtCards.size
+                val setCardToView = i <= dealtCards.size
 
-                val dealtCard: NewCard? = if (isDealt) dealtCards[i - 1] else null
+                val dealtCard: NewCard? = if (setCardToView) dealtCards[i - 1] else null
                 tiles[i + 12].card = dealtCard
 
-                val cardFile = if (isDealt) dealtCards[i - 1].file else "empty_card"
+                val cardFile = if (setCardToView) dealtCards[i - 1].file else "empty_card"
                 val cardImage = resources.getIdentifier(cardFile, "drawable", packageName)
 
                 tiles[i + 12].imageView.apply {
                     setImageResource(cardImage)
                     tag = cardImage
+                }
+            }
+        }
+
+        // set all cards button
+        binding.buttonSetAllCards.setOnClickListener {
+            Tile.selectedTile?.deSelect()
+
+            dealtCards = NewCard.values().filter { it.cardState == DEALT}.toMutableList()
+
+            val emptyBoardTiles = mutableListOf<Tile>()
+            if (dealtCards.size > 0) {
+                for (i in 0..12) {
+                    if (tiles[i].card == null) emptyBoardTiles.add(tiles[i])
+                }
+            }
+
+            for (i in 1..numberOfCardsInFantasyLand) {
+                val viewHasCard = tiles[i + 12].card != null
+
+                if (viewHasCard) {
+                    Tile.selectedTile = tiles[i + 12]
+                    emptyBoardTiles[0].makeMove()
+                    emptyBoardTiles.removeAt(0)
                 }
             }
         }
