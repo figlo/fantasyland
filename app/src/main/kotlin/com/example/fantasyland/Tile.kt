@@ -22,18 +22,17 @@ class Tile(private val id: Int, val imageView: ImageView, var card: NewCard? = n
     }
 
     private fun makeMove() {
-        val selectedCard = selectedTile?.card
-        selectedTile?.card = card
+        // swap cards
+        selectedTile?.card = card.also { card = selectedTile?.card }
+
         selectedTile?.card?.cardState = if (selectedTile!!.isOnBoard) CardState.BOARD else CardState.DEALT
-        card = selectedCard
         card?.cardState = if (isOnBoard) CardState.BOARD else CardState.DEALT
 
-        val selectedTileTag = selectedTile?.imageView?.tag.toString().toInt()
-        selectedTile?.imageView?.setImageResource(imageView.tag.toString().toInt())
-        imageView.setImageResource(selectedTileTag)
+        // swap card images (including tags)
+        selectedTile?.imageView?.tag = imageView.tag.also { imageView.tag = selectedTile?.imageView?.tag}
 
-        selectedTile?.imageView?.tag = imageView.tag
-        imageView.tag = selectedTileTag
+        selectedTile?.imageView?.setImageResource(selectedTile?.imageView?.tag.toString().toInt())
+        imageView.setImageResource(imageView.tag.toString().toInt())
 
         selectedTile?.deSelect()
     }
