@@ -107,7 +107,6 @@ class GameActivity : AppCompatActivity() {
 
         binding.buttonSort.setOnClickListener {
             Tile.selectedTile?.deSelect()
-            Tile.selectedTile = null
 
             dealtCards = when (sortSwitch) {
                 true  -> NewCard.sortByColorAndRank().toMutableList()
