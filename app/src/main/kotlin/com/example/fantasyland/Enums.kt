@@ -89,6 +89,8 @@ enum class NewCard(val face: CardFace, val suit: CardSuit, val file: String, var
     CARD_KC(KING, CLUBS, "card_kc");
 
     companion object {
+        var sortSwitch = false
+
         fun sortByRankAndColor() =
            values()
                 .filter { it.cardState == CardState.DEALT }
@@ -109,7 +111,16 @@ enum class NewCard(val face: CardFace, val suit: CardSuit, val file: String, var
                     )
                 )
 
-        protected fun sortByCountAndRank() =
+        fun sort(): List<NewCard> {
+            sortSwitch = !sortSwitch
+            
+            return when (sortSwitch) {
+                true  -> sortByColorAndRank()
+                false -> sortByRankAndColor()
+            }
+    }
+
+    protected fun sortByCountAndRank() =
             values()
                 .filter { it.cardState == CardState.DEALT }
                 .sortedWith(

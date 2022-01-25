@@ -106,16 +106,10 @@ class GameActivity : AppCompatActivity() {
         }
 
         // sort button
-        var sortSwitch = true
-
         binding.buttonSort.setOnClickListener {
             Tile.selectedTile?.deSelect()
 
-            dealtCards = when (sortSwitch) {
-                true  -> NewCard.sortByColorAndRank().toMutableList()
-                false -> NewCard.sortByRankAndColor().toMutableList()
-            }
-            sortSwitch = !sortSwitch
+            dealtCards = NewCard.sort().toMutableList()
 
             for (i in 1..numberOfCardsInFantasyLand) {
                 val isDealt = i <= dealtCards.size
