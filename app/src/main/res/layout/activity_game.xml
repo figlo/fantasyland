@@ -7,9 +7,9 @@
     android:background="@color/background"
     tools:context=".GameActivity">
 
-    <include
-        android:id="@+id/includedLayout"
-        layout="@layout/toolbar" />
+<!--    <include-->
+<!--        android:id="@+id/includedLayout"-->
+<!--        layout="@layout/toolbar" />-->
 
     <LinearLayout
         android:id="@+id/board"
@@ -19,7 +19,7 @@
         app:layout_constraintBottom_toTopOf="@id/linearLayoutDealtCards"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/includedLayout"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread">
 
     <LinearLayout

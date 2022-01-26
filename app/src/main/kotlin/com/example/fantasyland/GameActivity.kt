@@ -4,6 +4,7 @@ import android.content.res.Resources
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -24,9 +25,10 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
 
-        val toolbar = binding.includedLayout.toolbar
-        setSupportActionBar(toolbar)
+//        val toolbar = binding.includedLayout.toolbar
+//        setSupportActionBar(toolbar)
 
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
         val numberOfCardsInFantasyLand = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
