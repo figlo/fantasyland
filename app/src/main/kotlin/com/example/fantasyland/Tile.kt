@@ -8,7 +8,7 @@ class Tile(private val id: Int, val imageView: ImageView, var card: NewCard? = n
     val isOnBoard = id <= 13
 
     fun onClickHandler() {
-        if (selectedTile == null) select()
+        if (selectedTile == null && card != null) select()
         else makeMove()
     }
 
