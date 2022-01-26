@@ -1,5 +1,6 @@
 package com.example.fantasyland
 
+import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.Menu
@@ -108,6 +109,11 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
+        // home button
+        binding.buttonHome.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+
         // sort button
         binding.buttonSort.setOnClickListener {
             Tile.selectedTile?.deSelect()
@@ -157,6 +163,23 @@ class GameActivity : AppCompatActivity() {
 
         // done button
         binding.buttonDone.setOnClickListener {
+            Tile.selectedTile?.deSelect()
+
+            for (tile in tiles) {
+                tile.imageView.setOnClickListener { }
+            }
+
+            binding.apply {
+                buttonSort.visibility = View.GONE
+                buttonSetAllCards.visibility = View.GONE
+                buttonDone.visibility = View.GONE
+                buttonNewGame.visibility = View.VISIBLE
+            }
+        }
+
+        // new game button
+        binding.buttonNewGame.setOnClickListener {
+            startActivity(Intent(this, GameActivity::class.java))
         }
     }
 
