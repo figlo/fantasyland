@@ -35,6 +35,12 @@ class Tile(private val id: Int, val imageView: ImageView, var card: NewCard? = n
         imageView.setImageResource(imageView.tag.toString().toInt())
 
         selectedTile?.deSelect()
+
+        checkFullBoard()
+    }
+
+    private fun checkFullBoard() {
+        isFullBoard = NewCard.values().count { it.cardState == CardState.BOARD} == 13
     }
 
     fun deSelect() {
@@ -48,5 +54,6 @@ class Tile(private val id: Int, val imageView: ImageView, var card: NewCard? = n
 
     companion object {
         var selectedTile: Tile? = null
+        var isFullBoard = false
     }
 }
