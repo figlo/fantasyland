@@ -5,7 +5,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 
 class Tile(private val id: Int, val imageView: ImageView, var card: NewCard? = null) {
-    val isOnBoard = id <= 13
+    private val isOnBoard = id <= 13
 
     fun onClickHandler() {
         if (selectedTile == null && card != null) select()

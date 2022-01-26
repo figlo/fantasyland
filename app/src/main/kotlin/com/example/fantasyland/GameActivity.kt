@@ -152,6 +152,10 @@ class GameActivity : AppCompatActivity() {
                 }
             }
         }
+
+        // done button
+        binding.buttonDone.setOnClickListener {
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
