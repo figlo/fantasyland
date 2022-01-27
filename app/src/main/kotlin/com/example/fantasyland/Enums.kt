@@ -89,7 +89,7 @@ enum class NewCard(val face: CardFace, val suit: CardSuit, val file: String, var
     CARD_KC(KING, CLUBS, "card_kc");
 
     companion object {
-        var sortSwitch = false
+        public var sortSwitch = false
 
         fun sortByRankAndColor() =
            values()

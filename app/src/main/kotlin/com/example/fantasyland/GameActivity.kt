@@ -116,6 +116,7 @@ class GameActivity : AppCompatActivity() {
         }
 
         // sort button
+        NewCard.sortSwitch = false
         binding.buttonSort.setOnClickListener {
             Tile.selectedTile?.deSelect()
 
