@@ -55,6 +55,44 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/topRowResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:text="10"
+        app:layout_constraintStart_toEndOf="@id/board"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/board" />
+
+    <TextView
+        android:id="@+id/middleRowResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:text="20"
+        app:layout_constraintStart_toStartOf="@id/topRowResult"
+        app:layout_constraintTop_toBottomOf="@id/topRowResult" />
+
+    <TextView
+        android:id="@+id/bottomRowResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:text="30"
+        app:layout_constraintStart_toStartOf="@id/middleRowResult"
+        app:layout_constraintTop_toBottomOf="@id/middleRowResult" />
+
+    <TextView
+        android:id="@+id/finalResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="60"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/bottomRowResult"
+        app:layout_constraintTop_toBottomOf="@id/bottomRowResult" />
+
     <LinearLayout
         android:id="@+id/linearLayoutDealtCards"
         android:layout_width="wrap_content"

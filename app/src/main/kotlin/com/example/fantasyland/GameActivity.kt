@@ -179,6 +179,8 @@ class GameActivity : AppCompatActivity() {
                 buttonDone.visibility = View.GONE
                 buttonNewGame.visibility = View.VISIBLE
             }
+
+
         }
 
         // new game button
