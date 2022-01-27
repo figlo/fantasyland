@@ -4,7 +4,7 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 
-class Tile(private val id: Int, val imageView: ImageView, var card: NewCard? = null) {
+class Tile(private val id: Int, val imageView: ImageView, var card: Card? = null) {
     private val isOnBoard = id <= 13
 
     fun onClickHandler() {
@@ -40,7 +40,7 @@ class Tile(private val id: Int, val imageView: ImageView, var card: NewCard? = n
     }
 
     private fun checkFullBoard() {
-        isFullBoard = NewCard.values().count { it.cardState == CardState.BOARD} == 13
+        isFullBoard = Card.values().count { it.cardState == CardState.BOARD} == 13
     }
 
     fun deSelect() {

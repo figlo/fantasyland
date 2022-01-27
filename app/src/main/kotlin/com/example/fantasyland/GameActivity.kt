@@ -77,12 +77,12 @@ class GameActivity : AppCompatActivity() {
         // dealt cards views
         val layoutDealtCards = binding.linearLayoutDealtCards
 
-        var dealtCards = mutableListOf<NewCard>()
+        var dealtCards = mutableListOf<Card>()
 
-        NewCard.values().forEach { it.cardState = DECK }
+        Card.values().forEach { it.cardState = DECK }
 
         for (i in 1..numberOfCardsInFantasyLand) {
-            val card = NewCard.dealCard()
+            val card = Card.dealCard()
             dealtCards.add(card)
 
             val cardImage = resources.getIdentifier(card.file, "drawable", packageName)
@@ -116,16 +116,16 @@ class GameActivity : AppCompatActivity() {
         }
 
         // sort button
-        NewCard.sortSwitch = false
+        Card.sortSwitch = false
         binding.buttonSort.setOnClickListener {
             Tile.selectedTile?.deSelect()
 
-            dealtCards = NewCard.sort().toMutableList()
+            dealtCards = Card.sort().toMutableList()
 
             for (i in 1..numberOfCardsInFantasyLand) {
                 val setCardToView = i <= dealtCards.size
 
-                val dealtCard: NewCard? = if (setCardToView) dealtCards[i - 1] else null
+                val dealtCard: Card? = if (setCardToView) dealtCards[i - 1] else null
                 tiles[i + 12].card = dealtCard
 
                 val cardFile = if (setCardToView) dealtCards[i - 1].file else "empty_card"
@@ -142,7 +142,7 @@ class GameActivity : AppCompatActivity() {
         binding.buttonSetAllCards.setOnClickListener {
             Tile.selectedTile?.deSelect()
 
-            dealtCards = NewCard.values().filter { it.cardState == DEALT }.toMutableList()
+            dealtCards = Card.values().filter { it.cardState == DEALT }.toMutableList()
 
             val emptyBoardTiles = mutableListOf<Tile>()
             for (i in 0..12) {
@@ -180,7 +180,34 @@ class GameActivity : AppCompatActivity() {
                 buttonNewGame.visibility = View.VISIBLE
             }
 
+            val bottomRowCardsList = tiles.subList(0, 5).mapNotNull { it.card }.toMutableList()
+            val middleRowCardsList = tiles.subList(5, 10).mapNotNull { it.card }.toMutableList()
+            val topRowCardsList = tiles.subList(10, 13).mapNotNull { it.card }.toMutableList()
 
+            val bottomRowCards = BottomRowCards(bottomRowCardsList)
+            val middleRowCards = MiddleRowCards(middleRowCardsList)
+            val topRowCards = TopRowCards(topRowCardsList)
+
+            var resultType: String
+            Result().apply {
+                this.bottomRowCards = bottomRowCards
+                this.middleRowCards = middleRowCards
+                this.topRowCards = topRowCards
+
+                resultType = when {
+                    isRepeatedFantasy() -> "New Fantasy"
+                    isValidResult() -> "OK"
+                    else -> "Fail"
+                }
+            }
+
+            binding.apply {
+                resultTypeView.text = resultType
+                bottomRowResult.text = bottomRowCards.value().toString()
+                middleRowResult.text = middleRowCards.value().toString()
+                topRowResult.text = topRowCards.value().toString()
+                finalResult.text = (bottomRowCards.value() + middleRowCards.value() + topRowCards.value()).toString()
+            }
         }
 
         // new game button

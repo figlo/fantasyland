@@ -31,7 +31,7 @@ enum class CardSuit(val abbr: Char, val hexColor: String) {
     CLUBS('c', "#00bb00");          // green
 }
 
-enum class NewCard(val face: CardFace, val suit: CardSuit, val file: String, var cardState: CardState = CardState.DECK) {
+enum class Card(val face: CardFace, val suit: CardSuit, val file: String, var cardState: CardState = CardState.DECK) {
     CARD_AS(ACE, SPADES, "card_as"),
     CARD_2S(TWO, SPADES, "card_2s"),
     CARD_3S(THREE, SPADES, "card_3s"),
@@ -89,7 +89,7 @@ enum class NewCard(val face: CardFace, val suit: CardSuit, val file: String, var
     CARD_KC(KING, CLUBS, "card_kc");
 
     companion object {
-        public var sortSwitch = false
+        var sortSwitch = false
 
         fun sortByRankAndColor() =
            values()
@@ -111,7 +111,7 @@ enum class NewCard(val face: CardFace, val suit: CardSuit, val file: String, var
                     )
                 )
 
-        fun sort(): List<NewCard> {
+        fun sort(): List<Card> {
             sortSwitch = !sortSwitch
 
             return when (sortSwitch) {
@@ -130,7 +130,7 @@ enum class NewCard(val face: CardFace, val suit: CardSuit, val file: String, var
                     )
                 )
 
-        fun dealCard(): NewCard {
+        fun dealCard(): Card {
             val dealtCard =
                 values()
                     .filter { it.cardState == CardState.DECK }
