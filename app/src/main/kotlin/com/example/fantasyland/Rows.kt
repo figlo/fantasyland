@@ -10,12 +10,21 @@ open class RowCards(cards: MutableList<Card>) : Cards(cards) {
     }
 
     infix fun isHigherThan(otherRowCards: RowCards): Boolean {
+        if (
+            pokerCombination() == STRAIGHT && otherRowCards.pokerCombination() == STRAIGHT ||
+            pokerCombination() == STRAIGHT_FLUSH && otherRowCards.pokerCombination() == STRAIGHT_FLUSH
+        ) {
+            if (sortedCards.cards[4].face.rankAceHigh == 2) return false
+            if (otherRowCards.sortedCards.cards[4].face.rankAceHigh == 2) return true
+        }
+
         sortedCards.cards.forEach { card ->
             val rank = card.face.rankAceHigh
             val otherRank = otherRowCards.cards.elementAt(cards.indexOf(card)).face.rankAceHigh
             if (rank > otherRank) return true
             if (rank < otherRank) return false
         }
+        
         return false
     }
 
