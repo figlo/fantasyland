@@ -14,15 +14,15 @@ class Tile(private val id: Int, val imageView: ImageView, var card: Card? = null
         val isSomeTileSelected = selectedTile != null
 
         if (isSomeTileSelected) {
-            val isSomeOtherTileSelected = selectedTile != this
-            if (isSomeOtherTileSelected) {
-                makeMove()
-            } else {
+            val isThisTileSelected = selectedTile == this
+            if (isThisTileSelected) {
                 deSelect()
+            } else {
+                makeMove()
             }
         } else {
-            val isCardOnTile = card != null
-            if (isCardOnTile) select()
+            val isCardOnThisTile = card != null
+            if (isCardOnThisTile) select()
         }
     }
 
