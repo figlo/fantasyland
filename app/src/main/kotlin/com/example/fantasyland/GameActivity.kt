@@ -106,7 +106,7 @@ class GameActivity : AppCompatActivity() {
         for (tile in tiles) {
             tile.imageView.setOnClickListener {
                 tile.onClickHandler()
-                binding.buttonDone.visibility = if (Tile.isFullBoard) View.VISIBLE else View.INVISIBLE
+                binding.buttonDone.visibility = if (isFullBoard) View.VISIBLE else View.INVISIBLE
             }
         }
 
@@ -212,7 +212,7 @@ class GameActivity : AppCompatActivity() {
 
         // new game button
         binding.buttonNewGame.setOnClickListener {
-            Tile.isFullBoard = false
+            isFullBoard = false
             startActivity(Intent(this, GameActivity::class.java))
         }
     }
