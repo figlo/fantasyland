@@ -38,10 +38,6 @@ class Tile(private val id: Int, val imageView: ImageView, var card: Card? = null
 
         selectedTile?.deSelect()
 
-        checkFullBoard()
-    }
-
-    private fun checkFullBoard() {
         isFullBoard = Card.values().count { it.cardState == CardState.BOARD} == 13
     }
 
