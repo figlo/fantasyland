@@ -11,8 +11,19 @@ class Tile(private val id: Int, val imageView: ImageView, var card: Card? = null
     private val isOnBoard = id <= 13
 
     fun onClickHandler() {
-        if (selectedTile == null && card != null) select()
-        else makeMove()
+        val isSomeTileSelected = selectedTile != null
+
+        if (isSomeTileSelected) {
+            val isSomeOtherTileSelected = selectedTile != this
+            if (isSomeOtherTileSelected) {
+                makeMove()
+            } else {
+                deSelect()
+            }
+        } else {
+            val isCardOnTile = card != null
+            if (isCardOnTile) select()
+        }
     }
 
     private fun select() {
@@ -32,14 +43,14 @@ class Tile(private val id: Int, val imageView: ImageView, var card: Card? = null
         card?.cardState = if (isOnBoard) CardState.BOARD else CardState.DEALT
 
         // swap card images (including tags)
-        selectedTile?.imageView?.tag = imageView.tag.also { imageView.tag = selectedTile?.imageView?.tag}
+        selectedTile?.imageView?.tag = imageView.tag.also { imageView.tag = selectedTile?.imageView?.tag }
 
         selectedTile?.imageView?.setImageResource(selectedTile?.imageView?.tag.toString().toInt())
         imageView.setImageResource(imageView.tag.toString().toInt())
 
         selectedTile?.deSelect()
 
-        isFullBoard = Card.values().count { it.cardState == CardState.BOARD} == 13
+        isFullBoard = Card.values().count { it.cardState == CardState.BOARD } == 13
     }
 
     fun deSelect() {
