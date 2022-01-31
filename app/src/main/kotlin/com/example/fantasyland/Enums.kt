@@ -3,25 +3,22 @@ package com.example.fantasyland
 import com.example.fantasyland.CardFace.*
 import com.example.fantasyland.CardSuit.*
 
-enum class CardFace(val rankAceHigh: Int) {
-    /*
-        !!! Do not change order or rankAceHigh values !!!
-        !!! Row values are based on it !!!
-     */
+enum class CardFace {
+    ACE,
+    TWO,
+    THREE,
+    FOUR,
+    FIVE,
+    SIX,
+    SEVEN,
+    EIGHT,
+    NINE,
+    TEN,
+    JACK,
+    QUEEN,
+    KING;
 
-    ACE(14),
-    TWO(2),
-    THREE(3),
-    FOUR(4),
-    FIVE(5),
-    SIX(6),
-    SEVEN(7),
-    EIGHT(8),
-    NINE(9),
-    TEN(10),
-    JACK(11),
-    QUEEN(12),
-    KING(13);
+    val rankAceHigh = if (name == "ACE") 14 else ordinal + 1
 }
 
 enum class CardSuit {
@@ -150,11 +147,6 @@ enum class CardState {
 }
 
 enum class PokerCombination {
-    /*
-        !!! Do not change order !!!
-        !!! Row values are based on it !!!
-     */
-
     HIGH_CARD,
     PAIR,
     TWO_PAIRS,
