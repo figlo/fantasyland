@@ -49,7 +49,7 @@ class GameActivity : AppCompatActivity() {
         val imageViewPadding = 1
         val imageViewBackgroundColor = ContextCompat.getColor(this, R.color.cardViewBackground)
 
-        Tile.selectedTile = null
+        selectedTile = null
 
         for (i in 1..13) {
             val layoutRow = when (i) {
@@ -118,7 +118,7 @@ class GameActivity : AppCompatActivity() {
         // sort button
         Card.sortSwitch = false
         binding.buttonSort.setOnClickListener {
-            Tile.selectedTile?.deSelect()
+            selectedTile?.deSelect()
 
             dealtCards = Card.sort().toMutableList()
 
@@ -140,7 +140,7 @@ class GameActivity : AppCompatActivity() {
 
         // set all cards button
         binding.buttonSetAllCards.setOnClickListener {
-            Tile.selectedTile?.deSelect()
+            selectedTile?.deSelect()
 
             dealtCards = Card.values().filter { it.cardState == DEALT }.toMutableList()
 
@@ -154,7 +154,7 @@ class GameActivity : AppCompatActivity() {
                     val viewHasCard = tiles[i + 12].card != null
 
                     if (viewHasCard) {
-                        Tile.selectedTile = tiles[i + 12]
+                        selectedTile = tiles[i + 12]
                         emptyBoardTiles[0].makeMove()
                         emptyBoardTiles.removeAt(0)
                         if (emptyBoardTiles.size == 0) break
@@ -167,7 +167,7 @@ class GameActivity : AppCompatActivity() {
 
         // done button
         binding.buttonDone.setOnClickListener {
-            Tile.selectedTile?.deSelect()
+            selectedTile?.deSelect()
 
             for (tile in tiles) {
                 tile.imageView.setOnClickListener { }
