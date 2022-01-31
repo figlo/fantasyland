@@ -24,7 +24,7 @@ open class RowCards(cards: MutableList<Card>) : Cards(cards) {
             if (rank > otherRank) return true
             if (rank < otherRank) return false
         }
-        
+
         return false
     }
 
