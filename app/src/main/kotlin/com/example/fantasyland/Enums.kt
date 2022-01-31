@@ -22,10 +22,10 @@ enum class CardFace {
 }
 
 enum class CardSuit {
-    SPADES,         // black
-    HEARTS,         // red
-    DIAMONDS,       // blue
-    CLUBS;          // green
+    SPADES,
+    HEARTS,
+    DIAMONDS,
+    CLUBS;
 }
 
 enum class Card(val face: CardFace, val suit: CardSuit, var cardState: CardState = CardState.DECK) {
