@@ -4,7 +4,7 @@ import com.example.fantasyland.CardFace.ACE
 import com.example.fantasyland.CardFace.FIVE
 import com.example.fantasyland.PokerCombination.*
 
-open class RowCards(protected val cards: MutableList<Card>) {
+open class RowCards(val cards: MutableList<Card>) {
     init {
         require(cards.size == 3 || cards.size == 5) { "Number of row cards (must be 3 or 5): ${cards.size}" }
         cards.sortByCountAndRank()
@@ -67,6 +67,12 @@ class BottomRowCards(cards: MutableList<Card>) : RowCards(cards) {
         require(cards.size == 5) { "Number of bottom row cards (must be 5): ${cards.size}" }
     }
 
+    val isWheel = if (cards.size == 3)
+        false
+    else
+        (pokerCombination() == STRAIGHT || pokerCombination() == STRAIGHT_FLUSH) &&
+                cards[4].face.rankAceHigh == 2
+
     fun value(): Int {
         return when (pokerCombination()) {
             HIGH_CARD      -> 0
@@ -87,6 +93,12 @@ class MiddleRowCards(cards: MutableList<Card>) : RowCards(cards) {
     init {
         require(cards.size == 5) { "Number of middle row cards (must be 5): ${cards.size}" }
     }
+
+    val isWheel = if (cards.size == 3)
+        false
+    else
+        (pokerCombination() == STRAIGHT || pokerCombination() == STRAIGHT_FLUSH) &&
+                cards[4].face.rankAceHigh == 2
 
     fun value(): Int {
         return when (pokerCombination()) {

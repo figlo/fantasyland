@@ -34,6 +34,14 @@ fun MutableList<Card>.sortByCountAndRank() =
         )
     )
 
+fun MutableList<Card>.sortByRankAceLow() =
+    sortWith(
+        compareBy(
+            { -it.face.ordinal },
+            { it.suit }
+        )
+    )
+
 fun dealCard(): Card {
     val dealtCard =
         Card.values()

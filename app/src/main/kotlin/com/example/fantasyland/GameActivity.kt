@@ -156,7 +156,7 @@ class GameActivity : AppCompatActivity() {
             selectedTile?.deSelect()
 
             for (tile in tiles) {
-                tile.imageView.setOnClickListener { }
+                tile.imageView.setOnClickListener(null)
             }
 
             binding.apply {
@@ -173,6 +173,36 @@ class GameActivity : AppCompatActivity() {
             val bottomRowCards = BottomRowCards(bottomRowCardsList)
             val middleRowCards = MiddleRowCards(middleRowCardsList)
             val topRowCards = TopRowCards(topRowCardsList)
+
+            bottomRowCards.apply {
+                if (isWheel)
+                    cards.sortByRankAceLow()
+                else
+                    cards.sortByCountAndRank()
+            }
+            middleRowCards.apply {
+                if (isWheel)
+                    cards.sortByRankAceLow()
+                else
+                    cards.sortByCountAndRank()
+            }
+            topRowCardsList.sortByCountAndRank()
+
+            for (i in 1..13) {
+                val card = when (i) {
+                    in 1..5  -> bottomRowCardsList[i - 1]
+                    in 6..10 -> middleRowCardsList[i - 6]
+                    else     -> topRowCardsList[i - 11]
+                }
+
+                tiles[i - 1].card = card
+                val cardImage = resources.getIdentifier(card.file, "drawable", packageName)
+
+                tiles[i - 1].imageView.apply {
+                    setImageResource(cardImage)
+                    tag = cardImage
+                }
+            }
 
             var resultType: String
             Result().apply {
