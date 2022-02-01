@@ -86,58 +86,6 @@ enum class Card(val face: CardFace, val suit: CardSuit, var cardState: CardState
     CARD_KC(KING, CLUBS);
 
     val file = "card_" + name.takeLast(2).lowercase()
-
-    companion object {
-        var sortSwitch = false
-
-        private fun sortByRankAndColor() =
-           values()
-                .filter { it.cardState == CardState.DEALT }
-                .sortedWith(
-                    compareBy(
-                        { -it.face.rankAceHigh },
-                        { it.suit }
-                    )
-                )
-
-        private fun sortByColorAndRank() =
-            values()
-                .filter { it.cardState == CardState.DEALT }
-                .sortedWith(
-                    compareBy(
-                        { it.suit },
-                        { -it.face.rankAceHigh }
-                    )
-                )
-
-        fun sort(): List<Card> {
-            sortSwitch = !sortSwitch
-
-            return when (sortSwitch) {
-                true  -> sortByColorAndRank()
-                false -> sortByRankAndColor()
-            }
-    }
-
-    protected fun sortByCountAndRank() =
-            values()
-                .filter { it.cardState == CardState.DEALT }
-                .sortedWith(
-                    compareBy(
-                        { card -> -values().count { otherCard -> card.face == otherCard.face } },
-                        { -it.face.rankAceHigh }
-                    )
-                )
-
-        fun dealCard(): Card {
-            val dealtCard =
-                values()
-                    .filter { it.cardState == CardState.DECK }
-                    .random()
-            dealtCard.cardState = CardState.DEALT
-            return dealtCard
-        }
-    }
 }
 
 enum class CardState {

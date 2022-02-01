@@ -64,8 +64,8 @@ class Tile(private val id: Int, val imageView: ImageView, var card: Card? = null
         selectedTile?.deSelect()
 
         isFullBoard = Card.values().count { it.cardState == CardState.BOTTOM_ROW } == 5 &&
-                Card.values().count() { it.cardState == CardState.MIDDLE_ROW } == 5 &&
-                Card.values().count() { it.cardState == CardState.TOP_ROW } == 3
+                Card.values().count { it.cardState == CardState.MIDDLE_ROW } == 5 &&
+                Card.values().count { it.cardState == CardState.TOP_ROW } == 3
     }
 
     fun deSelect() {

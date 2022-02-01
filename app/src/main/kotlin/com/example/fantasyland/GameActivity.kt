@@ -28,9 +28,6 @@ class GameActivity : AppCompatActivity() {
         setContentView(binding.root)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
 
-//        val toolbar = binding.includedLayout.toolbar
-//        setSupportActionBar(toolbar)
-
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
         val numberOfCardsInFantasyLand = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
 
@@ -51,14 +48,14 @@ class GameActivity : AppCompatActivity() {
 
         selectedTile = null
 
+        val emptyCardImage = resources.getIdentifier("empty_card", "drawable", packageName)
+
         for (i in 1..13) {
             val layoutRow = when (i) {
                 in 1..5  -> layoutBottomRow
                 in 6..10 -> layoutMiddleRow
                 else     -> layoutTopRow
             }
-
-            val emptyCardImage = resources.getIdentifier("empty_card", "drawable", packageName)
 
             ImageView(this).apply {
                 layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
@@ -69,7 +66,6 @@ class GameActivity : AppCompatActivity() {
                 setBackgroundColor(imageViewBackgroundColor)
 
                 layoutRow.addView(this)
-
                 tiles.add(Tile(i, this))
             }
         }
@@ -77,14 +73,10 @@ class GameActivity : AppCompatActivity() {
         // dealt cards views
         val layoutDealtCards = binding.linearLayoutDealtCards
 
-        var dealtCards = mutableListOf<Card>()
-
         Card.values().forEach { it.cardState = DECK }
 
         for (i in 1..numberOfCardsInFantasyLand) {
-            val card = Card.dealCard()
-            dealtCards.add(card)
-
+            val card = dealCard()
             val cardImage = resources.getIdentifier(card.file, "drawable", packageName)
 
             ImageView(this).apply {
@@ -96,12 +88,9 @@ class GameActivity : AppCompatActivity() {
                 setBackgroundColor(imageViewBackgroundColor)
 
                 layoutDealtCards.addView(this)
-
                 tiles.add(Tile(i + 13, this, card))
             }
         }
-
-//        Snackbar.make(this, i.toString(), Snackbar.LENGTH_LONG).show()
 
         for (tile in tiles) {
             tile.imageView.setOnClickListener {
@@ -116,11 +105,13 @@ class GameActivity : AppCompatActivity() {
         }
 
         // sort button
-        Card.sortSwitch = false
+        sortSwitch = true
+
         binding.buttonSort.setOnClickListener {
             selectedTile?.deSelect()
 
-            dealtCards = Card.sort().toMutableList()
+            val dealtCards = tiles.mapNotNull { it.card }.filter { it.cardState == DEALT }.toMutableList()
+            dealtCards.sort()
 
             for (i in 1..numberOfCardsInFantasyLand) {
                 val setCardToView = i <= dealtCards.size
@@ -142,12 +133,7 @@ class GameActivity : AppCompatActivity() {
         binding.buttonSetAllCards.setOnClickListener {
             selectedTile?.deSelect()
 
-            dealtCards = Card.values().filter { it.cardState == DEALT }.toMutableList()
-
-            val emptyBoardTiles = mutableListOf<Tile>()
-            for (i in 0..12) {
-                if (tiles[i].card == null) emptyBoardTiles.add(tiles[i])
-            }
+            val emptyBoardTiles = tiles.take(13).filter { it.card == null }.toMutableList()
 
             if (emptyBoardTiles.size > 0) {
                 for (i in 1..numberOfCardsInFantasyLand) {
@@ -196,8 +182,8 @@ class GameActivity : AppCompatActivity() {
 
                 resultType = when {
                     isRepeatedFantasy() -> "New Fantasy"
-                    isValidResult() -> "OK"
-                    else -> "Fail"
+                    isValidResult()     -> "OK"
+                    else                -> "Fail"
                 }
             }
 

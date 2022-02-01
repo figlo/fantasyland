@@ -17,5 +17,6 @@ class Result {
         }
     }
 
-    fun isRepeatedFantasy() = isValidResult() && (bottomRowCards.pokerCombination() >= PokerCombination.QUADS || topRowCards.pokerCombination() == PokerCombination.TRIPS)
+    fun isRepeatedFantasy() = isValidResult() &&
+            (bottomRowCards.pokerCombination() >= PokerCombination.QUADS ||topRowCards.pokerCombination() == PokerCombination.TRIPS)
 }
