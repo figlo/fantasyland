@@ -8,7 +8,9 @@ var selectedTile: Tile? = null
 var isFullBoard = false
 
 class Tile(private val id: Int, val imageView: ImageView, var card: Card? = null) {
-    private val isOnBoard = id <= 13
+    private val isOnBottomRow = id in 1..5
+    private val isOnMiddleRow = id in 6..10
+    private val isOnTopRow = id in 11..13
 
     fun onClickHandler() {
         val isSomeTileSelected = selectedTile != null
@@ -39,8 +41,19 @@ class Tile(private val id: Int, val imageView: ImageView, var card: Card? = null
         // swap cards
         selectedTile?.card = card.also { card = selectedTile?.card }
 
-        selectedTile?.card?.cardState = if (selectedTile!!.isOnBoard) CardState.BOARD else CardState.DEALT
-        card?.cardState = if (isOnBoard) CardState.BOARD else CardState.DEALT
+        selectedTile?.card?.cardState = when {
+            selectedTile!!.isOnBottomRow -> CardState.BOTTOM_ROW
+            selectedTile!!.isOnMiddleRow -> CardState.MIDDLE_ROW
+            selectedTile!!.isOnTopRow    -> CardState.TOP_ROW
+            else                         -> CardState.DEALT
+        }
+
+        card?.cardState = when {
+            isOnBottomRow -> CardState.BOTTOM_ROW
+            isOnMiddleRow -> CardState.MIDDLE_ROW
+            isOnTopRow    -> CardState.TOP_ROW
+            else          -> CardState.DEALT
+        }
 
         // swap card images (including tags)
         selectedTile?.imageView?.tag = imageView.tag.also { imageView.tag = selectedTile?.imageView?.tag }
@@ -50,7 +63,9 @@ class Tile(private val id: Int, val imageView: ImageView, var card: Card? = null
 
         selectedTile?.deSelect()
 
-        isFullBoard = Card.values().count { it.cardState == CardState.BOARD } == 13
+        isFullBoard = Card.values().count { it.cardState == CardState.BOTTOM_ROW } == 5 &&
+                Card.values().count() { it.cardState == CardState.MIDDLE_ROW } == 5 &&
+                Card.values().count() { it.cardState == CardState.TOP_ROW } == 3
     }
 
     fun deSelect() {
