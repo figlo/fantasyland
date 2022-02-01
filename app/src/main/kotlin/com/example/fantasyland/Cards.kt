@@ -1,15 +1,5 @@
 package com.example.fantasyland
 
-open class Cards(val cards: MutableList<Card>) {
-    protected fun sortByCountAndRank() =
-        cards.sortWith(
-            compareBy(
-                { card -> -cards.count { otherCard -> card.face == otherCard.face } },
-                { -it.face.rankAceHigh }
-            )
-        )
-}
-
 var sortSwitch = true
 
 fun MutableList<Card>.sort() {
@@ -35,6 +25,14 @@ fun MutableList<Card>.sortByColorAndRank() =
                 { -it.face.rankAceHigh }
             )
         )
+
+fun MutableList<Card>.sortByCountAndRank() =
+    sortWith(
+        compareBy(
+            { card -> -this.count { otherCard -> card.face == otherCard.face } },
+            { -it.face.rankAceHigh }
+        )
+    )
 
 fun dealCard(): Card {
     val dealtCard =

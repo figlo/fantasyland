@@ -4,9 +4,10 @@ import com.example.fantasyland.CardFace.ACE
 import com.example.fantasyland.CardFace.FIVE
 import com.example.fantasyland.PokerCombination.*
 
-open class RowCards(cards: MutableList<Card>) : Cards(cards) {
+open class RowCards(protected val cards: MutableList<Card>) {
     init {
         require(cards.size == 3 || cards.size == 5) { "Number of row cards (must be 3 or 5): ${cards.size}" }
+        cards.sortByCountAndRank()
     }
 
     infix fun isHigherThan(otherRowCards: RowCards): Boolean {
@@ -14,11 +15,11 @@ open class RowCards(cards: MutableList<Card>) : Cards(cards) {
             pokerCombination() == STRAIGHT && otherRowCards.pokerCombination() == STRAIGHT ||
             pokerCombination() == STRAIGHT_FLUSH && otherRowCards.pokerCombination() == STRAIGHT_FLUSH
         ) {
-            if (sortedCards.cards[4].face.rankAceHigh == 2) return false
-            if (otherRowCards.sortedCards.cards[4].face.rankAceHigh == 2) return true
+            if (cards[4].face.rankAceHigh == 2) return false
+            if (otherRowCards.cards[4].face.rankAceHigh == 2) return true
         }
 
-        sortedCards.cards.forEach { card ->
+        cards.forEach { card ->
             val rank = card.face.rankAceHigh
             val otherRank = otherRowCards.cards.elementAt(cards.indexOf(card)).face.rankAceHigh
             if (rank > otherRank) return true
@@ -27,8 +28,6 @@ open class RowCards(cards: MutableList<Card>) : Cards(cards) {
 
         return false
     }
-
-    val sortedCards = Cards(cards).apply { sortByCountAndRank() }
 
     protected val numberOfFaces = cards.map { it.face }.distinct().count()
 
@@ -40,11 +39,11 @@ open class RowCards(cards: MutableList<Card>) : Cards(cards) {
 
             fun isFlush() = numberOfSuits == 1
             fun isStraight() = maxFace - minFace == 4 ||
-                    (sortedCards.cards[0].face == ACE && sortedCards.cards[1].face == FIVE)
+                    (cards[0].face == ACE && cards[1].face == FIVE)
 
             return if (isFlush()) {
                 if (isStraight()) {
-                    if (sortedCards.cards[0].face == ACE) ROYAL_FLUSH else STRAIGHT_FLUSH
+                    if (cards[0].face == ACE) ROYAL_FLUSH else STRAIGHT_FLUSH
                 } else {
                     FLUSH
                 }
@@ -54,8 +53,8 @@ open class RowCards(cards: MutableList<Card>) : Cards(cards) {
         }
 
         return when (numberOfFaces) {
-            2    -> if (sortedCards.cards[2].face == sortedCards.cards[3].face) QUADS else FULL_HOUSE
-            3    -> if (sortedCards.cards[1].face == sortedCards.cards[2].face) TRIPS else TWO_PAIRS
+            2    -> if (cards[2].face == cards[3].face) QUADS else FULL_HOUSE
+            3    -> if (cards[1].face == cards[2].face) TRIPS else TWO_PAIRS
             4    -> PAIR
             5    -> numberOfFacesIsFive()
             else -> throw IllegalArgumentException("Number of faces (must be 2, 3, 4 or 5 for BottomRowCards and MiddleRowCards): $numberOfFaces")
@@ -120,7 +119,7 @@ class TopRowCards(cards: MutableList<Card>) : RowCards(cards) {
     }
 
     fun value(): Int {
-        val firstCardRank = sortedCards.cards[0].face.rankAceHigh
+        val firstCardRank = cards[0].face.rankAceHigh
 
         return when (pokerCombination()) {
             HIGH_CARD -> 0
