@@ -7,105 +7,100 @@
     android:background="@color/background"
     tools:context=".GameActivity">
 
-    <!--    <include-->
-    <!--        android:id="@+id/includedLayout"-->
-    <!--        layout="@layout/toolbar" />-->
-
     <LinearLayout
-        android:id="@+id/board"
+        android:id="@+id/linearLayoutTopRow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/linearLayoutDealtCards"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/linearLayoutMiddleRow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.15"
+        app:layout_constraintVertical_chainStyle="packed" />
 
-        <LinearLayout
-            android:id="@+id/linearLayoutTopRow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/linearLayoutMiddleRow"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintVertical_chainStyle="spread_inside" />
-
-        <LinearLayout
-            android:id="@+id/linearLayoutMiddleRow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/linearLayoutBottomRow"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linearLayoutTopRow" />
-
-        <LinearLayout
-            android:id="@+id/linearLayoutBottomRow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linearLayoutMiddleRow" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/resultTypeView"
+    <LinearLayout
+        android:id="@+id/linearLayoutMiddleRow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/linearLayoutBottomRow"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/board"
-        app:layout_constraintTop_toTopOf="@id/board" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutTopRow" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutBottomRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutMiddleRow" />
 
     <TextView
         android:id="@+id/topRowResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/resultTypeView"
-        app:layout_constraintTop_toBottomOf="@id/resultTypeView" />
+        android:layout_marginStart="16dp"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="@id/linearLayoutTopRow"
+        app:layout_constraintStart_toEndOf="@id/linearLayoutMiddleRow"
+        app:layout_constraintTop_toTopOf="@id/linearLayoutTopRow" />
 
     <TextView
         android:id="@+id/middleRowResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/topRowResult"
-        app:layout_constraintTop_toBottomOf="@id/topRowResult" />
+        android:layout_marginStart="16dp"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="@id/linearLayoutMiddleRow"
+        app:layout_constraintStart_toEndOf="@id/linearLayoutMiddleRow"
+        app:layout_constraintTop_toTopOf="@id/linearLayoutMiddleRow" />
 
     <TextView
         android:id="@+id/bottomRowResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/middleRowResult"
-        app:layout_constraintTop_toBottomOf="@id/middleRowResult" />
+        android:layout_marginStart="16dp"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="@id/linearLayoutBottomRow"
+        app:layout_constraintStart_toEndOf="@id/linearLayoutBottomRow"
+        app:layout_constraintTop_toTopOf="@id/linearLayoutBottomRow" />
 
     <TextView
         android:id="@+id/finalResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:layout_marginStart="32dp"
+        android:textSize="40sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/bottomRowResult"
-        app:layout_constraintTop_toBottomOf="@id/bottomRowResult" />
+        app:layout_constraintBottom_toBottomOf="@id/middleRowResult"
+        app:layout_constraintStart_toEndOf="@id/middleRowResult"
+        app:layout_constraintTop_toTopOf="@id/middleRowResult" />
+
+    <TextView
+        android:id="@+id/resultTypeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@id/finalResult"
+        app:layout_constraintStart_toEndOf="@id/finalResult"
+        app:layout_constraintTop_toTopOf="@id/finalResult" />
 
     <LinearLayout
         android:id="@+id/linearLayoutDealtCards"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/linearLayoutButtons"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/board" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.60" />
 
     <LinearLayout
         android:id="@+id/linearLayoutButtons"
