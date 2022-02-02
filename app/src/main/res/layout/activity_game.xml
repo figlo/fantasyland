@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@id/linearLayoutTopRow"
         app:layout_constraintStart_toEndOf="@id/linearLayoutMiddleRow"
         app:layout_constraintTop_toTopOf="@id/linearLayoutTopRow" />
@@ -55,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@id/linearLayoutMiddleRow"
         app:layout_constraintStart_toEndOf="@id/linearLayoutMiddleRow"
         app:layout_constraintTop_toTopOf="@id/linearLayoutMiddleRow" />
@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@id/linearLayoutBottomRow"
         app:layout_constraintStart_toEndOf="@id/linearLayoutBottomRow"
         app:layout_constraintTop_toTopOf="@id/linearLayoutBottomRow" />
