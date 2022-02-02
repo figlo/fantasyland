@@ -1,15 +1,20 @@
 <resources>
     <string name="app_name">FantasyLand</string>
 
+    <!-- Main -->
     <string name="your_nickname">Your nickname:</string>
     <string name="nickname_hint">Enter your nickname</string>
     <string name="fantasy_land_cards">FantasyLand cards:</string>
+
+    <!-- Game -->
     <string name="home">Home</string>
     <string name="play">Play</string>
     <string name="sort">Sort</string>
     <string name="set_all_cards">Set All Cards</string>
     <string name="done">Done</string>
     <string name="new_game">New Game</string>
+    <string name="result_x">X</string>
+    <string name="new_fantasyland">New FantasyLand!</string>
 
     <!-- Menu -->
     <string name="settings">Settings</string>

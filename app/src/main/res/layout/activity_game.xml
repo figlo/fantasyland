@@ -44,7 +44,7 @@
         android:id="@+id/topRowResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@id/linearLayoutTopRow"
         app:layout_constraintStart_toEndOf="@id/linearLayoutMiddleRow"
@@ -54,42 +54,42 @@
         android:id="@+id/middleRowResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@id/linearLayoutMiddleRow"
-        app:layout_constraintStart_toEndOf="@id/linearLayoutMiddleRow"
+        app:layout_constraintEnd_toEndOf="@id/topRowResult"
         app:layout_constraintTop_toTopOf="@id/linearLayoutMiddleRow" />
 
     <TextView
         android:id="@+id/bottomRowResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@id/linearLayoutBottomRow"
-        app:layout_constraintStart_toEndOf="@id/linearLayoutBottomRow"
+        app:layout_constraintEnd_toEndOf="@id/topRowResult"
         app:layout_constraintTop_toTopOf="@id/linearLayoutBottomRow" />
 
     <TextView
         android:id="@+id/finalResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:textSize="40sp"
+        android:textSize="60sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/middleRowResult"
-        app:layout_constraintStart_toEndOf="@id/middleRowResult"
-        app:layout_constraintTop_toTopOf="@id/middleRowResult" />
+        app:layout_constraintBottom_toBottomOf="@id/linearLayoutMiddleRow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/linearLayoutMiddleRow"
+        app:layout_constraintTop_toTopOf="@id/linearLayoutMiddleRow" />
 
     <TextView
-        android:id="@+id/resultTypeView"
+        android:id="@+id/newFantasyLand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="@id/finalResult"
-        app:layout_constraintStart_toEndOf="@id/finalResult"
-        app:layout_constraintTop_toTopOf="@id/finalResult" />
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/linearLayoutTopRow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/linearLayoutMiddleRow"
+        app:layout_constraintTop_toTopOf="@id/linearLayoutTopRow" />
 
     <LinearLayout
         android:id="@+id/linearLayoutDealtCards"

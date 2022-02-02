@@ -6,5 +6,8 @@
     <color name="background">#90CAF9</color>
     <color name="cardViewBackground">#000000</color>
     <color name="cardViewSelected">#ff0000</color>
+    <color name="resultOK">#009900</color>
+    <color name="resultX">#dd0000</color>
+    <color name="newFantasyLand">#000099</color>
     <!--    <color name="colorBackground">#999999</color>-->
 </resources>

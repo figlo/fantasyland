@@ -204,51 +204,63 @@ class GameActivity : AppCompatActivity() {
                 }
             }
 
-            var resultType: String
+            val resultOKColor = ContextCompat.getColor(this, R.color.resultOK)
+            val resultXColor = ContextCompat.getColor(this, R.color.resultX)
+            val newFantasyLandColor = ContextCompat.getColor(this, R.color.newFantasyLand)
+
             Result().apply {
                 this.bottomRowCards = bottomRowCards
                 this.middleRowCards = middleRowCards
                 this.topRowCards = topRowCards
 
-                resultType = when {
-                    isRepeatedFantasy() -> "New Fantasy"
-                    isValidResult()     -> "OK"
-                    else                -> "Fail"
+                if (isValidResult()) {
+                    binding.apply {
+                        bottomRowResult.text = bottomRowCards.value().toString()
+                        middleRowResult.text = middleRowCards.value().toString()
+                        topRowResult.text = topRowCards.value().toString()
+                        finalResult.text = (bottomRowCards.value() + middleRowCards.value() + topRowCards.value()).toString()
+                        finalResult.setTextColor(resultOKColor)
+                    }
+                } else {
+                    binding.apply {
+                        finalResult.text = resources.getString(R.string.result_x)
+                        finalResult.setTextColor(resultXColor)
+                    }
+                }
+
+                if (isRepeatedFantasy()) {
+                    binding.apply {
+                        newFantasyLand.text = resources.getString(R.string.new_fantasyland)
+                        newFantasyLand.setTextColor(newFantasyLandColor)
+                    }
                 }
             }
-
-            binding.apply {
-                resultTypeView.text = resultType
-                bottomRowResult.text = bottomRowCards.value().toString()
-                middleRowResult.text = middleRowCards.value().toString()
-                topRowResult.text = topRowCards.value().toString()
-                finalResult.text = (bottomRowCards.value() + middleRowCards.value() + topRowCards.value()).toString()
-            }
         }
 
-        // new game button
-        binding.buttonNewGame.setOnClickListener {
-            isFullBoard = false
-            startActivity(Intent(this, GameActivity::class.java))
-        }
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.right_menu, menu)
-        return true
+    // new game button
+    binding.buttonNewGame.setOnClickListener {
+        isFullBoard = false
+        startActivity(Intent(this, GameActivity::class.java))
     }
+}
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.settings -> {
-                this.startActivity(intent)
-                true
-            }
-            R.id.about    -> {
-                Snackbar.make(binding.root, "About", Snackbar.LENGTH_SHORT).show()
-                true
-            }
-            else          -> super.onOptionsItemSelected(item)
+override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    menuInflater.inflate(R.menu.right_menu, menu)
+    return true
+}
+
+override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    return when (item.itemId) {
+        R.id.settings -> {
+            this.startActivity(intent)
+            true
         }
+        R.id.about    -> {
+            Snackbar.make(binding.root, "About", Snackbar.LENGTH_SHORT).show()
+            true
+        }
+        else          -> super.onOptionsItemSelected(item)
     }
+}
 }
