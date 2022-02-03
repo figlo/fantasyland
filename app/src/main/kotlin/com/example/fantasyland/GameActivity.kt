@@ -176,13 +176,13 @@ class GameActivity : AppCompatActivity() {
 
             bottomRowCards.apply {
                 if (isWheel)
-                    cards.sortByRankAceLow()
+                    cards.sortByRankAndColorAceLow()
                 else
                     cards.sortByCountAndRank()
             }
             middleRowCards.apply {
                 if (isWheel)
-                    cards.sortByRankAceLow()
+                    cards.sortByRankAndColorAceLow()
                 else
                     cards.sortByCountAndRank()
             }

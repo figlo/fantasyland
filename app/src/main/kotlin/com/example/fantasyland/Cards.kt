@@ -34,7 +34,7 @@ fun MutableList<Card>.sortByCountAndRank() =
         )
     )
 
-fun MutableList<Card>.sortByRankAceLow() =
+fun MutableList<Card>.sortByRankAndColorAceLow() =
     sortWith(
         compareBy(
             { -it.face.ordinal },
