@@ -15,6 +15,12 @@ val MutableList<Card>.isOfOneColor: Boolean
         return numberOfSuits == 1
     }
 
+val MutableList<Card>.facesHistogram: Map<CardFace, Int>
+    get() = groupingBy { it.face }.eachCount()
+
+val MutableList<Card>.maxCountOfFaces: Int
+    get() = facesHistogram.maxOf { it.value }
+
 val MutableList<Card>.isProgression: Boolean
     get() {
         if (!isOfDifferentFaces) return false
@@ -56,15 +62,40 @@ val MutableList<Card>.isStraight: Boolean
             !isOfOneColor &&
             isProgression
 
-val MutableList<Card>.isHighCard: Boolean
-    get() = size == 5 &&
-            !isOfOneColor &&
-            !isProgression
+val MutableList<Card>.isQuads: Boolean
+    get() = size >= 4 &&
+            numberOfFaces == size - 3 &&
+            maxCountOfFaces == 4
 
-//val MutableList<Card>.isQuads: Boolean
-//    get() = size == 5 &&
-//            numberOfFaces == 2 &&
-//            maxOf { goupBy { it.face }}
+val MutableList<Card>.isFullHouse: Boolean
+    get() = size >= 5 &&
+            numberOfFaces == size - 3 &&
+            maxCountOfFaces == 3
+
+val MutableList<Card>.isTwoPairs: Boolean
+    get() = size >= 4 &&
+            numberOfFaces == size - 2 &&
+            maxCountOfFaces == 2
+
+val MutableList<Card>.isTrips: Boolean
+    get() = size >= 3 &&
+            numberOfFaces == size - 2 &&
+            maxCountOfFaces == 3
+
+val MutableList<Card>.isPair: Boolean
+    get() = size >= 2 &&
+            numberOfFaces == size - 1 &&
+            maxCountOfFaces == 2
+
+val MutableList<Card>.isHighCard: Boolean
+    get() {
+        return if (!isOfDifferentFaces)
+            false
+        else if (size == 5)
+            !isOfOneColor && !isProgression
+        else
+            true
+    }
 
 
 // sorting functions

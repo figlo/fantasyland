@@ -27,26 +27,19 @@ open class RowCards(val cards: MutableList<Card>) {
         return false
     }
 
-    protected val numberOfFaces = cards.map { it.face }.distinct().count()
-
     open fun pokerCombination(): PokerCombination {
-        fun numberOfFacesIsFive(): PokerCombination {
-            return when {
-                cards.isRoyalFlush    -> ROYAL_FLUSH
-                cards.isStraightFlush -> STRAIGHT_FLUSH
-                cards.isFlush         -> FLUSH
-                cards.isStraight      -> STRAIGHT
-                cards.isHighCard      -> HIGH_CARD
-                else                  -> throw IllegalStateException("Unknow poker combination!")
-            }
-        }
-
-        return when (numberOfFaces) {
-            2    -> if (cards[2].face == cards[3].face) QUADS else FULL_HOUSE
-            3    -> if (cards[1].face == cards[2].face) TRIPS else TWO_PAIRS
-            4    -> PAIR
-            5    -> numberOfFacesIsFive()
-            else -> throw IllegalArgumentException("Number of faces (must be 2, 3, 4 or 5 for BottomRowCards and MiddleRowCards): $numberOfFaces")
+        return when {
+            cards.isHighCard      -> HIGH_CARD
+            cards.isPair          -> PAIR
+            cards.isTwoPairs      -> TWO_PAIRS
+            cards.isTrips         -> TRIPS
+            cards.isStraight      -> STRAIGHT
+            cards.isFlush         -> FLUSH
+            cards.isFullHouse     -> FULL_HOUSE
+            cards.isQuads         -> QUADS
+            cards.isStraightFlush -> STRAIGHT_FLUSH
+            cards.isRoyalFlush    -> ROYAL_FLUSH
+            else                  -> throw IllegalStateException("Unknow poker combination!")
         }
     }
 }
@@ -56,10 +49,7 @@ class BottomRowCards(cards: MutableList<Card>) : RowCards(cards) {
         require(cards.size == 5) { "Number of bottom row cards (must be 5): ${cards.size}" }
     }
 
-    val isWheel = if (cards.size == 3)
-        false
-    else
-        (pokerCombination() == STRAIGHT || pokerCombination() == STRAIGHT_FLUSH) &&
+    val isWheel = (pokerCombination() == STRAIGHT || pokerCombination() == STRAIGHT_FLUSH) &&
                 cards[4].face.rankAceHigh == 2
 
     fun value(): Int {
@@ -83,11 +73,8 @@ class MiddleRowCards(cards: MutableList<Card>) : RowCards(cards) {
         require(cards.size == 5) { "Number of middle row cards (must be 5): ${cards.size}" }
     }
 
-    val isWheel = if (cards.size == 3)
-        false
-    else
-        (pokerCombination() == STRAIGHT || pokerCombination() == STRAIGHT_FLUSH) &&
-                cards[4].face.rankAceHigh == 2
+    val isWheel = (pokerCombination() == STRAIGHT || pokerCombination() == STRAIGHT_FLUSH) &&
+            cards[4].face.rankAceHigh == 2
 
     fun value(): Int {
         return when (pokerCombination()) {
@@ -108,15 +95,6 @@ class MiddleRowCards(cards: MutableList<Card>) : RowCards(cards) {
 class TopRowCards(cards: MutableList<Card>) : RowCards(cards) {
     init {
         require(cards.size == 3) { "Number of top row cards (must be 3): ${cards.size}" }
-    }
-
-    override fun pokerCombination(): PokerCombination {
-        return when (numberOfFaces) {
-            1    -> TRIPS
-            2    -> PAIR
-            3    -> HIGH_CARD
-            else -> throw IllegalArgumentException("Number of faces (must be 1, 2, or 3 for TopRowCards): $numberOfFaces")
-        }
     }
 
     fun value(): Int {
