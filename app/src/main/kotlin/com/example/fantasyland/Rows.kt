@@ -1,7 +1,5 @@
 package com.example.fantasyland
 
-import com.example.fantasyland.CardFace.ACE
-import com.example.fantasyland.CardFace.FIVE
 import com.example.fantasyland.PokerCombination.*
 
 open class RowCards(val cards: MutableList<Card>) {
@@ -33,22 +31,13 @@ open class RowCards(val cards: MutableList<Card>) {
 
     open fun pokerCombination(): PokerCombination {
         fun numberOfFacesIsFive(): PokerCombination {
-            val minFace = cards.map { it.face.rankAceHigh }.minOrNull() ?: throw IllegalArgumentException("minFace must be > 0")
-            val maxFace = cards.map { it.face.rankAceHigh }.maxOrNull() ?: throw IllegalArgumentException("maxFace must be > 0")
-            val numberOfSuits = cards.map { it.suit }.distinct().count()
-
-            fun isFlush() = numberOfSuits == 1
-            fun isStraight() = maxFace - minFace == 4 ||
-                    (cards[0].face == ACE && cards[1].face == FIVE)
-
-            return if (isFlush()) {
-                if (isStraight()) {
-                    if (cards[0].face == ACE) ROYAL_FLUSH else STRAIGHT_FLUSH
-                } else {
-                    FLUSH
-                }
-            } else {
-                if (isStraight()) STRAIGHT else HIGH_CARD
+            return when {
+                cards.isRoyalFlush    -> ROYAL_FLUSH
+                cards.isStraightFlush -> STRAIGHT_FLUSH
+                cards.isFlush         -> FLUSH
+                cards.isStraight      -> STRAIGHT
+                cards.isHighCard      -> HIGH_CARD
+                else                  -> throw IllegalStateException("Unknow poker combination!")
             }
         }
 
