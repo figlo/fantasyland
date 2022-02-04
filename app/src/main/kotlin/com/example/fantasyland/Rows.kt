@@ -10,8 +10,8 @@ open class RowCards(val cards: MutableList<Card>) {
 
     infix fun isHigherThan(otherRowCards: RowCards): Boolean {
         if (
-            pokerCombination() == STRAIGHT && otherRowCards.pokerCombination() == STRAIGHT ||
-            pokerCombination() == STRAIGHT_FLUSH && otherRowCards.pokerCombination() == STRAIGHT_FLUSH
+            pokerCombination == STRAIGHT && otherRowCards.pokerCombination == STRAIGHT ||
+            pokerCombination == STRAIGHT_FLUSH && otherRowCards.pokerCombination == STRAIGHT_FLUSH
         ) {
             if (cards[4].face.rankAceHigh == 2) return false
             if (otherRowCards.cards[4].face.rankAceHigh == 2) return true
@@ -27,20 +27,18 @@ open class RowCards(val cards: MutableList<Card>) {
         return false
     }
 
-    open fun pokerCombination(): PokerCombination {
-        return when {
-            cards.isHighCard      -> HIGH_CARD
-            cards.isPair          -> PAIR
-            cards.isTwoPairs      -> TWO_PAIRS
-            cards.isTrips         -> TRIPS
-            cards.isStraight      -> STRAIGHT
-            cards.isFlush         -> FLUSH
-            cards.isFullHouse     -> FULL_HOUSE
-            cards.isQuads         -> QUADS
-            cards.isStraightFlush -> STRAIGHT_FLUSH
-            cards.isRoyalFlush    -> ROYAL_FLUSH
-            else                  -> throw IllegalStateException("Unknow poker combination!")
-        }
+    open var pokerCombination: PokerCombination = when {
+        cards.isHighCard      -> HIGH_CARD
+        cards.isPair          -> PAIR
+        cards.isTwoPairs      -> TWO_PAIRS
+        cards.isTrips         -> TRIPS
+        cards.isStraight      -> STRAIGHT
+        cards.isFlush         -> FLUSH
+        cards.isFullHouse     -> FULL_HOUSE
+        cards.isQuads         -> QUADS
+        cards.isStraightFlush -> STRAIGHT_FLUSH
+        cards.isRoyalFlush    -> ROYAL_FLUSH
+        else                  -> throw IllegalStateException("Unknow poker combination!")
     }
 }
 
@@ -49,11 +47,11 @@ class BottomRowCards(cards: MutableList<Card>) : RowCards(cards) {
         require(cards.size == 5) { "Number of bottom row cards (must be 5): ${cards.size}" }
     }
 
-    val isWheel = (pokerCombination() == STRAIGHT || pokerCombination() == STRAIGHT_FLUSH) &&
-                cards[4].face.rankAceHigh == 2
+    val isWheel = (pokerCombination == STRAIGHT || pokerCombination == STRAIGHT_FLUSH) &&
+            cards[4].face.rankAceHigh == 2
 
     fun value(): Int {
-        return when (pokerCombination()) {
+        return when (pokerCombination) {
             HIGH_CARD      -> 0
             PAIR           -> 0
             TWO_PAIRS      -> 0
@@ -73,11 +71,11 @@ class MiddleRowCards(cards: MutableList<Card>) : RowCards(cards) {
         require(cards.size == 5) { "Number of middle row cards (must be 5): ${cards.size}" }
     }
 
-    val isWheel = (pokerCombination() == STRAIGHT || pokerCombination() == STRAIGHT_FLUSH) &&
+    val isWheel = (pokerCombination == STRAIGHT || pokerCombination == STRAIGHT_FLUSH) &&
             cards[4].face.rankAceHigh == 2
 
     fun value(): Int {
-        return when (pokerCombination()) {
+        return when (pokerCombination) {
             HIGH_CARD      -> 0
             PAIR           -> 0
             TWO_PAIRS      -> 0
@@ -100,7 +98,7 @@ class TopRowCards(cards: MutableList<Card>) : RowCards(cards) {
     fun value(): Int {
         val firstCardRank = cards[0].face.rankAceHigh
 
-        return when (pokerCombination()) {
+        return when (pokerCombination) {
             HIGH_CARD -> 0
             PAIR      -> if (firstCardRank >= 6) firstCardRank - 5 else 0
             TRIPS     -> firstCardRank + 8
