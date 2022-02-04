@@ -174,19 +174,19 @@ class GameActivity : AppCompatActivity() {
             val middleRowCards = MiddleRowCards(middleRowCardsList)
             val topRowCards = TopRowCards(topRowCardsList)
 
-            bottomRowCards.apply {
-                if (isWheel)
-                    cards.sortByRankAndColorAceLow()
+            bottomRowCards.cards.apply {
+                if (isAnyWheel)
+                    sortByRankAndColorAceLow()
                 else
-                    cards.sortByCountAndRank()
+                    sortByCountAndRank()
             }
-            middleRowCards.apply {
-                if (isWheel)
-                    cards.sortByRankAndColorAceLow()
+            middleRowCards.cards.apply {
+                if (isAnyWheel)
+                    sortByRankAndColorAceLow()
                 else
-                    cards.sortByCountAndRank()
+                    sortByCountAndRank()
             }
-            topRowCardsList.sortByCountAndRank()
+            topRowCards.cards.sortByCountAndRank()
 
             for (i in 1..13) {
                 val card = when (i) {

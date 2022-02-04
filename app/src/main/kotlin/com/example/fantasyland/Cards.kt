@@ -97,6 +97,23 @@ val MutableList<Card>.isHighCard: Boolean
             true
     }
 
+val MutableList<Card>.isWheel: Boolean
+    get() = size == 5 &&
+            isProgression &&
+            !isOfOneColor &&
+            any { it.face == CardFace.ACE } &&
+            any { it.face == CardFace.TWO }
+
+val MutableList<Card>.isSteelWheel: Boolean
+    get() = size == 5 &&
+            isProgression &&
+            isOfOneColor &&
+            any { it.face == CardFace.ACE } &&
+            any { it.face == CardFace.TWO }
+
+val MutableList<Card>.isAnyWheel: Boolean
+    get() = isWheel || isSteelWheel
+
 
 // sorting functions
 
