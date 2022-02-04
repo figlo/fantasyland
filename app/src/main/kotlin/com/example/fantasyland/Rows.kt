@@ -2,12 +2,12 @@ package com.example.fantasyland
 
 import com.example.fantasyland.PokerCombination.*
 
-open class RowCards(val cards: MutableList<Card>) {
+open class Row(val cards: MutableList<Card>) {
     init {
         require(cards.size == 3 || cards.size == 5) { "Number of row cards (must be 3 or 5): ${cards.size}" }
     }
 
-    infix fun isHigherThan(otherRowCards: RowCards): Boolean {
+    infix fun isHigherThan(otherRowCards: Row): Boolean {
         if (pokerCombination > otherRowCards.pokerCombination) return true
         if (pokerCombination < otherRowCards.pokerCombination) return false
 
@@ -52,7 +52,7 @@ open class RowCards(val cards: MutableList<Card>) {
     }
 }
 
-class BottomRowCards(cards: MutableList<Card>) : RowCards(cards) {
+class BottomRow(cards: MutableList<Card>) : Row(cards) {
     init {
         require(cards.size == 5) { "Number of bottom row cards (must be 5): ${cards.size}" }
     }
@@ -73,7 +73,7 @@ class BottomRowCards(cards: MutableList<Card>) : RowCards(cards) {
     }
 }
 
-class MiddleRowCards(cards: MutableList<Card>) : RowCards(cards) {
+class MiddleRow(cards: MutableList<Card>) : Row(cards) {
     init {
         require(cards.size == 5) { "Number of middle row cards (must be 5): ${cards.size}" }
     }
@@ -94,7 +94,7 @@ class MiddleRowCards(cards: MutableList<Card>) : RowCards(cards) {
     }
 }
 
-class TopRowCards(cards: MutableList<Card>) : RowCards(cards) {
+class TopRow(cards: MutableList<Card>) : Row(cards) {
     init {
         require(cards.size == 3) { "Number of top row cards (must be 3): ${cards.size}" }
     }

@@ -170,9 +170,9 @@ class GameActivity : AppCompatActivity() {
             val middleRowCardsList = tiles.subList(5, 10).mapNotNull { it.card }.toMutableList()
             val topRowCardsList = tiles.subList(10, 13).mapNotNull { it.card }.toMutableList()
 
-            val bottomRowCards = BottomRowCards(bottomRowCardsList)
-            val middleRowCards = MiddleRowCards(middleRowCardsList)
-            val topRowCards = TopRowCards(topRowCardsList)
+            val bottomRowCards = BottomRow(bottomRowCardsList)
+            val middleRowCards = MiddleRow(middleRowCardsList)
+            val topRowCards = TopRow(topRowCardsList)
 
             bottomRowCards.cards.apply {
                 if (isAnyWheel)

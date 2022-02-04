@@ -1,9 +1,9 @@
 package com.example.fantasyland
 
 class Result {
-    lateinit var topRowCards: TopRowCards
-    lateinit var middleRowCards: MiddleRowCards
-    lateinit var bottomRowCards: BottomRowCards
+    lateinit var topRowCards: TopRow
+    lateinit var middleRowCards: MiddleRow
+    lateinit var bottomRowCards: BottomRow
 
     fun isValidResult(): Boolean {
         return when {
