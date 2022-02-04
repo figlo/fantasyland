@@ -9,15 +9,17 @@ open class RowCards(val cards: MutableList<Card>) {
     }
 
     infix fun isHigherThan(otherRowCards: RowCards): Boolean {
+        require(pokerCombination == otherRowCards.pokerCombination) { "Function isHigherThan compares only the same poker combinations!" }
+
         if (
-            pokerCombination == STRAIGHT && otherRowCards.pokerCombination == STRAIGHT
+            pokerCombination == STRAIGHT
         ) {
             if (cards.isWheel) return false
             if (otherRowCards.cards.isWheel) return true
         }
 
         if (
-            pokerCombination == STRAIGHT_FLUSH && otherRowCards.pokerCombination == STRAIGHT_FLUSH
+            pokerCombination == STRAIGHT_FLUSH
         ) {
             if (cards.isSteelWheel) return false
             if (otherRowCards.cards.isSteelWheel) return true
