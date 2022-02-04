@@ -237,30 +237,29 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
-
-    // new game button
-    binding.buttonNewGame.setOnClickListener {
-        isFullBoard = false
-        startActivity(Intent(this, GameActivity::class.java))
-    }
-}
-
-override fun onCreateOptionsMenu(menu: Menu): Boolean {
-    menuInflater.inflate(R.menu.right_menu, menu)
-    return true
-}
-
-override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    return when (item.itemId) {
-        R.id.settings -> {
-            this.startActivity(intent)
-            true
+        // new game button
+        binding.buttonNewGame.setOnClickListener {
+            isFullBoard = false
+            startActivity(Intent(this, GameActivity::class.java))
         }
-        R.id.about    -> {
-            Snackbar.make(binding.root, "About", Snackbar.LENGTH_SHORT).show()
-            true
-        }
-        else          -> super.onOptionsItemSelected(item)
     }
-}
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.right_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.settings -> {
+                this.startActivity(intent)
+                true
+            }
+            R.id.about    -> {
+                Snackbar.make(binding.root, "About", Snackbar.LENGTH_SHORT).show()
+                true
+            }
+            else          -> super.onOptionsItemSelected(item)
+        }
+    }
 }

@@ -5,12 +5,13 @@ import com.example.fantasyland.PokerCombination.*
 open class RowCards(val cards: MutableList<Card>) {
     init {
         require(cards.size == 3 || cards.size == 5) { "Number of row cards (must be 3 or 5): ${cards.size}" }
-        cards.sortByCountAndRank()
     }
 
     infix fun isHigherThan(otherRowCards: RowCards): Boolean {
-        require(pokerCombination == otherRowCards.pokerCombination) { "Function isHigherThan compares only the same poker combinations!" }
+        if (pokerCombination > otherRowCards.pokerCombination) return true
+        if (pokerCombination < otherRowCards.pokerCombination) return false
 
+        // the same poker combinations
         if (
             pokerCombination == STRAIGHT
         ) {
@@ -25,6 +26,7 @@ open class RowCards(val cards: MutableList<Card>) {
             if (otherRowCards.cards.isSteelWheel) return true
         }
 
+        cards.sortByCountAndRank()
         cards.forEach { card ->
             val rank = card.face.rankAceHigh
             val otherRank = otherRowCards.cards.elementAt(cards.indexOf(card)).face.rankAceHigh
