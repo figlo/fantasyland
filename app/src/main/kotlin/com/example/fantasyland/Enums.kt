@@ -84,8 +84,6 @@ enum class Card(val face: CardFace, val suit: CardSuit, var cardState: CardState
     CARD_JC(JACK, CLUBS),
     CARD_QC(QUEEN, CLUBS),
     CARD_KC(KING, CLUBS);
-
-    val file = "card_" + name.takeLast(2).lowercase()
 }
 
 enum class CardState {
