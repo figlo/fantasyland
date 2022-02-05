@@ -166,33 +166,33 @@ class GameActivity : AppCompatActivity() {
                 buttonNewGame.visibility = View.VISIBLE
             }
 
-            val bottomRowCardsList = tiles.subList(0, 5).mapNotNull { it.card }.toMutableList()
-            val middleRowCardsList = tiles.subList(5, 10).mapNotNull { it.card }.toMutableList()
-            val topRowCardsList = tiles.subList(10, 13).mapNotNull { it.card }.toMutableList()
+            val bottomRowCards = tiles.subList(0, 5).mapNotNull { it.card }.toMutableList()
+            val middleRowCards = tiles.subList(5, 10).mapNotNull { it.card }.toMutableList()
+            val topRowCards = tiles.subList(10, 13).mapNotNull { it.card }.toMutableList()
 
-            val bottomRowCards = BottomRow(bottomRowCardsList)
-            val middleRowCards = MiddleRow(middleRowCardsList)
-            val topRowCards = TopRow(topRowCardsList)
+            val bottomRow = BottomRow(bottomRowCards)
+            val middleRow = MiddleRow(middleRowCards)
+            val topRow = TopRow(topRowCards)
 
-            bottomRowCards.cards.apply {
+            bottomRow.cards.apply {
                 if (isAnyWheel)
                     sortByRankAndColorAceLow()
                 else
                     sortByCountAndRank()
             }
-            middleRowCards.cards.apply {
+            middleRow.cards.apply {
                 if (isAnyWheel)
                     sortByRankAndColorAceLow()
                 else
                     sortByCountAndRank()
             }
-            topRowCards.cards.sortByCountAndRank()
+            topRow.cards.sortByCountAndRank()
 
             for (i in 1..13) {
                 val card = when (i) {
-                    in 1..5  -> bottomRowCardsList[i - 1]
-                    in 6..10 -> middleRowCardsList[i - 6]
-                    else     -> topRowCardsList[i - 11]
+                    in 1..5  -> bottomRowCards[i - 1]
+                    in 6..10 -> middleRowCards[i - 6]
+                    else     -> topRowCards[i - 11]
                 }
 
                 tiles[i - 1].card = card
@@ -208,31 +208,25 @@ class GameActivity : AppCompatActivity() {
             val resultXColor = ContextCompat.getColor(this, R.color.resultX)
             val newFantasyLandColor = ContextCompat.getColor(this, R.color.newFantasyLand)
 
-            Result().apply {
-                this.bottomRowCards = bottomRowCards
-                this.middleRowCards = middleRowCards
-                this.topRowCards = topRowCards
-
-                if (isValidResult()) {
-                    binding.apply {
-                        bottomRowResult.text = bottomRowCards.value().toString()
-                        middleRowResult.text = middleRowCards.value().toString()
-                        topRowResult.text = topRowCards.value().toString()
-                        finalResult.text = (bottomRowCards.value() + middleRowCards.value() + topRowCards.value()).toString()
-                        finalResult.setTextColor(resultOKColor)
-                    }
-                } else {
-                    binding.apply {
-                        finalResult.text = resources.getString(R.string.result_x)
-                        finalResult.setTextColor(resultXColor)
-                    }
+            if (isValidResult(bottomRow, middleRow, topRow)) {
+                binding.apply {
+                    bottomRowResult.text = bottomRow.value().toString()
+                    middleRowResult.text = middleRow.value().toString()
+                    topRowResult.text = topRow.value().toString()
+                    finalResult.text = (bottomRow.value() + middleRow.value() + topRow.value()).toString()
+                    finalResult.setTextColor(resultOKColor)
                 }
+            } else {
+                binding.apply {
+                    finalResult.text = resources.getString(R.string.result_x)
+                    finalResult.setTextColor(resultXColor)
+                }
+            }
 
-                if (isRepeatedFantasy()) {
-                    binding.apply {
-                        newFantasyLand.text = resources.getString(R.string.new_fantasyland)
-                        newFantasyLand.setTextColor(newFantasyLandColor)
-                    }
+            if (isRepeatedFantasy(bottomRow, middleRow, topRow)) {
+                binding.apply {
+                    newFantasyLand.text = resources.getString(R.string.new_fantasyland)
+                    newFantasyLand.setTextColor(newFantasyLandColor)
                 }
             }
         }
@@ -274,3 +268,15 @@ fun dealCard(): Card {
     dealtCard.cardState = DEALT
     return dealtCard
 }
+
+fun isValidResult(bottomRow: BottomRow, middleRow: MiddleRow, topRow: TopRow): Boolean {
+    return when {
+        middleRow isHigherThan bottomRow -> false
+        topRow isHigherThan middleRow    -> false
+        else                             -> true
+    }
+}
+
+fun isRepeatedFantasy(bottomRow: BottomRow, middleRow: MiddleRow, topRow: TopRow) = isValidResult(bottomRow, middleRow, topRow) &&
+        (bottomRow.pokerCombination >= PokerCombination.QUADS ||
+                topRow.pokerCombination == PokerCombination.TRIPS)

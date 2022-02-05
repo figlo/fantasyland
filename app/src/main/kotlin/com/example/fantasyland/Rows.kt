@@ -37,7 +37,7 @@ open class Row(val cards: MutableList<Card>) {
         return false
     }
 
-    open var pokerCombination: PokerCombination = when {
+    var pokerCombination: PokerCombination = when {
         cards.isHighCard      -> HIGH_CARD
         cards.isPair          -> PAIR
         cards.isTwoPairs      -> TWO_PAIRS
