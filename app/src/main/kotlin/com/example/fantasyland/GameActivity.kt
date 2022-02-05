@@ -263,3 +263,12 @@ class GameActivity : AppCompatActivity() {
         }
     }
 }
+
+fun dealCard(): Card {
+    val dealtCard =
+        Card.values()
+            .filter { it.cardState == DECK }
+            .random()
+    dealtCard.cardState = DEALT
+    return dealtCard
+}
