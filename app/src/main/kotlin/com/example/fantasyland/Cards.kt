@@ -105,9 +105,14 @@ val MutableList<Card>.isPair: Boolean
             maxCountOfFaces == 2
 
 val MutableList<Card>.isHighCard: Boolean
-    get() = isOfDifferentFaces &&
-            !isOfOneSuit &&
-            !isProgression
+    get() {
+        return if (size == 5) {
+            isOfDifferentFaces &&
+                    !isOfOneSuit &&
+                    !isProgression
+        } else
+            isOfDifferentFaces
+    }
 
 
 // sorting functions
