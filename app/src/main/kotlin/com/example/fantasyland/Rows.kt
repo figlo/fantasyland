@@ -8,6 +8,7 @@ open class Row(val cards: MutableList<Card>) {
     }
 
     infix fun isHigherThan(otherRowCards: Row): Boolean {
+        // different poker combinations
         if (pokerCombination > otherRowCards.pokerCombination) return true
         if (pokerCombination < otherRowCards.pokerCombination) return false
 
@@ -37,7 +38,7 @@ open class Row(val cards: MutableList<Card>) {
         return false
     }
 
-    var pokerCombination: PokerCombination = when {
+    val pokerCombination: PokerCombination = when {
         cards.isHighCard      -> HIGH_CARD
         cards.isPair          -> PAIR
         cards.isTwoPairs      -> TWO_PAIRS
