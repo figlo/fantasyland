@@ -7,7 +7,7 @@ import androidx.core.view.setPadding
 var selectedTile: Tile? = null
 var isFullBoard = false
 
-class Tile(private val id: Int, val imageView: ImageView, var card: Card? = null) {
+class Tile(id: Int, val imageView: ImageView, var card: Card? = null) {
     private val isOnBottomRow = id in 1..5
     private val isOnMiddleRow = id in 6..10
     private val isOnTopRow = id in 11..13
