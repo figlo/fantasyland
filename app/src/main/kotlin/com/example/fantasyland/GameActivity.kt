@@ -209,11 +209,12 @@ class GameActivity : AppCompatActivity() {
             val newFantasyLandColor = ContextCompat.getColor(this, R.color.newFantasyLand)
 
             if (isValidResult(bottomRow, middleRow, topRow)) {
+                val result = bottomRow.value() + middleRow.value() + topRow.value()
                 binding.apply {
                     bottomRowResult.text = bottomRow.value().toString()
                     middleRowResult.text = middleRow.value().toString()
                     topRowResult.text = topRow.value().toString()
-                    finalResult.text = (bottomRow.value() + middleRow.value() + topRow.value()).toString()
+                    finalResult.text = result.toString()
                     finalResult.setTextColor(resultOKColor)
                 }
             } else {
