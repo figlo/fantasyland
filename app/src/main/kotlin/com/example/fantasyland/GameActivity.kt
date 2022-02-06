@@ -235,7 +235,10 @@ class GameActivity : AppCompatActivity() {
         // new game button
         binding.buttonNewGame.setOnClickListener {
             isFullBoard = false
-            startActivity(Intent(this, GameActivity::class.java))
+            finish()
+            overridePendingTransition(0, 0)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
         }
     }
 
