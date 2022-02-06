@@ -12,24 +12,13 @@ import com.example.fantasyland.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.includedLayout.toolbar)
-
-        binding.buttonPlay.setOnClickListener {
-            startActivity(Intent(this, GameActivity::class.java))
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
 
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
 
@@ -45,6 +34,10 @@ class MainActivity : AppCompatActivity() {
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
+        }
+
+        binding.buttonPlay.setOnClickListener {
+            startActivity(Intent(this, GameActivity::class.java))
         }
     }
 
@@ -67,4 +60,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
