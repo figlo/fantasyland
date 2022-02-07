@@ -47,6 +47,7 @@ class GameActivity : AppCompatActivity() {
         val imageViewBackgroundColor = ContextCompat.getColor(this, R.color.cardViewBackground)
 
         selectedTile = null
+        isFullBoard = false
 
         val emptyCardImage = resources.getIdentifier("empty_card", "drawable", packageName)
 
@@ -234,7 +235,6 @@ class GameActivity : AppCompatActivity() {
 
         // new game button
         binding.buttonNewGame.setOnClickListener {
-            isFullBoard = false
             finish()
             overridePendingTransition(0, 0)
             startActivity(intent)
