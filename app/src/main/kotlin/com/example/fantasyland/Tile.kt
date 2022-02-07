@@ -4,7 +4,6 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 
-var selectedTile: Tile? = null
 var isFullBoard = false
 
 class Tile(id: Int, val imageView: ImageView, var card: Card? = null) {
@@ -75,5 +74,9 @@ class Tile(id: Int, val imageView: ImageView, var card: Card? = null) {
         }
 
         selectedTile = null
+    }
+
+    companion object {
+        var selectedTile: Tile? = null
     }
 }

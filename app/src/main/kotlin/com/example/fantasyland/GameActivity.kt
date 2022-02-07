@@ -46,7 +46,7 @@ class GameActivity : AppCompatActivity() {
         val imageViewPadding = 1
         val imageViewBackgroundColor = ContextCompat.getColor(this, R.color.cardViewBackground)
 
-        selectedTile = null
+        Tile.selectedTile = null
         isFullBoard = false
 
         val emptyCardImage = resources.getIdentifier("empty_card", "drawable", packageName)
@@ -109,7 +109,7 @@ class GameActivity : AppCompatActivity() {
         sortSwitch = true
 
         binding.buttonSort.setOnClickListener {
-            selectedTile?.deSelect()
+            Tile.selectedTile?.deSelect()
 
             val dealtCards = tiles.mapNotNull { it.card }.filter { it.cardState == DEALT }.toMutableList()
             dealtCards.sort()
@@ -132,7 +132,7 @@ class GameActivity : AppCompatActivity() {
 
         // set all cards button
         binding.buttonSetAllCards.setOnClickListener {
-            selectedTile?.deSelect()
+            Tile.selectedTile?.deSelect()
 
             val emptyBoardTiles = tiles.take(13).filter { it.card == null }.toMutableList()
 
@@ -141,7 +141,7 @@ class GameActivity : AppCompatActivity() {
                     val viewHasCard = tiles[i + 12].card != null
 
                     if (viewHasCard) {
-                        selectedTile = tiles[i + 12]
+                        Tile.selectedTile = tiles[i + 12]
                         emptyBoardTiles[0].makeMove()
                         emptyBoardTiles.removeAt(0)
                         if (emptyBoardTiles.size == 0) break
@@ -154,7 +154,7 @@ class GameActivity : AppCompatActivity() {
 
         // done button
         binding.buttonDone.setOnClickListener {
-            selectedTile?.deSelect()
+            Tile.selectedTile?.deSelect()
 
             for (tile in tiles) {
                 tile.imageView.setOnClickListener(null)
