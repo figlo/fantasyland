@@ -115,10 +115,7 @@ class GameActivity : AppCompatActivity() {
 
             for (i in 1..numberOfCardsInFantasyLand) {
                 val setCardToView = i <= dealtCards.size
-
                 val dealtCard: Card? = if (setCardToView) dealtCards[i - 1] else null
-                tiles[i + 12].card = dealtCard
-
                 val cardFile = if (setCardToView) fileName(dealtCards[i - 1]) else "empty_card"
                 val cardImage = resources.getIdentifier(cardFile, "drawable", packageName)
 
@@ -195,7 +192,6 @@ class GameActivity : AppCompatActivity() {
                     else     -> topRowCards[i - 11]
                 }
 
-                tiles[i - 1].card = card
                 val cardImage = resources.getIdentifier(fileName(card), "drawable", packageName)
 
                 tiles[i - 1].imageView.apply {
