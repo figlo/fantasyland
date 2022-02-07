@@ -47,7 +47,6 @@ class GameActivity : AppCompatActivity() {
         val imageViewBackgroundColor = ContextCompat.getColor(this, R.color.cardViewBackground)
 
         Tile.selectedTile = null
-        isFullBoard = false
 
         val emptyCardImage = resources.getIdentifier("empty_card", "drawable", packageName)
 
@@ -96,7 +95,7 @@ class GameActivity : AppCompatActivity() {
         for (tile in tiles) {
             tile.imageView.setOnClickListener {
                 tile.onClickHandler()
-                binding.buttonDone.visibility = if (isFullBoard) View.VISIBLE else View.INVISIBLE
+                binding.buttonDone.visibility = if (Tile.isMovingPhaseDone) View.VISIBLE else View.INVISIBLE
             }
         }
 

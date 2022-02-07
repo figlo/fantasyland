@@ -4,8 +4,6 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 
-var isFullBoard = false
-
 class Tile(id: Int, val imageView: ImageView, var card: Card? = null) {
     private val isOnBottomRow = id in 1..5
     private val isOnMiddleRow = id in 6..10
@@ -61,10 +59,6 @@ class Tile(id: Int, val imageView: ImageView, var card: Card? = null) {
         imageView.setImageResource(imageView.tag.toString().toInt())
 
         selectedTile?.deSelect()
-
-        isFullBoard = Card.values().count { it.cardState == CardState.BOTTOM_ROW } == 5 &&
-                Card.values().count { it.cardState == CardState.MIDDLE_ROW } == 5 &&
-                Card.values().count { it.cardState == CardState.TOP_ROW } == 3
     }
 
     fun deSelect() {
@@ -78,5 +72,10 @@ class Tile(id: Int, val imageView: ImageView, var card: Card? = null) {
 
     companion object {
         var selectedTile: Tile? = null
+
+        val isMovingPhaseDone: Boolean
+            get() = Card.values().count { it.cardState == CardState.BOTTOM_ROW } == 5 &&
+                    Card.values().count { it.cardState == CardState.MIDDLE_ROW } == 5 &&
+                    Card.values().count { it.cardState == CardState.TOP_ROW } == 3
     }
 }
