@@ -60,7 +60,7 @@ class GameActivity : AppCompatActivity() {
             ImageView(this).apply {
                 layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
                 setImageResource(emptyCardImage)
-                tag = mutableMapOf("card" to null, "imageResource" to emptyCardImage)
+                tag = mutableMapOf<String, Any?>("card" to null, "imageResource" to emptyCardImage)
                 updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(imageViewMargin) }
                 setPadding(imageViewPadding)
                 setBackgroundColor(imageViewBackgroundColor)
@@ -82,7 +82,7 @@ class GameActivity : AppCompatActivity() {
             ImageView(this).apply {
                 layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
                 setImageResource(cardImage)
-                tag = mutableMapOf("card" to card, "imageResource" to cardImage)
+                tag = mutableMapOf<String, Any?>("card" to card, "imageResource" to cardImage)
                 updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(imageViewMargin) }
                 setPadding(imageViewPadding)
                 setBackgroundColor(imageViewBackgroundColor)
@@ -124,7 +124,7 @@ class GameActivity : AppCompatActivity() {
 
                 tiles[i + 12].imageView.apply {
                     setImageResource(cardImage)
-                    tag = mutableMapOf("card" to dealtCard, "imageResource" to cardImage)
+                    tag = mutableMapOf<String, Any?>("card" to dealtCard, "imageResource" to cardImage)
                 }
             }
         }
@@ -200,7 +200,7 @@ class GameActivity : AppCompatActivity() {
 
                 tiles[i - 1].imageView.apply {
                     setImageResource(cardImage)
-                    tag = mutableMapOf("card" to card, "imageResource" to cardImage)
+                    tag = mutableMapOf<String, Any?>("card" to card, "imageResource" to cardImage)
                 }
             }
 

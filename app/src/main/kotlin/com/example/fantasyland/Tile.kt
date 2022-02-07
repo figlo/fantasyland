@@ -3,32 +3,34 @@ package com.example.fantasyland
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
+import com.example.fantasyland.CardState.*
 
 class Tile(id: Int, val imageView: ImageView) {
     private val isOnBottomRow = id in 1..5
     private val isOnMiddleRow = id in 6..10
     private val isOnTopRow = id in 11..13
 
-    var tag : MutableMap<Any?, Any?>
-    get() = imageView.tag as MutableMap<Any?, Any?>
-    set(value) {
-        imageView.tag = mutableMapOf("card" to value["card"], "imageResource" to value["imageResource"])
-    }
+    private var tag: MutableMap<String, Any?>
+        @Suppress("UNCHECKED_CAST")
+        get() = imageView.tag as MutableMap<String, Any?>
+        set(value) {
+            imageView.tag = mutableMapOf("card" to value["card"], "imageResource" to value["imageResource"])
+        }
 
     var card: Card?
         get() = tag["card"] as Card?
+        @Suppress("UNCHECKED_CAST")
         set(value) {
-            var tag = imageView.tag as MutableMap<Any?, Any?>
-            val imageResource = tag["imageResource"] as Int
-            imageView.tag = mutableMapOf("card" to value, "imageResource" to imageResource)
+            val tag = imageView.tag as MutableMap<String, Any?>
+            tag["card"] = value
         }
 
-    var imageResource: Int
+    private var imageResource: Int
         get() = tag["imageResource"] as Int
+        @Suppress("UNCHECKED_CAST")
         set(value) {
-            var tag = imageView.tag as MutableMap<Any?, Any?>
-            val card = tag["card"] as Card?
-            imageView.tag = mutableMapOf("card" to card, "imageResource" to value)
+            val tag = imageView.tag as MutableMap<String, Any?>
+            tag["imageResource"] = value
         }
 
     fun onClickHandler() {
@@ -60,22 +62,23 @@ class Tile(id: Int, val imageView: ImageView) {
         // swap tags
         selectedTile?.imageView?.tag = imageView.tag.also { imageView.tag = selectedTile?.imageView?.tag }
 
-        // set new imageResources
-        selectedTile?.imageView?.setImageResource(selectedTile!!.imageResource).also { imageView.setImageResource(imageResource) }
+        // set new imageResources (from already swapped tags)
+        selectedTile?.imageView?.setImageResource(selectedTile!!.imageResource)
+        imageView.setImageResource(imageResource)
 
         // update cards state
         card?.cardState = when {
-            isOnBottomRow -> CardState.BOTTOM_ROW
-            isOnMiddleRow -> CardState.MIDDLE_ROW
-            isOnTopRow    -> CardState.TOP_ROW
-            else          -> CardState.DEALT
+            isOnBottomRow -> BOTTOM_ROW
+            isOnMiddleRow -> MIDDLE_ROW
+            isOnTopRow    -> TOP_ROW
+            else          -> DEALT
         }
 
         selectedTile?.card?.cardState = when {
-            selectedTile!!.isOnBottomRow -> CardState.BOTTOM_ROW
-            selectedTile!!.isOnMiddleRow -> CardState.MIDDLE_ROW
-            selectedTile!!.isOnTopRow    -> CardState.TOP_ROW
-            else                         -> CardState.DEALT
+            selectedTile!!.isOnBottomRow -> BOTTOM_ROW
+            selectedTile!!.isOnMiddleRow -> MIDDLE_ROW
+            selectedTile!!.isOnTopRow    -> TOP_ROW
+            else                         -> DEALT
         }
 
         selectedTile?.deSelect()
@@ -94,8 +97,8 @@ class Tile(id: Int, val imageView: ImageView) {
         var selectedTile: Tile? = null
 
         val isMovingPhaseDone: Boolean
-            get() = Card.values().count { it.cardState == CardState.BOTTOM_ROW } == 5 &&
-                    Card.values().count { it.cardState == CardState.MIDDLE_ROW } == 5 &&
-                    Card.values().count { it.cardState == CardState.TOP_ROW } == 3
+            get() = Card.values().count { it.cardState == BOTTOM_ROW } == 5 &&
+                    Card.values().count { it.cardState == MIDDLE_ROW } == 5 &&
+                    Card.values().count { it.cardState == TOP_ROW } == 3
     }
 }
