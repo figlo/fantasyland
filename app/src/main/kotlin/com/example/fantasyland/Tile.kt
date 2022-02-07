@@ -9,6 +9,7 @@ class Tile(id: Int, val imageView: ImageView) {
     private val isOnBottomRow = id in 1..5
     private val isOnMiddleRow = id in 6..10
     private val isOnTopRow = id in 11..13
+    private val isDealt = id > 13
 
     private var tag: MutableMap<String, Any?>
         @Suppress("UNCHECKED_CAST")
@@ -58,6 +59,15 @@ class Tile(id: Int, val imageView: ImageView) {
         selectedTile = this
     }
 
+    fun deSelect() {
+        with(imageView) {
+            setBackgroundColor(ContextCompat.getColor(context, R.color.cardViewBackground))
+            setPadding(1)
+        }
+
+        selectedTile = null
+    }
+
     fun makeMove() {
         // swap tags
         selectedTile?.imageView?.tag = imageView.tag.also { imageView.tag = selectedTile?.imageView?.tag }
@@ -71,26 +81,19 @@ class Tile(id: Int, val imageView: ImageView) {
             isOnBottomRow -> BOTTOM_ROW
             isOnMiddleRow -> MIDDLE_ROW
             isOnTopRow    -> TOP_ROW
-            else          -> DEALT
+            isDealt       -> DEALT
+            else -> throw IllegalStateException("Unknown card state")
         }
 
         selectedTile?.card?.cardState = when {
             selectedTile!!.isOnBottomRow -> BOTTOM_ROW
             selectedTile!!.isOnMiddleRow -> MIDDLE_ROW
             selectedTile!!.isOnTopRow    -> TOP_ROW
-            else                         -> DEALT
+            selectedTile!!.isDealt       -> DEALT
+            else -> throw IllegalStateException("Unknown selectedTile card state")
         }
 
         selectedTile?.deSelect()
-    }
-
-    fun deSelect() {
-        with(imageView) {
-            setBackgroundColor(ContextCompat.getColor(context, R.color.cardViewBackground))
-            setPadding(1)
-        }
-
-        selectedTile = null
     }
 
     companion object {
