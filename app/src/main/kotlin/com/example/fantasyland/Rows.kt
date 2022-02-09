@@ -28,6 +28,7 @@ open class Row(val cards: MutableList<Card>) {
         }
 
         cards.sortByCountAndRank()
+        otherRowCards.cards.sortByCountAndRank()
         cards.forEach { card ->
             val rank = card.face.rankAceHigh
             val otherRank = otherRowCards.cards.elementAt(cards.indexOf(card)).face.rankAceHigh
