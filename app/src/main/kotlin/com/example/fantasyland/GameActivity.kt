@@ -40,15 +40,15 @@ class GameActivity : AppCompatActivity() {
         val layoutMiddleRow = binding.linearLayoutMiddleRow
         val layoutTopRow = binding.linearLayoutTopRow
 
-        val tiles = mutableListOf<Tile>()
+        val imageViews = mutableListOf<ImageView>()
 
         val imageViewMargin = 8
         val imageViewPadding = 1
         val imageViewBackgroundColor = ContextCompat.getColor(this, R.color.cardViewBackground)
 
-        Tile.selectedTile = null
+        var selectedView: ImageView? = null
 
-        val emptyCardImage = resources.getIdentifier("empty_card", "drawable", packageName)
+        fun cardImageResource(card: Card?) = resources.getIdentifier(fileName(card), "drawable", packageName)
 
         for (i in 1..13) {
             val layoutRow = when (i) {
@@ -59,14 +59,14 @@ class GameActivity : AppCompatActivity() {
 
             ImageView(this).apply {
                 layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
-                setImageResource(emptyCardImage)
-                tag = mutableMapOf<String, Any?>("card" to null, "imageResource" to emptyCardImage)
+                setImageResource(cardImageResource(null))
+                tag = null
                 updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(imageViewMargin) }
                 setPadding(imageViewPadding)
                 setBackgroundColor(imageViewBackgroundColor)
 
                 layoutRow.addView(this)
-                tiles.add(Tile(i, this))
+                imageViews.add(this)
             }
         }
 
@@ -77,25 +77,79 @@ class GameActivity : AppCompatActivity() {
 
         for (i in 1..numberOfCardsInFantasyLand) {
             val card = dealCard()
-            val cardImage = resources.getIdentifier(fileName(card), "drawable", packageName)
 
             ImageView(this).apply {
                 layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
-                setImageResource(cardImage)
-                tag = mutableMapOf<String, Any?>("card" to card, "imageResource" to cardImage)
+                setImageResource(cardImageResource(card))
+                tag = card
                 updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(imageViewMargin) }
                 setPadding(imageViewPadding)
                 setBackgroundColor(imageViewBackgroundColor)
 
                 layoutDealtCards.addView(this)
-                tiles.add(Tile(i + 13, this))
+                imageViews.add(this)
             }
         }
 
-        for (tile in tiles) {
-            tile.imageView.setOnClickListener {
-                tile.onClickHandler()
-                binding.buttonDone.visibility = if (Tile.isMovingPhaseDone) View.VISIBLE else View.INVISIBLE
+        fun select(imageView: ImageView) {
+            with(imageView) {
+                setBackgroundColor(ContextCompat.getColor(context, R.color.cardViewSelected))
+                setPadding(4)
+            }
+
+            selectedView = imageView
+        }
+
+        fun deSelect(imageView: ImageView) {
+            with(imageView) {
+                setBackgroundColor(ContextCompat.getColor(context, R.color.cardViewBackground))
+                setPadding(1)
+            }
+
+            selectedView = null
+        }
+
+        fun makeMove(imageView: ImageView) {
+            // swap tags
+            selectedView?.tag = imageView.tag.also { imageView.tag = selectedView?.tag }
+
+            val selectedCard = selectedView!!.tag as Card?
+            val card = imageView.tag as Card?
+
+            // swap card states
+//            selectedCard!!.cardState = card!!.cardState.also { card!!.cardState = selectedCard!!.cardState }
+            selectedView!!.tag = selectedCard
+            imageView.tag = card
+
+            // set new imageResources (from already swapped tags)
+            selectedView?.setImageResource(cardImageResource(selectedCard))
+            imageView.setImageResource(cardImageResource(card))
+
+            deSelect(selectedView!!)
+        }
+
+        fun onClickHandler(imageView: ImageView) {
+            val isSomeTileSelected = selectedView != null
+
+            if (isSomeTileSelected) {
+                val isThisTileSelected = selectedView == imageView
+                if (isThisTileSelected) {
+                    deSelect(selectedView!!)
+                } else {
+                    makeMove(imageView)
+                }
+            } else {
+                val isCardOnThisTile = imageView.tag != null
+                if (isCardOnThisTile) select(imageView)
+            }
+        }
+
+        fun isMovingPhaseDone(): Boolean = imageViews.take(13).filter { it.tag != null }.size == 13
+
+        for (imageView in imageViews) {
+            imageView.setOnClickListener {
+                onClickHandler(imageView)
+                binding.buttonDone.visibility = if (isMovingPhaseDone()) View.VISIBLE else View.INVISIBLE
             }
         }
 
@@ -108,39 +162,37 @@ class GameActivity : AppCompatActivity() {
         sortSwitch = true
 
         binding.buttonSort.setOnClickListener {
-            Tile.selectedTile?.deSelect()
+            selectedView = null
 
-            val dealtCards = tiles.mapNotNull { it.card }.filter { it.cardState == DEALT }.toMutableList()
+            val dealtCards = imageViews.drop(13).mapNotNull { it.tag as Card? }.toMutableList()
             dealtCards.sort()
 
             for (i in 1..numberOfCardsInFantasyLand) {
                 val setCardToView = i <= dealtCards.size
                 val dealtCard: Card? = if (setCardToView) dealtCards[i - 1] else null
-                val cardFile = if (setCardToView) fileName(dealtCards[i - 1]) else "empty_card"
-                val cardImage = resources.getIdentifier(cardFile, "drawable", packageName)
 
-                tiles[i + 12].imageView.apply {
-                    setImageResource(cardImage)
-                    tag = mutableMapOf<String, Any?>("card" to dealtCard, "imageResource" to cardImage)
+                imageViews[i + 12].apply {
+                    setImageResource(cardImageResource(dealtCard))
+                    tag = dealtCard
                 }
             }
         }
 
         // set all cards button
         binding.buttonSetAllCards.setOnClickListener {
-            Tile.selectedTile?.deSelect()
+            selectedView = null
 
-            val emptyBoardTiles = tiles.take(13).filter { it.card == null }.toMutableList()
+            val emptyBoardViews = imageViews.take(13).filter { it.tag == null }.toMutableList()
 
-            if (emptyBoardTiles.size > 0) {
+            if (emptyBoardViews.size > 0) {
                 for (i in 1..numberOfCardsInFantasyLand) {
-                    val viewHasCard = tiles[i + 12].card != null
+                    val viewHasCard = imageViews[i + 12].tag != null
 
                     if (viewHasCard) {
-                        Tile.selectedTile = tiles[i + 12]
-                        emptyBoardTiles[0].makeMove()
-                        emptyBoardTiles.removeAt(0)
-                        if (emptyBoardTiles.size == 0) break
+                        selectedView = imageViews[i + 12]
+                        makeMove(emptyBoardViews[0])
+                        emptyBoardViews.removeAt(0)
+                        if (emptyBoardViews.size == 0) break
                     }
                 }
             }
@@ -150,10 +202,10 @@ class GameActivity : AppCompatActivity() {
 
         // done button
         binding.buttonDone.setOnClickListener {
-            Tile.selectedTile?.deSelect()
+            selectedView = null
 
-            for (tile in tiles) {
-                tile.imageView.setOnClickListener(null)
+            for (imageView in imageViews) {
+                imageView.setOnClickListener(null)
             }
 
             binding.apply {
@@ -163,9 +215,9 @@ class GameActivity : AppCompatActivity() {
                 buttonNewGame.visibility = View.VISIBLE
             }
 
-            val bottomRowCards = tiles.subList(0, 5).mapNotNull { it.card }.toMutableList()
-            val middleRowCards = tiles.subList(5, 10).mapNotNull { it.card }.toMutableList()
-            val topRowCards = tiles.subList(10, 13).mapNotNull { it.card }.toMutableList()
+            val bottomRowCards = imageViews.subList(0, 5).map { it.tag as Card }.toMutableList()
+            val middleRowCards = imageViews.subList(5, 10).map { it.tag as Card }.toMutableList()
+            val topRowCards = imageViews.subList(10, 13).map { it.tag as Card }.toMutableList()
 
             val bottomRow = BottomRow(bottomRowCards)
             val middleRow = MiddleRow(middleRowCards)
@@ -192,11 +244,9 @@ class GameActivity : AppCompatActivity() {
                     else     -> topRowCards[i - 11]
                 }
 
-                val cardImage = resources.getIdentifier(fileName(card), "drawable", packageName)
-
-                tiles[i - 1].imageView.apply {
-                    setImageResource(cardImage)
-                    tag = mutableMapOf<String, Any?>("card" to card, "imageResource" to cardImage)
+                imageViews[i - 1].apply {
+                    setImageResource(cardImageResource(card))
+                    tag = card
                 }
             }
 
@@ -257,7 +307,12 @@ class GameActivity : AppCompatActivity() {
     }
 }
 
-fun fileName(card: Card) = "card_" + card.name.takeLast(2).lowercase()
+fun fileName(card: Card?): String {
+    return if (card == null)
+        "empty_card"
+    else
+        "card_" + card.name.takeLast(2).lowercase()
+}
 
 fun dealCard(): Card {
     val dealtCard =
