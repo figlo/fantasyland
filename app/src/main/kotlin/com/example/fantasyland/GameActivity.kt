@@ -15,8 +15,8 @@ import androidx.core.view.setMargins
 import androidx.core.view.setPadding
 import androidx.core.view.updateLayoutParams
 import androidx.preference.PreferenceManager
-import com.example.fantasyland.MyCardState.DEALT
-import com.example.fantasyland.MyCardState.DECK
+import com.example.fantasyland.FantasyLandCardState.DEALT
+import com.example.fantasyland.FantasyLandCardState.DECK
 import com.example.fantasyland.databinding.ActivityGameBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -280,7 +280,7 @@ class GameActivity : AppCompatActivity() {
     }
 }
 
-enum class MyCardState: CardState {
+enum class FantasyLandCardState: CardState {
     DECK,
     DEALT;
 }
