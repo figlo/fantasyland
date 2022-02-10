@@ -28,7 +28,7 @@ enum class CardSuit {
     CLUBS;
 }
 
-enum class Card(val face: CardFace, val suit: CardSuit, var cardState: CardState = CardState.DECK) {
+enum class Card(val face: CardFace, val suit: CardSuit) {
     CARD_AS(ACE, SPADES),
     CARD_2S(TWO, SPADES),
     CARD_3S(THREE, SPADES),
@@ -84,11 +84,8 @@ enum class Card(val face: CardFace, val suit: CardSuit, var cardState: CardState
     CARD_JC(JACK, CLUBS),
     CARD_QC(QUEEN, CLUBS),
     CARD_KC(KING, CLUBS);
-}
 
-enum class CardState {
-    DECK,
-    DEALT;
+    var cardState: CardState? = null
 }
 
 enum class PokerCombination {

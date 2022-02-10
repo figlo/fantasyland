@@ -15,8 +15,8 @@ import androidx.core.view.setMargins
 import androidx.core.view.setPadding
 import androidx.core.view.updateLayoutParams
 import androidx.preference.PreferenceManager
-import com.example.fantasyland.CardState.DEALT
-import com.example.fantasyland.CardState.DECK
+import com.example.fantasyland.MyCardState.DEALT
+import com.example.fantasyland.MyCardState.DECK
 import com.example.fantasyland.databinding.ActivityGameBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -278,6 +278,11 @@ class GameActivity : AppCompatActivity() {
             else          -> super.onOptionsItemSelected(item)
         }
     }
+}
+
+enum class MyCardState: CardState {
+    DECK,
+    DEALT;
 }
 
 fun fileName(card: Card?) = if (card == null) "empty_card" else "card_" + card.name.takeLast(2).lowercase()
