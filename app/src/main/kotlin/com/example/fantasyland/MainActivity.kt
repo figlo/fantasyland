@@ -4,10 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.PreferenceManager
 import com.example.fantasyland.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -18,26 +15,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.includedLayout.toolbar)
-
-        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-
-        val spinnerValue = preferences.getString("number_of_cards_in_fantasy_land", "14") ?: "14"
-        val spinnerIndex = spinnerValue.toInt() - 13
-        binding.spinnerNumberOfFantasyLandCards.setSelection(spinnerIndex)
-
-        binding.spinnerNumberOfFantasyLandCards.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedItem = parent?.getItemAtPosition(position).toString()
-                preferences.edit().putString("number_of_cards_in_fantasy_land", selectedItem).apply()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
-        }
-
-        binding.buttonPlay.setOnClickListener {
-            startActivity(Intent(this, GameActivity::class.java))
+        if (savedInstanceState == null) {
+            val fragment = MainFragment()
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.main_content, fragment)
+                .commit()
         }
     }
 
