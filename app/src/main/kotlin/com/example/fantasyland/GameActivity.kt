@@ -101,7 +101,7 @@ class GameActivity : AppCompatActivity() {
 
             // set new imageResources from already swapped tags (cards)
             val selectedCard = selectedView!!.tag as Card?
-            val card = imageView.tag as Card?
+            val card = imageView.tag as Card
             selectedView?.setImageResource(cardImageResource(selectedCard))
             imageView.setImageResource(cardImageResource(card))
 
