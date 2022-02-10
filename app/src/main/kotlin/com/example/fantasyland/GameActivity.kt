@@ -35,48 +35,33 @@ class GameActivity : AppCompatActivity() {
         val cardWidth = displayWidth / 21
         val cardHeight = (cardWidth * 1.4).toInt()
 
-        // board views
-        val layoutBottomRow = binding.linearLayoutBottomRow
-        val layoutMiddleRow = binding.linearLayoutMiddleRow
-        val layoutTopRow = binding.linearLayoutTopRow
-
         val imageViews = mutableListOf<ImageView>()
 
         val imageViewMargin = 8
         val imageViewPadding = 1
         val imageViewBackgroundColor = ContextCompat.getColor(this, R.color.cardViewBackground)
 
-        var selectedView: ImageView? = null
-
         fun cardImageResource(card: Card?) = resources.getIdentifier(fileName(card), "drawable", packageName)
 
-        for (i in 1..13) {
-            val layoutRow = when (i) {
-                in 1..5  -> layoutBottomRow
-                in 6..10 -> layoutMiddleRow
-                else     -> layoutTopRow
-            }
-
-            ImageView(this).apply {
-                layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
-                setImageResource(cardImageResource(null))
-                tag = null
-                updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(imageViewMargin) }
-                setPadding(imageViewPadding)
-                setBackgroundColor(imageViewBackgroundColor)
-
-                layoutRow.addView(this)
-                imageViews.add(this)
-            }
-        }
-
-        // dealt cards views
-        val layoutDealtCards = binding.linearLayoutDealtCards
-
+        // new game - reset values
+        var selectedView: ImageView? = null
         Card.values().forEach { it.cardState = DECK }
 
-        for (i in 1..numberOfCardsInFantasyLand) {
-            val card = dealCard()
+        // image views
+        val layoutBottomRow = binding.linearLayoutBottomRow
+        val layoutMiddleRow = binding.linearLayoutMiddleRow
+        val layoutTopRow = binding.linearLayoutTopRow
+        val layoutDealtCards = binding.linearLayoutDealtCards
+
+        for (i in 1..(13 + numberOfCardsInFantasyLand)) {
+            val layoutRow = when (i) {
+                in 1..5   -> layoutBottomRow
+                in 6..10  -> layoutMiddleRow
+                in 11..13 -> layoutTopRow
+                else      -> layoutDealtCards
+            }
+
+            val card = if (i in 1..13) null else dealCard()
 
             ImageView(this).apply {
                 layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
@@ -86,11 +71,12 @@ class GameActivity : AppCompatActivity() {
                 setPadding(imageViewPadding)
                 setBackgroundColor(imageViewBackgroundColor)
 
-                layoutDealtCards.addView(this)
+                layoutRow.addView(this)
                 imageViews.add(this)
             }
         }
 
+        // imageView functions
         fun select(imageView: ImageView) {
             with(imageView) {
                 setBackgroundColor(ContextCompat.getColor(context, R.color.cardViewSelected))
@@ -117,7 +103,6 @@ class GameActivity : AppCompatActivity() {
             val card = imageView.tag as Card?
 
             // swap card states
-//            selectedCard!!.cardState = card!!.cardState.also { card!!.cardState = selectedCard!!.cardState }
             selectedView!!.tag = selectedCard
             imageView.tag = card
 
@@ -144,8 +129,9 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
-        fun isMovingPhaseDone(): Boolean = imageViews.take(13).filter { it.tag != null }.size == 13
+        fun isMovingPhaseDone(): Boolean = imageViews.take(13).none { it.tag == null }
 
+        // set onClickListener on imageViews
         for (imageView in imageViews) {
             imageView.setOnClickListener {
                 onClickHandler(imageView)
