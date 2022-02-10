@@ -106,6 +106,9 @@ class GameActivity : AppCompatActivity() {
             imageView.setImageResource(cardImageResource(card))
 
             deSelect(selectedView!!)
+
+            val isMovingPhaseDone = imageViews.take(13).all { it.tag != null }
+            binding.buttonDone.visibility = if (isMovingPhaseDone) View.VISIBLE else View.INVISIBLE
         }
 
         fun onClickHandler(imageView: ImageView) {
@@ -124,15 +127,8 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
-        fun isMovingPhaseDone(): Boolean = imageViews.take(13).all { it.tag != null }
-
         // set onClickListener on imageViews
-        for (imageView in imageViews) {
-            imageView.setOnClickListener {
-                onClickHandler(imageView)
-                binding.buttonDone.visibility = if (isMovingPhaseDone()) View.VISIBLE else View.INVISIBLE
-            }
-        }
+        imageViews.forEach { imageView -> imageView.setOnClickListener { onClickHandler(imageView) } }
 
         // home button
         binding.buttonHome.setOnClickListener {
@@ -177,17 +173,13 @@ class GameActivity : AppCompatActivity() {
                     }
                 }
             }
-
-            binding.buttonDone.visibility = View.VISIBLE
         }
 
         // done button
         binding.buttonDone.setOnClickListener {
             selectedView?.let { deSelect(selectedView!!) }
 
-            for (imageView in imageViews) {
-                imageView.setOnClickListener(null)
-            }
+            imageViews.forEach { it.setOnClickListener(null) }
 
             binding.apply {
                 buttonSort.visibility = View.GONE
@@ -288,30 +280,21 @@ class GameActivity : AppCompatActivity() {
     }
 }
 
-fun fileName(card: Card?): String {
-    return if (card == null)
-        "empty_card"
-    else
-        "card_" + card.name.takeLast(2).lowercase()
-}
+fun fileName(card: Card?) = if (card == null) "empty_card" else "card_" + card.name.takeLast(2).lowercase()
 
-fun dealCard(): Card {
-    val dealtCard =
-        Card.values()
-            .filter { it.cardState == DECK }
-            .random()
-    dealtCard.cardState = DEALT
-    return dealtCard
-}
+fun dealCard() = Card.values()
+    .filter { it.cardState == DECK }
+    .random()
+    .apply { cardState = DEALT }
 
-fun isValidResult(bottomRow: BottomRow, middleRow: MiddleRow, topRow: TopRow): Boolean {
-    return when {
+fun isValidResult(bottomRow: BottomRow, middleRow: MiddleRow, topRow: TopRow) =
+    when {
         middleRow isHigherThan bottomRow -> false
         topRow isHigherThan middleRow    -> false
         else                             -> true
     }
-}
 
-fun isRepeatedFantasy(bottomRow: BottomRow, middleRow: MiddleRow, topRow: TopRow) = isValidResult(bottomRow, middleRow, topRow) &&
-        (bottomRow.pokerCombination >= PokerCombination.QUADS ||
-                topRow.pokerCombination == PokerCombination.TRIPS)
+fun isRepeatedFantasy(bottomRow: BottomRow, middleRow: MiddleRow, topRow: TopRow) =
+    isValidResult(bottomRow, middleRow, topRow) &&
+            (bottomRow.pokerCombination >= PokerCombination.QUADS ||
+                    topRow.pokerCombination == PokerCombination.TRIPS)

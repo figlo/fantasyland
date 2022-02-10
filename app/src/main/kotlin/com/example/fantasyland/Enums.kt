@@ -88,10 +88,7 @@ enum class Card(val face: CardFace, val suit: CardSuit, var cardState: CardState
 
 enum class CardState {
     DECK,
-    DEALT,
-    BOTTOM_ROW,
-    MIDDLE_ROW,
-    TOP_ROW;
+    DEALT;
 }
 
 enum class PokerCombination {
