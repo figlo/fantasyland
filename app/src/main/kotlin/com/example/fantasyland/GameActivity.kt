@@ -96,17 +96,12 @@ class GameActivity : AppCompatActivity() {
         }
 
         fun makeMove(imageView: ImageView) {
-            // swap tags
+            // swap tags (cards)
             selectedView?.tag = imageView.tag.also { imageView.tag = selectedView?.tag }
 
+            // set new imageResources from already swapped tags (cards)
             val selectedCard = selectedView!!.tag as Card?
             val card = imageView.tag as Card?
-
-            // swap card states
-            selectedView!!.tag = selectedCard
-            imageView.tag = card
-
-            // set new imageResources (from already swapped tags)
             selectedView?.setImageResource(cardImageResource(selectedCard))
             imageView.setImageResource(cardImageResource(card))
 
@@ -119,7 +114,7 @@ class GameActivity : AppCompatActivity() {
             if (isSomeTileSelected) {
                 val isThisTileSelected = selectedView == imageView
                 if (isThisTileSelected) {
-                    deSelect(selectedView!!)
+                    deSelect(imageView)
                 } else {
                     makeMove(imageView)
                 }
@@ -129,7 +124,7 @@ class GameActivity : AppCompatActivity() {
             }
         }
 
-        fun isMovingPhaseDone(): Boolean = imageViews.take(13).none { it.tag == null }
+        fun isMovingPhaseDone(): Boolean = imageViews.take(13).all { it.tag != null }
 
         // set onClickListener on imageViews
         for (imageView in imageViews) {
