@@ -143,7 +143,7 @@ class GameActivity : AppCompatActivity() {
         sortSwitch = true
 
         binding.buttonSort.setOnClickListener {
-            selectedView = null
+            selectedView?.let { deSelect(selectedView!!) }
 
             val dealtCards = imageViews.drop(13).mapNotNull { it.tag as Card? }.toMutableList()
             dealtCards.sort()
@@ -161,7 +161,7 @@ class GameActivity : AppCompatActivity() {
 
         // set all cards button
         binding.buttonSetAllCards.setOnClickListener {
-            selectedView = null
+            selectedView?.let { deSelect(selectedView!!) }
 
             val emptyBoardViews = imageViews.take(13).filter { it.tag == null }.toMutableList()
 
@@ -183,7 +183,7 @@ class GameActivity : AppCompatActivity() {
 
         // done button
         binding.buttonDone.setOnClickListener {
-            selectedView = null
+            selectedView?.let { deSelect(selectedView!!) }
 
             for (imageView in imageViews) {
                 imageView.setOnClickListener(null)
