@@ -1,5 +1,6 @@
 package com.example.fantasyland
 
+import android.content.pm.ActivityInfo
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,7 +24,8 @@ class GameFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentGameBinding.inflate(inflater)
-//        (activity as AppCompatActivity).setSupportActionBar(binding.includedLayout.toolbar)
+
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
         return binding.root
     }
@@ -259,6 +261,11 @@ class GameFragment : Fragment() {
 //            startActivity(intent)
 //            overridePendingTransition(0, 0)
 //        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
     }
 }
 

@@ -1,6 +1,5 @@
 package com.example.fantasyland
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.preference.PreferenceManager
 import com.example.fantasyland.databinding.FragmentMainBinding
 
@@ -42,7 +42,7 @@ class MainFragment : Fragment() {
         }
 
         binding.buttonPlay.setOnClickListener {
-            startActivity(Intent(activity, GameActivity::class.java))
+            it.findNavController().navigate(R.id.action_mainFragment_to_gameFragment)
         }
     }
 }
