@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.preference.PreferenceManager
 import com.example.fantasyland.databinding.FragmentGameBinding
+import kotlin.math.max
 
 class GameFragment : Fragment() {
     private lateinit var binding: FragmentGameBinding
@@ -36,7 +37,8 @@ class GameFragment : Fragment() {
         val numberOfCardsInFantasyLand = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
 
         val displayWidth = Resources.getSystem().displayMetrics.widthPixels
-        val cardWidth = displayWidth / 21
+        val displayHeight = Resources.getSystem().displayMetrics.heightPixels
+        val cardWidth = max(displayWidth, displayHeight) / 21
         val cardHeight = (cardWidth * 1.4).toInt()
 
         val imageViews = mutableListOf<ImageView>()
