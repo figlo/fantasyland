@@ -35,11 +35,11 @@ class MainActivity : AppCompatActivity() {
                 this.startActivity(Intent(this, SettingsActivity::class.java))
                 true
             }
-            R.id.about -> {
+            R.id.about    -> {
                 Snackbar.make(binding.root, "About", Snackbar.LENGTH_SHORT).show()
                 true
             }
-            else -> super.onOptionsItemSelected(item)
+            else          -> super.onOptionsItemSelected(item)
         }
     }
 }
