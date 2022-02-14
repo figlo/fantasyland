@@ -13,6 +13,7 @@ import androidx.core.view.setMargins
 import androidx.core.view.setPadding
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.preference.PreferenceManager
 import com.example.fantasyland.databinding.FragmentGameBinding
 
@@ -134,9 +135,9 @@ class GameFragment : Fragment() {
         imageViews.forEach { imageView -> imageView.setOnClickListener { onClickHandler(imageView) } }
 
         // home button
-//        binding.buttonHome.setOnClickListener {
-//            startActivity(Intent(this, MainActivity::class.java))
-//        }
+        binding.buttonHome.setOnClickListener {
+            it.findNavController().navigate(R.id.action_gameFragment_to_mainFragment)
+        }
 
         // sort button
         sortSwitch = true
@@ -255,12 +256,12 @@ class GameFragment : Fragment() {
         }
 
         // new game button
-//        binding.buttonNewGame.setOnClickListener {
-//            finish()
-//            overridePendingTransition(0, 0)
-//            startActivity(intent)
-//            overridePendingTransition(0, 0)
-//        }
+        binding.buttonNewGame.setOnClickListener {
+            val navController = it.findNavController()
+            val id = navController.currentDestination?.id
+            navController.popBackStack(id!!,true)
+            navController.navigate(id)
+        }
     }
 
     override fun onDestroyView() {
