@@ -1,6 +1,7 @@
 package com.example.fantasyland
 
 import com.example.fantasyland.CardFace.*
+import com.example.fantasyland.CardState.DECK
 import com.example.fantasyland.CardSuit.*
 
 enum class CardFace {
@@ -85,7 +86,12 @@ enum class Card(val face: CardFace, val suit: CardSuit) {
     CARD_QC(QUEEN, CLUBS),
     CARD_KC(KING, CLUBS);
 
-    var cardState: CardState? = null
+    var cardState: CardState = DECK
+}
+
+enum class CardState {
+    DECK,
+    DEALT;
 }
 
 enum class PokerCombination {

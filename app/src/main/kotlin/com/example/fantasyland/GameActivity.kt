@@ -15,8 +15,6 @@ import androidx.core.view.setMargins
 import androidx.core.view.setPadding
 import androidx.core.view.updateLayoutParams
 import androidx.preference.PreferenceManager
-import com.example.fantasyland.FantasyLandCardState.DEALT
-import com.example.fantasyland.FantasyLandCardState.DECK
 import com.example.fantasyland.databinding.ActivityGameBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -45,7 +43,7 @@ class GameActivity : AppCompatActivity() {
 
         // new game - reset values
         var selectedView: ImageView? = null
-        Card.values().forEach { it.cardState = DECK }
+        Card.values().forEach { it.cardState = CardState.DECK }
 
         // image views
         val layoutBottomRow = binding.linearLayoutBottomRow
@@ -280,17 +278,12 @@ class GameActivity : AppCompatActivity() {
     }
 }
 
-enum class FantasyLandCardState: CardState {
-    DECK,
-    DEALT;
-}
-
 fun fileName(card: Card?) = if (card == null) "empty_card" else "card_" + card.name.takeLast(2).lowercase()
 
 fun dealCard() = Card.values()
-    .filter { it.cardState == DECK }
+    .filter { it.cardState == CardState.DECK }
     .random()
-    .apply { cardState = DEALT }
+    .apply { cardState = CardState.DEALT }
 
 fun isValidResult(bottomRow: BottomRow, middleRow: MiddleRow, topRow: TopRow) =
     when {
