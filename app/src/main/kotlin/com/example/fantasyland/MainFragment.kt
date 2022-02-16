@@ -1,13 +1,12 @@
 package com.example.fantasyland
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.preference.PreferenceManager
 import com.example.fantasyland.databinding.FragmentMainBinding
 
@@ -21,7 +20,19 @@ class MainFragment : Fragment() {
         binding = FragmentMainBinding.inflate(inflater)
         (activity as AppCompatActivity).setSupportActionBar(binding.includedLayout.toolbar)
 
+        setHasOptionsMenu(true)
+
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.right_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
+                || super.onOptionsItemSelected(item)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
