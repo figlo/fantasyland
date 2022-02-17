@@ -136,11 +136,6 @@ class GameFragment : Fragment() {
         // set onClickListener on imageViews
         imageViews.forEach { imageView -> imageView.setOnClickListener { onClickHandler(imageView) } }
 
-        // home button
-        binding.buttonHome.setOnClickListener {
-            it.findNavController().navigate(R.id.action_gameFragment_to_mainFragment)
-        }
-
         // sort button
         sortSwitch = true
 

@@ -1,12 +1,12 @@
 package com.example.fantasyland
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.preference.PreferenceManager
 import com.example.fantasyland.databinding.FragmentMainBinding
 
@@ -18,9 +18,6 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainBinding.inflate(inflater)
-        (activity as AppCompatActivity).setSupportActionBar(binding.includedLayout.toolbar)
-
-        setHasOptionsMenu(true)
 
         return binding.root
     }
@@ -45,15 +42,5 @@ class MainFragment : Fragment() {
         binding.buttonPlay.setOnClickListener {
             it.findNavController().navigate(R.id.action_mainFragment_to_gameFragment)
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.right_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
-                || super.onOptionsItemSelected(item)
     }
 }
