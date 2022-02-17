@@ -17,13 +17,180 @@
     <string name="new_fantasyland">New FantasyLand!</string>
 
     <!-- Menu -->
+    <string name="rules">Rules</string>
     <string name="settings">Settings</string>
-    <string name="about">About</string>
 
     <!-- Settings -->
     <string name="title_activity_settings">Settings</string>
     <string name="personal_header">Personal</string>
     <string name="nickname_title">Your nickname</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Rules -->
+    <string name="rulesHtml">
+        <![CDATA[
+
+        <h1>Rules</h1>
+
+        <h2>Rules</h2>
+
+        <h3>Game</h3>
+
+        <p>The game is played with 52-card deck.</p>
+
+        <p>The object of the game is to form three hands, also referred to as "rows":</p>
+        <ul>
+        <li>Bottom row - 5-card hand</li>
+        <li>Middle row - 5-card hand</li>
+        <li>Top row - 3-card hand</li>
+        </ul>
+
+        <p>Bottom row hand must rank higher of equal to middle row hand.
+        <br>Middle row hand must rank higher of equal to top row hand.</p>
+
+        <p>The regular Texas Hold\'em showdown hand values are used for comparison.</p>
+
+        <h3>Scoring</h3>
+
+        <table border="1">
+            <tr>
+                <td></td>
+                <td><b>Bottom Row</b></td>
+                <td><b>Middle Row</b></td>
+            </tr>
+            <tr>
+                <td>Royal flush</td>
+                <td>25</td>
+                <td>50</td>
+            </tr>
+            <tr>
+                <td>Straight flush</td>
+                <td>15</td>
+                <td>30</td>
+            </tr>
+            <tr>
+                <td>Quads</td>
+                <td>10</td>
+                <td>20</td>
+            </tr>
+            <tr>
+                <td>Full house</td>
+                <td>6</td>
+                <td>12</td>
+            </tr>
+            <tr>
+                <td>Flush</td>
+                <td>4</td>
+                <td>8</td>
+            </tr>
+            <tr>
+                <td>Straight</td>
+                <td>2</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td>Trips</td>
+                <td></td>
+                <td>2</td>
+            </tr>
+        </table>
+
+        <p>
+
+        <table border="1">
+            <tr>
+                <td></td>
+                <td><b>Top Row</b></td>
+            </tr>
+            <tr>
+                <td>Trips AAA</td>
+                <td>22</td>
+            </tr>
+            <tr>
+                <td>Trips KKK</td>
+                <td>21</td>
+            </tr>
+            <tr>
+                <td>Trips QQQ</td>
+                <td>20</td>
+            </tr>
+            <tr>
+                <td>Trips JJJ</td>
+                <td>19</td>
+            </tr>
+            <tr>
+                <td>Trips TTT</td>
+                <td>18</td>
+            </tr>
+            <tr>
+                <td>Trips 999</td>
+                <td>17</td>
+            </tr>
+            <tr>
+                <td>Trips 888</td>
+                <td>16</td>
+            </tr>
+            <tr>
+                <td>Trips 777</td>
+                <td>15</td>
+            </tr>
+            <tr>
+                <td>Trips 666</td>
+                <td>14</td>
+            </tr>
+            <tr>
+                <td>Trips 555</td>
+                <td>13</td>
+            </tr>
+            <tr>
+                <td>Trips 444</td>
+                <td>12</td>
+            </tr>
+            <tr>
+                <td>Trips 333</td>
+                <td>11</td>
+            </tr>
+            <tr>
+                <td>Trips 222</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>Pair AA</td>
+                <td>9</td>
+            </tr>
+            <tr>
+                <td>Pair KK</td>
+                <td>8</td>
+            </tr>
+            <tr>
+                <td>Pair QQ</td>
+                <td>7</td>
+            </tr>
+            <tr>
+                <td>Pair JJ</td>
+                <td>6</td>
+            </tr>
+            <tr>
+                <td>Pair TT</td>
+                <td>5</td>
+            </tr>
+            <tr>
+                <td>Pair 99</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td>Pair 88</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>Pair 77</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>Pair 66</td>
+                <td>1</td>
+            </tr>
+        </table>
+
+        ]]>
+    </string>
 </resources>

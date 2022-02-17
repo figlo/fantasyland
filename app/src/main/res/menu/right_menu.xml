@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/settingsFragment"
-        android:title="@string/settings"
+    <item android:id="@+id/rulesFragment"
+        android:title="@string/rules"
         app:showAsAction="never" />
 
-    <item android:id="@+id/aboutFragment"
-        android:title="@string/about"
+    <item android:id="@+id/settingsFragment"
+        android:title="@string/settings"
         app:showAsAction="never" />
 </menu>

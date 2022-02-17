@@ -24,6 +24,12 @@
             app:destination="@id/mainFragment" />
     </fragment>
     <fragment
+        android:id="@+id/rulesFragment"
+        android:name="com.example.fantasyland.RulesFragment"
+        android:label="Rules"
+        tools:layout="@layout/fragment_rules" >
+    </fragment>
+    <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.fantasyland.SettingsFragment"
         android:label="Settings"
