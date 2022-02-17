@@ -31,9 +31,7 @@
 
         <h1>Rules</h1>
 
-        <h2>Rules</h2>
-
-        <h3>Game</h3>
+        <h2>Game</h2>
 
         <p>The game is played with 52-card deck.</p>
 
@@ -49,7 +47,7 @@
 
         <p>The regular Texas Hold\'em showdown hand values are used for comparison.</p>
 
-        <h3>Scoring</h3>
+        <h2>Scoring</h2>
 
         <table border="1">
             <tr>
