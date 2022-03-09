@@ -17,31 +17,31 @@ abstract class Row(val cards: List<Card>) {
         else                  -> throw IllegalStateException("Unknow poker combination!")
     }
 
-    infix fun isHigherThan(otherRowCards: Row): Boolean {
+    infix fun isHigherThan(otherRow: Row): Boolean {
         // different poker combinations
-        if (pokerCombination > otherRowCards.pokerCombination) return true
-        if (pokerCombination < otherRowCards.pokerCombination) return false
+        if (pokerCombination > otherRow.pokerCombination) return true
+        if (pokerCombination < otherRow.pokerCombination) return false
 
         // the same poker combinations
         if (
             pokerCombination == STRAIGHT
         ) {
             if (cards.isWheel) return false
-            if (otherRowCards.cards.isWheel) return true
+            if (otherRow.cards.isWheel) return true
         }
 
         if (
             pokerCombination == STRAIGHT_FLUSH
         ) {
             if (cards.isSteelWheel) return false
-            if (otherRowCards.cards.isSteelWheel) return true
+            if (otherRow.cards.isSteelWheel) return true
         }
 
         val sortedCards = cards.sortByCountAndRank()
-        val otherSortedCards = otherRowCards.cards.sortByCountAndRank()
-        sortedCards.forEach { card ->
+        val otherSortedCards = otherRow.cards.sortByCountAndRank()
+        for ((i, card) in sortedCards.withIndex()) {
             val rank = card.face.rankAceHigh
-            val otherRank = otherSortedCards.elementAt(sortedCards.indexOf(card)).face.rankAceHigh
+            val otherRank = otherSortedCards[i].face.rankAceHigh
             if (rank > otherRank) return true
             if (rank < otherRank) return false
         }
