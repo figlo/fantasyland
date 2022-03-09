@@ -25,8 +25,8 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
-        val spinnerValue = preferences.getString("number_of_cards_in_fantasy_land", "14") ?: "14"
-        val spinnerIndex = spinnerValue.toInt() - 13
+        val spinnerValue: String = preferences.getString("number_of_cards_in_fantasy_land", "14") ?: "14"
+        val spinnerIndex: Int = spinnerValue.toInt() - 13
         binding.spinnerNumberOfFantasyLandCards.setSelection(spinnerIndex)
 
         binding.spinnerNumberOfFantasyLandCards.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

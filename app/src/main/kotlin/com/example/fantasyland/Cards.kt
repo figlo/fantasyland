@@ -3,7 +3,7 @@ package com.example.fantasyland
 
 // some helper properties, not poker combinations
 
-val List<Card>.numberOfFaces
+val List<Card>.numberOfFaces: Int
     get() = map { it.face }.distinct().count()
 
 val List<Card>.isOfDifferentFaces: Boolean
@@ -11,7 +11,7 @@ val List<Card>.isOfDifferentFaces: Boolean
 
 val List<Card>.isOfOneSuit: Boolean
     get() {
-        val numberOfSuits = map { it.suit }.distinct().count()
+        val numberOfSuits: Int = map { it.suit }.distinct().count()
         return numberOfSuits == 1
     }
 
@@ -25,12 +25,12 @@ val List<Card>.isProgression: Boolean
     get() {
         if (!isOfDifferentFaces) return false
 
-        val minFaceAceHigh = map { it.face.rankAceHigh }.minOrNull()
-        val maxFaceAceHigh = map { it.face.rankAceHigh }.maxOrNull()
+        val minFaceAceHigh: Int? = map { it.face.rankAceHigh }.minOrNull()
+        val maxFaceAceHigh: Int? = map { it.face.rankAceHigh }.maxOrNull()
         if (maxFaceAceHigh!! - minFaceAceHigh!! == size - 1) return true
 
-        val minFace = map { it.face.ordinal }.minOrNull()
-        val maxFace = map { it.face.ordinal }.maxOrNull()
+        val minFace: Int? = map { it.face.ordinal }.minOrNull()
+        val maxFace: Int? = map { it.face.ordinal }.maxOrNull()
         if (maxFace!! - minFace!! == size - 1) return true
 
         return false
@@ -126,7 +126,7 @@ fun List<Card>.sort(): List<Card> {
     }.also { sortSwitch = !sortSwitch }
 }
 
-fun List<Card>.sortByRankAndColor() =
+fun List<Card>.sortByRankAndColor(): List<Card> =
     sortedWith(
         compareBy(
             { -it.face.rankAceHigh },
@@ -134,7 +134,7 @@ fun List<Card>.sortByRankAndColor() =
         )
     )
 
-fun List<Card>.sortByColorAndRank() =
+fun List<Card>.sortByColorAndRank(): List<Card> =
     sortedWith(
         compareBy(
             { it.suit },
@@ -142,7 +142,7 @@ fun List<Card>.sortByColorAndRank() =
         )
     )
 
-fun List<Card>.sortByCountAndRank() =
+fun List<Card>.sortByCountAndRank(): List<Card> =
     sortedWith(
         compareBy(
             { card -> -this.count { otherCard -> card.face == otherCard.face } },
@@ -150,7 +150,7 @@ fun List<Card>.sortByCountAndRank() =
         )
     )
 
-fun List<Card>.sortByRankAndColorAceLow() =
+fun List<Card>.sortByRankAndColorAceLow(): List<Card> =
     sortedWith(
         compareBy(
             { -it.face.ordinal },

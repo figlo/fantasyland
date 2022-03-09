@@ -37,11 +37,11 @@ abstract class Row(val cards: List<Card>) {
             if (otherRow.cards.isSteelWheel) return true
         }
 
-        val sortedCards = cards.sortByCountAndRank()
-        val otherSortedCards = otherRow.cards.sortByCountAndRank()
+        val sortedCards: List<Card> = cards.sortByCountAndRank()
+        val otherSortedCards: List<Card> = otherRow.cards.sortByCountAndRank()
         for ((i, card) in sortedCards.withIndex()) {
-            val rank = card.face.rankAceHigh
-            val otherRank = otherSortedCards[i].face.rankAceHigh
+            val rank: Int = card.face.rankAceHigh
+            val otherRank: Int = otherSortedCards[i].face.rankAceHigh
             if (rank > otherRank) return true
             if (rank < otherRank) return false
         }
