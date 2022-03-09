@@ -52,7 +52,7 @@ abstract class Row(val cards: List<Card>) {
 
 class BottomRow(cards: List<Card>) : Row(cards) {
     init {
-        require(cards.size == 5) { "Number of bottom row cards (must be 5): ${cards.size}" }
+        require(cards.size == 5) { "Number of bottom row cards (must be 5): cards.size = ${cards.size}" }
     }
 
     fun value(): Int {
@@ -73,7 +73,7 @@ class BottomRow(cards: List<Card>) : Row(cards) {
 
 class MiddleRow(cards: List<Card>) : Row(cards) {
     init {
-        require(cards.size == 5) { "Number of middle row cards (must be 5): ${cards.size}" }
+        require(cards.size == 5) { "Number of middle row cards (must be 5): cards.size = ${cards.size}" }
     }
 
     fun value(): Int {
@@ -94,7 +94,7 @@ class MiddleRow(cards: List<Card>) : Row(cards) {
 
 class TopRow(cards: List<Card>) : Row(cards) {
     init {
-        require(cards.size == 3) { "Number of top row cards (must be 3): ${cards.size}" }
+        require(cards.size == 3) { "Number of top row cards (must be 3): cards.size = ${cards.size}" }
     }
 
     fun value(): Int {
