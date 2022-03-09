@@ -41,7 +41,7 @@ class GameFragment : Fragment() {
         val cardWidth = max(displayWidth, displayHeight) / 21
         val cardHeight = (cardWidth * 1.4).toInt()
 
-        val mutableImageViews = mutableListOf<ImageView>()
+        var imageViews = listOf<ImageView>()
 
         val imageViewMargin = 8
         val imageViewPadding = 1
@@ -78,11 +78,9 @@ class GameFragment : Fragment() {
                 setBackgroundColor(imageViewBackgroundColor)
 
                 layoutRow.addView(this)
-                mutableImageViews.add(this)
+                imageViews += this
             }
         }
-
-        val imageViews = mutableImageViews.toList()
 
         // imageView functions
         fun select(imageView: ImageView) {
@@ -193,27 +191,26 @@ class GameFragment : Fragment() {
                 buttonNewGame.visibility = View.VISIBLE
             }
 
-            val bottomRowCards = imageViews.subList(0, 5).map { it.tag as Card }
-            val middleRowCards = imageViews.subList(5, 10).map { it.tag as Card }
-            val topRowCards = imageViews.subList(10, 13).map { it.tag as Card }
+            var bottomRowCards = imageViews.subList(0, 5).map { it.tag as Card }
+            bottomRowCards =
+                if (bottomRowCards.isAnyWheel)
+                    bottomRowCards.sortByRankAndColorAceLow()
+                else
+                    bottomRowCards.sortByCountAndRank()
+
+            var middleRowCards = imageViews.subList(5, 10).map { it.tag as Card }
+            middleRowCards =
+                if (middleRowCards.isAnyWheel)
+                    middleRowCards.sortByRankAndColorAceLow()
+                else
+                    middleRowCards.sortByCountAndRank()
+
+            var topRowCards = imageViews.subList(10, 13).map { it.tag as Card }
+            topRowCards = topRowCards.sortByCountAndRank()
 
             val bottomRow = BottomRow(bottomRowCards)
             val middleRow = MiddleRow(middleRowCards)
             val topRow = TopRow(topRowCards)
-
-            bottomRow.cards.apply {
-                if (isAnyWheel)
-                    sortByRankAndColorAceLow()
-                else
-                    sortByCountAndRank()
-            }
-            middleRow.cards.apply {
-                if (isAnyWheel)
-                    sortByRankAndColorAceLow()
-                else
-                    sortByCountAndRank()
-            }
-            topRow.cards.sortByCountAndRank()
 
             for (i in 1..13) {
                 val card = when (i) {
