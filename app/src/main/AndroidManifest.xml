@@ -3,6 +3,7 @@
     package="com.example.fantasyland">
 
     <application
+        android:name=".ApplicationController"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
