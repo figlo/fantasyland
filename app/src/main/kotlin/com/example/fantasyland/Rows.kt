@@ -2,7 +2,7 @@ package com.example.fantasyland
 
 import com.example.fantasyland.PokerCombination.*
 
-open class Row(val cards: MutableList<Card>) {
+abstract class Row(val cards: MutableList<Card>) {
     init {
         require(cards.size == 3 || cards.size == 5) { "Number of row cards (must be 3 or 5): ${cards.size}" }
     }
