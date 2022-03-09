@@ -3,10 +3,6 @@ package com.example.fantasyland
 import com.example.fantasyland.PokerCombination.*
 
 abstract class Row(val cards: MutableList<Card>) {
-    init {
-        require(cards.size == 3 || cards.size == 5) { "Number of row cards (must be 3 or 5): ${cards.size}" }
-    }
-
     infix fun isHigherThan(otherRowCards: Row): Boolean {
         // different poker combinations
         if (pokerCombination > otherRowCards.pokerCombination) return true
