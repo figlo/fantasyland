@@ -2,7 +2,21 @@ package com.example.fantasyland
 
 import com.example.fantasyland.PokerCombination.*
 
-abstract class Row(val cards: MutableList<Card>) {
+abstract class Row(val cards: List<Card>) {
+    val pokerCombination: PokerCombination = when {
+        cards.isHighCard      -> HIGH_CARD
+        cards.isPair          -> PAIR
+        cards.isTwoPairs      -> TWO_PAIRS
+        cards.isTrips         -> TRIPS
+        cards.isStraight      -> STRAIGHT
+        cards.isFlush         -> FLUSH
+        cards.isFullHouse     -> FULL_HOUSE
+        cards.isQuads         -> QUADS
+        cards.isStraightFlush -> STRAIGHT_FLUSH
+        cards.isRoyalFlush    -> ROYAL_FLUSH
+        else                  -> throw IllegalStateException("Unknow poker combination!")
+    }
+
     infix fun isHigherThan(otherRowCards: Row): Boolean {
         // different poker combinations
         if (pokerCombination > otherRowCards.pokerCombination) return true
@@ -23,34 +37,20 @@ abstract class Row(val cards: MutableList<Card>) {
             if (otherRowCards.cards.isSteelWheel) return true
         }
 
-        cards.sortByCountAndRank()
-        otherRowCards.cards.sortByCountAndRank()
-        cards.forEach { card ->
+        val sortedCards = cards.sortByCountAndRank()
+        val otherSortedCards = otherRowCards.cards.sortByCountAndRank()
+        sortedCards.forEach { card ->
             val rank = card.face.rankAceHigh
-            val otherRank = otherRowCards.cards.elementAt(cards.indexOf(card)).face.rankAceHigh
+            val otherRank = otherSortedCards.elementAt(sortedCards.indexOf(card)).face.rankAceHigh
             if (rank > otherRank) return true
             if (rank < otherRank) return false
         }
 
         return false
     }
-
-    val pokerCombination: PokerCombination = when {
-        cards.isHighCard      -> HIGH_CARD
-        cards.isPair          -> PAIR
-        cards.isTwoPairs      -> TWO_PAIRS
-        cards.isTrips         -> TRIPS
-        cards.isStraight      -> STRAIGHT
-        cards.isFlush         -> FLUSH
-        cards.isFullHouse     -> FULL_HOUSE
-        cards.isQuads         -> QUADS
-        cards.isStraightFlush -> STRAIGHT_FLUSH
-        cards.isRoyalFlush    -> ROYAL_FLUSH
-        else                  -> throw IllegalStateException("Unknow poker combination!")
-    }
 }
 
-class BottomRow(cards: MutableList<Card>) : Row(cards) {
+class BottomRow(cards: List<Card>) : Row(cards) {
     init {
         require(cards.size == 5) { "Number of bottom row cards (must be 5): ${cards.size}" }
     }
@@ -71,7 +71,7 @@ class BottomRow(cards: MutableList<Card>) : Row(cards) {
     }
 }
 
-class MiddleRow(cards: MutableList<Card>) : Row(cards) {
+class MiddleRow(cards: List<Card>) : Row(cards) {
     init {
         require(cards.size == 5) { "Number of middle row cards (must be 5): ${cards.size}" }
     }
@@ -92,7 +92,7 @@ class MiddleRow(cards: MutableList<Card>) : Row(cards) {
     }
 }
 
-class TopRow(cards: MutableList<Card>) : Row(cards) {
+class TopRow(cards: List<Card>) : Row(cards) {
     init {
         require(cards.size == 3) { "Number of top row cards (must be 3): ${cards.size}" }
     }

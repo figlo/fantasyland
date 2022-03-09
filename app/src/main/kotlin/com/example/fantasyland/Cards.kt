@@ -3,25 +3,25 @@ package com.example.fantasyland
 
 // some helper properties, not poker combinations
 
-val MutableList<Card>.numberOfFaces
+val List<Card>.numberOfFaces
     get() = map { it.face }.distinct().count()
 
-val MutableList<Card>.isOfDifferentFaces: Boolean
+val List<Card>.isOfDifferentFaces: Boolean
     get() = numberOfFaces == size
 
-val MutableList<Card>.isOfOneSuit: Boolean
+val List<Card>.isOfOneSuit: Boolean
     get() {
         val numberOfSuits = map { it.suit }.distinct().count()
         return numberOfSuits == 1
     }
 
-val MutableList<Card>.facesHistogram: Map<CardFace, Int>
+val List<Card>.facesHistogram: Map<CardFace, Int>
     get() = groupingBy { it.face }.eachCount()
 
-val MutableList<Card>.maxCountOfFaces: Int
+val List<Card>.maxCountOfFaces: Int
     get() = facesHistogram.maxOf { it.value }
 
-val MutableList<Card>.isProgression: Boolean
+val List<Card>.isProgression: Boolean
     get() {
         if (!isOfDifferentFaces) return false
 
@@ -36,75 +36,75 @@ val MutableList<Card>.isProgression: Boolean
         return false
     }
 
-val MutableList<Card>.isWheel: Boolean
+val List<Card>.isWheel: Boolean
     get() = size == 5 &&
             isProgression &&
             !isOfOneSuit &&
             any { it.face == CardFace.ACE } &&
             any { it.face == CardFace.TWO }
 
-val MutableList<Card>.isSteelWheel: Boolean
+val List<Card>.isSteelWheel: Boolean
     get() = size == 5 &&
             isProgression &&
             isOfOneSuit &&
             any { it.face == CardFace.ACE } &&
             any { it.face == CardFace.TWO }
 
-val MutableList<Card>.isAnyWheel: Boolean
+val List<Card>.isAnyWheel: Boolean
     get() = isWheel || isSteelWheel
 
 
 // poker combinations
 
-val MutableList<Card>.isRoyalFlush: Boolean
+val List<Card>.isRoyalFlush: Boolean
     get() = size == 5 &&
             isOfOneSuit &&
             isProgression &&
             any { it.face == CardFace.ACE } &&
             any { it.face == CardFace.KING }
 
-val MutableList<Card>.isStraightFlush: Boolean
+val List<Card>.isStraightFlush: Boolean
     get() = size == 5 &&
             isOfOneSuit &&
             isProgression &&
             !isRoyalFlush
 
-val MutableList<Card>.isFlush: Boolean
+val List<Card>.isFlush: Boolean
     get() = size == 5 &&
             isOfOneSuit &&
             !isProgression
 
-val MutableList<Card>.isStraight: Boolean
+val List<Card>.isStraight: Boolean
     get() = size == 5 &&
             !isOfOneSuit &&
             isProgression
 
-val MutableList<Card>.isQuads: Boolean
+val List<Card>.isQuads: Boolean
     get() = size >= 4 &&
             numberOfFaces == size - 3 &&
             maxCountOfFaces == 4
 
-val MutableList<Card>.isFullHouse: Boolean
+val List<Card>.isFullHouse: Boolean
     get() = size >= 5 &&
             numberOfFaces == size - 3 &&
             maxCountOfFaces == 3
 
-val MutableList<Card>.isTrips: Boolean
+val List<Card>.isTrips: Boolean
     get() = size >= 3 &&
             numberOfFaces == size - 2 &&
             maxCountOfFaces == 3
 
-val MutableList<Card>.isTwoPairs: Boolean
+val List<Card>.isTwoPairs: Boolean
     get() = size >= 4 &&
             numberOfFaces == size - 2 &&
             maxCountOfFaces == 2
 
-val MutableList<Card>.isPair: Boolean
+val List<Card>.isPair: Boolean
     get() = size >= 2 &&
             numberOfFaces == size - 1 &&
             maxCountOfFaces == 2
 
-val MutableList<Card>.isHighCard: Boolean
+val List<Card>.isHighCard: Boolean
     get() {
         return if (size == 5) {
             isOfDifferentFaces &&
@@ -119,40 +119,39 @@ val MutableList<Card>.isHighCard: Boolean
 
 var sortSwitch = true
 
-fun MutableList<Card>.sort() {
-    when (sortSwitch) {
+fun List<Card>.sort(): List<Card> {
+    return when (sortSwitch) {
         true -> sortByColorAndRank()
         false -> sortByRankAndColor()
-    }
-    sortSwitch = !sortSwitch
+    }.also { sortSwitch = !sortSwitch }
 }
 
-fun MutableList<Card>.sortByRankAndColor() =
-    sortWith(
+fun List<Card>.sortByRankAndColor() =
+    sortedWith(
         compareBy(
             { -it.face.rankAceHigh },
             { it.suit }
         )
     )
 
-fun MutableList<Card>.sortByColorAndRank() =
-    sortWith(
+fun List<Card>.sortByColorAndRank() =
+    sortedWith(
         compareBy(
             { it.suit },
             { -it.face.rankAceHigh }
         )
     )
 
-fun MutableList<Card>.sortByCountAndRank() =
-    sortWith(
+fun List<Card>.sortByCountAndRank() =
+    sortedWith(
         compareBy(
             { card -> -this.count { otherCard -> card.face == otherCard.face } },
             { -it.face.rankAceHigh }
         )
     )
 
-fun MutableList<Card>.sortByRankAndColorAceLow() =
-    sortWith(
+fun List<Card>.sortByRankAndColorAceLow() =
+    sortedWith(
         compareBy(
             { -it.face.ordinal },
             { it.suit }

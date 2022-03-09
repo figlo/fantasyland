@@ -142,8 +142,10 @@ class GameFragment : Fragment() {
         binding.buttonSort.setOnClickListener {
             selectedView?.let { deSelect(selectedView!!) }
 
-            val dealtCards = imageViews.drop(13).mapNotNull { it.tag as Card? }.toMutableList()
-            dealtCards.sort()
+            val dealtCards = imageViews
+                .drop(13)
+                .mapNotNull { it.tag as Card? }
+                .sort()
 
             for (i in 1..numberOfCardsInFantasyLand) {
                 val setCardToView = i <= dealtCards.size
@@ -189,9 +191,9 @@ class GameFragment : Fragment() {
                 buttonNewGame.visibility = View.VISIBLE
             }
 
-            val bottomRowCards = imageViews.subList(0, 5).map { it.tag as Card }.toMutableList()
-            val middleRowCards = imageViews.subList(5, 10).map { it.tag as Card }.toMutableList()
-            val topRowCards = imageViews.subList(10, 13).map { it.tag as Card }.toMutableList()
+            val bottomRowCards = imageViews.subList(0, 5).map { it.tag as Card }
+            val middleRowCards = imageViews.subList(5, 10).map { it.tag as Card }
+            val topRowCards = imageViews.subList(10, 13).map { it.tag as Card }
 
             val bottomRow = BottomRow(bottomRowCards)
             val middleRow = MiddleRow(middleRowCards)
