@@ -14,7 +14,7 @@ abstract class Row(val cards: List<Card>) {
         cards.isQuads         -> QUADS
         cards.isStraightFlush -> STRAIGHT_FLUSH
         cards.isRoyalFlush    -> ROYAL_FLUSH
-        else                  -> throw IllegalStateException("Unknow poker combination!")
+        else                  -> throw IllegalStateException("Unknown poker combination!")
     }
 
     infix fun isHigherThan(otherRow: Row): Boolean {

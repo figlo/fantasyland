@@ -41,7 +41,7 @@ class GameFragment : Fragment() {
         val cardWidth = max(displayWidth, displayHeight) / 21
         val cardHeight = (cardWidth * 1.4).toInt()
 
-        val imageViews = mutableListOf<ImageView>()
+        val mutableImageViews = mutableListOf<ImageView>()
 
         val imageViewMargin = 8
         val imageViewPadding = 1
@@ -78,9 +78,11 @@ class GameFragment : Fragment() {
                 setBackgroundColor(imageViewBackgroundColor)
 
                 layoutRow.addView(this)
-                imageViews.add(this)
+                mutableImageViews.add(this)
             }
         }
+
+        val imageViews = mutableImageViews.toList()
 
         // imageView functions
         fun select(imageView: ImageView) {
