@@ -14,6 +14,7 @@ import androidx.core.view.setMargins
 import androidx.core.view.setPadding
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.preference.PreferenceManager
 import com.example.fantasyland.databinding.FragmentGameBinding
@@ -22,6 +23,7 @@ import kotlin.math.max
 
 class GameFragment : Fragment() {
     private lateinit var binding: FragmentGameBinding
+    private lateinit var viewModel: GameViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +32,9 @@ class GameFragment : Fragment() {
         Timber.i("onCreateView called")
 
         binding = FragmentGameBinding.inflate(inflater)
+
+        Timber.i("ViewModelProvider.get called")
+        viewModel = ViewModelProvider(this)[GameViewModel::class.java]
 
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
