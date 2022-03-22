@@ -98,7 +98,8 @@ class TopRow(cards: List<Card>) : Row(cards) {
     }
 
     fun value(): Int {
-        val firstCardRank = cards[0].face.rankAceHigh
+        val sortedCards = cards.sortByCountAndRank()
+        val firstCardRank = sortedCards[0].face.rankAceHigh
 
         return when (pokerCombination) {
             HIGH_CARD -> 0
