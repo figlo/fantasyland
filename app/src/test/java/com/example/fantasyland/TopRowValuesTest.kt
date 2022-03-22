@@ -11,8 +11,8 @@ class TopRowValuesTest: StringSpec({
     }
 
     "pair" {
-        TopRow(listOf(CARD_3S, CARD_AS, CARD_AD)).value() shouldBe 9
-        TopRow(listOf(CARD_6S, CARD_KS, CARD_6D)).value() shouldBe 1
-        TopRow(listOf(CARD_5S, CARD_5D, CARD_AD)).value() shouldBe 0
+        TopRow(listOf(CARD_AD, CARD_AS, CARD_3S).shuffled()).value() shouldBe 9
+        TopRow(listOf(CARD_6S, CARD_6D, CARD_KS).shuffled()).value() shouldBe 1
+        TopRow(listOf(CARD_5S, CARD_5D, CARD_AD).shuffled()).value() shouldBe 0
     }
 })
