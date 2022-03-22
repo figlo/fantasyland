@@ -4,7 +4,7 @@ import com.example.fantasyland.Card.*
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 
-class CompareBottomAndMiddleRowsTest: StringSpec ({
+class CompareMiddleAndBottomRowsTest: StringSpec ({
     // different poker combinations
     "royal flush vs high card" {
         val middleRowCards= listOf(CARD_AD, CARD_KD, CARD_QD, CARD_JD, CARD_TD).shuffled()
@@ -125,5 +125,81 @@ class CompareBottomAndMiddleRowsTest: StringSpec ({
         val middleRowCards= listOf(CARD_AD, CARD_KS, CARD_3S, CARD_4C, CARD_5D).shuffled()
         val bottomRowCards= listOf(CARD_AH, CARD_KC, CARD_8S, CARD_9C, CARD_TS).shuffled()
         MiddleRow(middleRowCards) isHigherThan BottomRow(bottomRowCards) shouldBe false
+    }
+})
+
+class CompareTopAndMiddleRowsTest: StringSpec ({
+    // different poker combinations
+    "trips vs straight" {
+        val topRowCards= listOf(CARD_AD, CARD_AS, CARD_AS).shuffled()
+        val middleRowCards= listOf(CARD_2D, CARD_3S, CARD_4S, CARD_5C, CARD_6S).shuffled()
+        TopRow(topRowCards) isHigherThan MiddleRow(middleRowCards) shouldBe false
+    }
+
+    "pair vs two pairs" {
+        val topRowCards= listOf(CARD_AD, CARD_AS, CARD_KS).shuffled()
+        val middleRowCards= listOf(CARD_2D, CARD_2S, CARD_3S, CARD_3C, CARD_6S).shuffled()
+        TopRow(topRowCards) isHigherThan MiddleRow(middleRowCards) shouldBe false
+    }
+
+    "high card vs pair" {
+        val topRowCards= listOf(CARD_AD, CARD_KS, CARD_QS).shuffled()
+        val middleRowCards= listOf(CARD_2D, CARD_2S, CARD_3S, CARD_4C, CARD_6S).shuffled()
+        TopRow(topRowCards) isHigherThan MiddleRow(middleRowCards) shouldBe false
+    }
+
+    // the same poker combinations
+    "trips vs trips" {
+        val topRowCards= listOf(CARD_AD, CARD_AS, CARD_AS).shuffled()
+        val middleRowCards= listOf(CARD_2D, CARD_2S, CARD_2S, CARD_3C, CARD_TS).shuffled()
+        TopRow(topRowCards) isHigherThan MiddleRow(middleRowCards) shouldBe true
+    }
+
+    "pair vs pair" {
+        val topRowCards= listOf(CARD_KD, CARD_KS, CARD_QS).shuffled()
+        val middleRowCards= listOf(CARD_AC, CARD_AS, CARD_3S, CARD_4C, CARD_6S).shuffled()
+        TopRow(topRowCards) isHigherThan MiddleRow(middleRowCards) shouldBe false
+    }
+
+    "pair vs pair the same kicker" {
+        val topRowCards= listOf(CARD_AD, CARD_AH, CARD_TS).shuffled()
+        val middleRowCards= listOf(CARD_AC, CARD_AS, CARD_TH, CARD_4C, CARD_6S).shuffled()
+        TopRow(topRowCards) isHigherThan MiddleRow(middleRowCards) shouldBe false
+    }
+
+    "pair vs pair different kicker" {
+        val topRowCards= listOf(CARD_AD, CARD_AH, CARD_TS).shuffled()
+        val middleRowCards= listOf(CARD_AC, CARD_AS, CARD_JH, CARD_TC, CARD_6S).shuffled()
+        TopRow(topRowCards) isHigherThan MiddleRow(middleRowCards) shouldBe false
+    }
+
+    "pair vs pair different kicker 2" {
+        val topRowCards= listOf(CARD_AD, CARD_AH, CARD_TS).shuffled()
+        val middleRowCards= listOf(CARD_AC, CARD_AS, CARD_9H, CARD_8C, CARD_6S).shuffled()
+        TopRow(topRowCards) isHigherThan MiddleRow(middleRowCards) shouldBe true
+    }
+
+    "high card vs high card" {
+        val topRowCards= listOf(CARD_AD, CARD_3S, CARD_2S).shuffled()
+        val middleRowCards= listOf(CARD_KC, CARD_QD, CARD_JH, CARD_4C, CARD_6S).shuffled()
+        TopRow(topRowCards) isHigherThan MiddleRow(middleRowCards) shouldBe true
+    }
+
+    "high card vs high card the same kicker" {
+        val topRowCards= listOf(CARD_AD, CARD_KS, CARD_QS).shuffled()
+        val middleRowCards= listOf(CARD_AC, CARD_KD, CARD_QH, CARD_4C, CARD_6S).shuffled()
+        TopRow(topRowCards) isHigherThan MiddleRow(middleRowCards) shouldBe false
+    }
+
+    "high card vs high card the same kicker 2" {
+        val topRowCards= listOf(CARD_AD, CARD_KS, CARD_QS).shuffled()
+        val middleRowCards= listOf(CARD_AC, CARD_KD, CARD_JH, CARD_4C, CARD_6S).shuffled()
+        TopRow(topRowCards) isHigherThan MiddleRow(middleRowCards) shouldBe true
+    }
+
+    "high card vs high card the same kicker 3" {
+        val topRowCards= listOf(CARD_AD, CARD_KS, CARD_QS).shuffled()
+        val middleRowCards= listOf(CARD_AC, CARD_QD, CARD_JH, CARD_4C, CARD_6S).shuffled()
+        TopRow(topRowCards) isHigherThan MiddleRow(middleRowCards) shouldBe true
     }
 })
