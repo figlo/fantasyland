@@ -5,7 +5,7 @@ import com.example.fantasyland.CardFace.*
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 
-class CardsTest: StringSpec ({
+class CardsPropertiesTest: StringSpec ({
     "number of faces 1" {
         listOf(CARD_AS).numberOfFaces shouldBe 1
     }
