@@ -37,8 +37,8 @@ abstract class Row(val cards: List<Card>) {
             if (otherRow.cards.isSteelWheel) return true
         }
 
-        val sortedCards: List<Card> = cards.sortByCountAndRank()
-        val otherSortedCards: List<Card> = otherRow.cards.sortByCountAndRank()
+        val sortedCards: List<Card> = cards.sortByCountRankAndColor()
+        val otherSortedCards: List<Card> = otherRow.cards.sortByCountRankAndColor()
         for ((i, card) in sortedCards.withIndex()) {
             val rank: Int = card.face.rankAceHigh
             val otherRank: Int = otherSortedCards[i].face.rankAceHigh
@@ -98,7 +98,7 @@ class TopRow(cards: List<Card>) : Row(cards) {
     }
 
     fun value(): Int {
-        val sortedCards = cards.sortByCountAndRank()
+        val sortedCards = cards.sortByCountRankAndColor()
         val firstCardRank = sortedCards[0].face.rankAceHigh
 
         return when (pokerCombination) {

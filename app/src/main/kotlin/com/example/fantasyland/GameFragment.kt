@@ -207,17 +207,17 @@ class GameFragment : Fragment() {
                 if (bottomRowCards.isAnyWheel)
                     bottomRowCards.sortByRankAndColorAceLow()
                 else
-                    bottomRowCards.sortByCountAndRank()
+                    bottomRowCards.sortByCountRankAndColor()
 
             var middleRowCards: List<Card> = imageViews.subList(5, 10).map { it.tag as Card }
             middleRowCards =
                 if (middleRowCards.isAnyWheel)
                     middleRowCards.sortByRankAndColorAceLow()
                 else
-                    middleRowCards.sortByCountAndRank()
+                    middleRowCards.sortByCountRankAndColor()
 
             var topRowCards: List<Card> = imageViews.subList(10, 13).map { it.tag as Card }
-            topRowCards = topRowCards.sortByCountAndRank()
+            topRowCards = topRowCards.sortByCountRankAndColor()
 
             val bottomRow = BottomRow(bottomRowCards)
             val middleRow = MiddleRow(middleRowCards)

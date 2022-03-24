@@ -142,11 +142,12 @@ fun List<Card>.sortByColorAndRank(): List<Card> =
         )
     )
 
-fun List<Card>.sortByCountAndRank(): List<Card> =
+fun List<Card>.sortByCountRankAndColor(): List<Card> =
     sortedWith(
         compareBy(
             { card -> -this.count { otherCard -> card.face == otherCard.face } },
-            { -it.face.rankAceHigh }
+            { -it.face.rankAceHigh },
+            { it.suit }
         )
     )
 
