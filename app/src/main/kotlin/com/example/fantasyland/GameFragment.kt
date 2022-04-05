@@ -1,6 +1,7 @@
 package com.example.fantasyland
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Resources
 import android.os.Bundle
@@ -200,6 +201,7 @@ class GameFragment : Fragment() {
                 buttonSetAllCards.visibility = View.GONE
                 buttonDone.visibility = View.GONE
                 buttonNewGame.visibility = View.VISIBLE
+                buttonShare.visibility = View.VISIBLE
             }
 
             var bottomRowCards: List<Card> = imageViews.subList(0, 5).map { it.tag as Card }
@@ -270,6 +272,14 @@ class GameFragment : Fragment() {
             val id: Int? = navController.currentDestination?.id
             navController.popBackStack(id!!,true)
             navController.navigate(id)
+        }
+
+        // share button
+        binding.buttonShare.setOnClickListener {
+            val shareIntent = Intent(Intent.ACTION_SEND)
+            shareIntent.setType("text/plain")
+                .putExtra(Intent.EXTRA_TEXT, binding.finalResult.text)
+            startActivity(shareIntent)
         }
     }
 
