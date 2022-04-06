@@ -117,15 +117,6 @@ val List<Card>.isHighCard: Boolean
 
 // sorting functions
 
-var sortToggle = true
-
-fun List<Card>.sortDealtCards(): List<Card> {
-    return when (sortToggle) {
-        true -> sortByColorAndRank()
-        false -> sortByRankAndColor()
-    }.also { sortToggle = !sortToggle }
-}
-
 fun List<Card>.sortByRankAndColor(): List<Card> =
     sortedWith(
         compareBy(

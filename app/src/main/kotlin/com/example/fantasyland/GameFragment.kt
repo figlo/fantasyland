@@ -149,15 +149,18 @@ class GameFragment : Fragment() {
         imageViews.forEach { imageView -> imageView.setOnClickListener { onClickHandler(imageView) } }
 
         // sort button
-        sortToggle = true
+        var sortToggle = true
 
         binding.buttonSort.setOnClickListener {
             selectedView?.let { deSelect(selectedView!!) }
 
+            fun List<Card>.sortByToggle() = if (sortToggle) sortByColorAndRank() else sortByRankAndColor()
+
             val dealtCards: List<Card> = imageViews
                 .drop(13)
                 .mapNotNull { it.tag as Card? }
-                .sortDealtCards()
+                .sortByToggle()
+                .also { sortToggle = !sortToggle }
 
             for (i in 1..numberOfCardsInFantasyLand) {
                 val setCardToView: Boolean = i <= dealtCards.size
