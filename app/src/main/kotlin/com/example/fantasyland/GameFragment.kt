@@ -149,7 +149,7 @@ class GameFragment : Fragment() {
         imageViews.forEach { imageView -> imageView.setOnClickListener { onClickHandler(imageView) } }
 
         // sort button
-        sortSwitch = true
+        sortToggle = true
 
         binding.buttonSort.setOnClickListener {
             selectedView?.let { deSelect(selectedView!!) }
