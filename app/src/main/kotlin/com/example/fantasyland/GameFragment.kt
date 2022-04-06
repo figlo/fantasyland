@@ -157,7 +157,7 @@ class GameFragment : Fragment() {
             val dealtCards: List<Card> = imageViews
                 .drop(13)
                 .mapNotNull { it.tag as Card? }
-                .sort()
+                .sortDealtCards()
 
             for (i in 1..numberOfCardsInFantasyLand) {
                 val setCardToView: Boolean = i <= dealtCards.size
