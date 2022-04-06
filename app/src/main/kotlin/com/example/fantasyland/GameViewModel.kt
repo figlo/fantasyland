@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import timber.log.Timber
 
 class GameViewModel: ViewModel() {
+    var sortToggle = true
+
     init {
         Timber.i("GameViewModel created")
     }
