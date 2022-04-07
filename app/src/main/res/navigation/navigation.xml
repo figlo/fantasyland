@@ -27,6 +27,15 @@
             app:destination="@id/mainFragment" />
     </fragment>
     <fragment
+        android:id="@+id/game2Fragment"
+        android:name="com.example.fantasyland.Game2Fragment"
+        android:label="Game"
+        tools:layout="@layout/fragment_game2" >
+        <action
+            android:id="@+id/action_game2Fragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/rulesFragment"
         android:name="com.example.fantasyland.RulesFragment"
         android:label="Rules"
@@ -37,14 +46,5 @@
         android:name="com.example.fantasyland.SettingsFragment"
         android:label="Settings"
         tools:layout="@layout/fragment_settings" >
-    </fragment>
-    <fragment
-        android:id="@+id/game2Fragment"
-        android:name="com.example.fantasyland.Game2Fragment"
-        android:label="fragment_game2"
-        tools:layout="@layout/fragment_game2" >
-        <action
-            android:id="@+id/action_game2Fragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
     </fragment>
 </navigation>
