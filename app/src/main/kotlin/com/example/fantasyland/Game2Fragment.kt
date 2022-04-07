@@ -12,7 +12,6 @@ import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.window.layout.WindowMetricsCalculator
 import com.example.fantasyland.databinding.FragmentGame2Binding
-import kotlin.math.max
 
 
 class Game2Fragment : Fragment() {
@@ -32,7 +31,7 @@ class Game2Fragment : Fragment() {
             .computeCurrentWindowMetrics(requireActivity()).bounds
         val displayWidth = bounds.width()
         val displayHeight = bounds.height()
-        val cardWidth: Int = max(displayWidth, displayHeight) / 21
+        val cardWidth: Int = displayWidth / 22
         val cardHeight: Int = (cardWidth * 1.4).toInt()
 
         val imageViewMargin = 8
