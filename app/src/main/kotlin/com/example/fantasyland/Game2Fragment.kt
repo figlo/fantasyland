@@ -10,7 +10,6 @@ import androidx.core.view.setMargins
 import androidx.core.view.setPadding
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
-import androidx.window.layout.WindowInfoTracker
 import androidx.window.layout.WindowMetricsCalculator
 import com.example.fantasyland.databinding.FragmentGame2Binding
 import kotlin.math.max
@@ -18,15 +17,12 @@ import kotlin.math.max
 
 class Game2Fragment : Fragment() {
     private lateinit var binding: FragmentGame2Binding
-    private lateinit var windowInfoTracker: WindowInfoTracker
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentGame2Binding.inflate(inflater)
-
-        windowInfoTracker = WindowInfoTracker.getOrCreate(requireContext())
 
         return binding.root
     }
