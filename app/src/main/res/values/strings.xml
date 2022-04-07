@@ -9,6 +9,7 @@
     <!-- Game -->
     <string name="home">Home</string>
     <string name="play">Play</string>
+    <string name="play2">Play 2</string>
     <string name="sort">Sort</string>
     <string name="set_all_cards">Set All Cards</string>
     <string name="done">Done</string>
@@ -16,6 +17,37 @@
     <string name="result_x">X</string>
     <string name="new_fantasyland">New FantasyLand!</string>
     <string name="share">Share</string>
+
+    <string name="card_view_1">Card 1</string>
+    <string name="card_view_2">Card 2</string>
+    <string name="card_view_3">Card 3</string>
+    <string name="card_view_4">Card 4</string>
+    <string name="card_view_5">Card 5</string>
+    <string name="card_view_6">Card 6</string>
+    <string name="card_view_7">Card 7</string>
+    <string name="card_view_8">Card 8</string>
+    <string name="card_view_9">Card 9</string>
+    <string name="card_view_10">Card 10</string>
+    <string name="card_view_11">Card 11</string>
+    <string name="card_view_12">Card 12</string>
+    <string name="card_view_13">Card 13</string>
+    <string name="card_view_14">Card 14</string>
+    <string name="card_view_15">Card 15</string>
+    <string name="card_view_16">Card 16</string>
+    <string name="card_view_17">Card 17</string>
+    <string name="card_view_18">Card 18</string>
+    <string name="card_view_19">Card 19</string>
+    <string name="card_view_20">Card 20</string>
+    <string name="card_view_21">Card 21</string>
+    <string name="card_view_22">Card 22</string>
+    <string name="card_view_23">Card 23</string>
+    <string name="card_view_24">Card 24</string>
+    <string name="card_view_25">Card 25</string>
+    <string name="card_view_26">Card 26</string>
+    <string name="card_view_27">Card 27</string>
+    <string name="card_view_28">Card 28</string>
+    <string name="card_view_29">Card 29</string>
+    <string name="card_view_30">Card 30</string>
 
     <!-- Menu -->
     <string name="rules">Rules</string>
