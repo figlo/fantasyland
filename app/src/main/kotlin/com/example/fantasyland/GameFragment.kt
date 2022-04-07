@@ -30,6 +30,8 @@ class GameFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        super.onCreateView(inflater, container, savedInstanceState)
+
         Timber.i("onCreateView called")
 
         binding = FragmentGameBinding.inflate(inflater)
