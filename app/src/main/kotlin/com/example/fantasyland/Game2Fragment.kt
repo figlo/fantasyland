@@ -18,5 +18,23 @@ class Game2Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        val metrics: WindowMetrics = windowManager.getCurrentWindowMetrics()
+//
+//        // Gets all excluding insets
+//        val windowInsets = metrics.windowInsets
+//        var insets: Insets = windowInsets.getInsetsIgnoringVisibility(
+//            WindowInsets.Type.navigationBars()
+//                    or WindowInsets.Type.displayCutout()
+//        )
+//
+//        var insetsWidth: Int = insets.right + insets.left
+//        var insetsHeight: Int = insets.top + insets.bottom
+//
+//        // Legacy size that Display#getSize reports
+//        val bounds: Rect = metrics.bounds
+//        val legacySize: Size = Size(
+//            bounds.width() - insetsWidth,
+//            bounds.height() - insetsHeight
+//        )
     }
 }
