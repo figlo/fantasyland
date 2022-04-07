@@ -10,6 +10,7 @@ import androidx.core.view.setMargins
 import androidx.core.view.setPadding
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
 import androidx.window.layout.WindowMetricsCalculator
 import com.example.fantasyland.databinding.FragmentGame2Binding
 
@@ -27,10 +28,10 @@ class Game2Fragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // card views settings
         val bounds = WindowMetricsCalculator.getOrCreate()
             .computeCurrentWindowMetrics(requireActivity()).bounds
         val displayWidth = bounds.width()
-        val displayHeight = bounds.height()
         val cardWidth: Int = displayWidth / 22
         val cardHeight: Int = (cardWidth * 1.4).toInt()
 
@@ -78,9 +79,16 @@ class Game2Fragment : Fragment() {
         )
         val allCardsViews = listOf(topRowViews, middleRowViews, bottomRowViews, dealtCardsViews).flatten()
 
-        allCardsViews.forEach { it.layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)}
-        allCardsViews.forEach { it.updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(imageViewMargin)}}
-        allCardsViews.forEach { it.setPadding(imageViewPadding) }
-        allCardsViews.forEach { it.setBackgroundColor(imageViewBackgroundColor) }
+        allCardsViews.forEach {
+            it.layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
+            it.updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(imageViewMargin) }
+            it.setPadding(imageViewPadding)
+            it.setBackgroundColor(imageViewBackgroundColor)
+        }
+
+        val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val numberOfCardsInFantasyLand: Int = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
+
+        dealtCardsViews.drop(numberOfCardsInFantasyLand).forEach { it.visibility = View.GONE }
     }
 }
