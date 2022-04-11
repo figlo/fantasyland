@@ -17,11 +17,12 @@ import com.example.fantasyland.databinding.FragmentGame2Binding
 
 class Game2Fragment : Fragment() {
     private lateinit var binding: FragmentGame2Binding
+    private lateinit var viewModel: Game2ViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentGame2Binding.inflate(inflater)
 
         return binding.root
@@ -30,35 +31,36 @@ class Game2Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // card views settings
         val bounds = WindowMetricsCalculator.getOrCreate()
-            .computeCurrentWindowMetrics(requireActivity()).bounds
+            .computeCurrentWindowMetrics(requireActivity())
+            .bounds
         val displayWidth = bounds.width()
-        val cardWidth: Int = displayWidth / 22
-        val cardHeight: Int = (cardWidth * 1.4).toInt()
+        val cardViewWidth: Int = displayWidth / 22
+        val cardViewHeight: Int = (cardViewWidth * 1.4).toInt()
 
-        val imageViewMargin = 8
-        val imageViewPadding = 1
-        val imageViewBackgroundColor: Int = ContextCompat.getColor(requireContext(), R.color.cardViewBackground)
+        val cardViewMargin = 8
+        val cardViewPadding = 1
+        val cardViewBackgroundColor: Int = ContextCompat.getColor(requireContext(), R.color.cardViewBackground)
 
-        val topRowViews = listOf(
+        val topRowCardViews = listOf(
             binding.cardView11,
             binding.cardView12,
             binding.cardView13
         )
-        val middleRowViews = listOf(
+        val middleRowCardViews = listOf(
             binding.cardView6,
             binding.cardView7,
             binding.cardView8,
             binding.cardView9,
             binding.cardView10
         )
-        val bottomRowViews = listOf(
+        val bottomRowCardViews = listOf(
             binding.cardView1,
             binding.cardView2,
             binding.cardView3,
             binding.cardView4,
             binding.cardView5
         )
-        val dealtCardsViews = listOf(
+        val dealtCardViews = listOf(
             binding.cardView14,
             binding.cardView15,
             binding.cardView16,
@@ -77,18 +79,20 @@ class Game2Fragment : Fragment() {
             binding.cardView29,
             binding.cardView30
         )
-        val allCardsViews = listOf(topRowViews, middleRowViews, bottomRowViews, dealtCardsViews).flatten()
+        val allCardViews = listOf(topRowCardViews, middleRowCardViews, bottomRowCardViews, dealtCardViews).flatten()
 
-        allCardsViews.forEach {
-            it.layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
-            it.updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(imageViewMargin) }
-            it.setPadding(imageViewPadding)
-            it.setBackgroundColor(imageViewBackgroundColor)
+        allCardViews.forEach { cardView ->
+            with(cardView) {
+                layoutParams = LinearLayout.LayoutParams(cardViewWidth, cardViewHeight)
+                updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(cardViewMargin) }
+                setPadding(cardViewPadding)
+                setBackgroundColor(cardViewBackgroundColor)
+            }
         }
 
         val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         val numberOfCardsInFantasyLand: Int = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
 
-        dealtCardsViews.drop(numberOfCardsInFantasyLand).forEach { it.visibility = View.GONE }
+        dealtCardViews.drop(numberOfCardsInFantasyLand).forEach { it.visibility = View.GONE }
     }
 }
