@@ -4,9 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class Game2ViewModel: ViewModel() {
-    var cards = MutableLiveData<List<Card>>()
+    var cards = MutableLiveData<MutableList<Card?>>()
 
     init {
-        cards.value = mutableListOf()
+        cards.value = MutableList(30) { null }
     }
 }
