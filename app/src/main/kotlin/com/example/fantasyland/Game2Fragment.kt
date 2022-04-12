@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.setMargins
@@ -117,8 +118,8 @@ class Game2Fragment : Fragment() {
             binding.cardView29,
             binding.cardView30
         )
-        val allCardViews = listOf(topRowCardViews, middleRowCardViews, bottomRowCardViews, dealtCardViews).flatten()
 
+        val allCardViews = listOf(topRowCardViews, middleRowCardViews, bottomRowCardViews, dealtCardViews).flatten()
         allCardViews.forEach { cardView ->
             with(cardView) {
                 layoutParams = LinearLayout.LayoutParams(cardViewWidth, cardViewHeight)
@@ -128,9 +129,30 @@ class Game2Fragment : Fragment() {
             }
         }
 
+        // unused cardviews gone
         val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         val numberOfCardsInFantasyLand: Int = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
-
         dealtCardViews.drop(numberOfCardsInFantasyLand).forEach { it.visibility = View.GONE }
+
+        // imageView functions
+        var selectedView: ImageView? = null
+
+        fun select(imageView: ImageView) {
+            with(imageView) {
+                setBackgroundColor(ContextCompat.getColor(context, R.color.cardViewSelected))
+                setPadding(4)
+            }
+
+            selectedView = imageView
+        }
+
+        fun deSelect(imageView: ImageView) {
+            with(imageView) {
+                setBackgroundColor(ContextCompat.getColor(context, R.color.cardViewBackground))
+                setPadding(1)
+            }
+
+            selectedView = null
+        }
     }
 }
