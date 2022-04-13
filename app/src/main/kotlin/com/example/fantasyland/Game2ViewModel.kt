@@ -21,4 +21,10 @@ class Game2ViewModel(application: Application) : AndroidViewModel(application) {
 
         cards.value = _cards
     }
+
+    fun swapCards(indexOfCard1: Int, indexOfCard2: Int) {
+        val cardsCopy = cards.value as MutableList<Card?>
+        cardsCopy[indexOfCard1] = cardsCopy[indexOfCard2].also { cardsCopy[indexOfCard2] = cardsCopy[indexOfCard1] }
+        cards.value = cardsCopy
+    }
 }

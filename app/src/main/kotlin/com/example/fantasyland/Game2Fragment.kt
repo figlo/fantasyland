@@ -32,36 +32,37 @@ class Game2Fragment : Fragment() {
         fun cardImageResource(card: Card?): Int = resources.getIdentifier(fileName(card), "drawable", requireContext().packageName)
 
         viewModel.cards.observe(viewLifecycleOwner) { newCards ->
-            binding.cardView1.tag = newCards[0]
-            binding.cardView2.tag = newCards[1]
-            binding.cardView3.tag = newCards[2]
-            binding.cardView4.tag = newCards[3]
-            binding.cardView5.tag = newCards[4]
-            binding.cardView6.tag = newCards[5]
-            binding.cardView7.tag = newCards[6]
-            binding.cardView8.tag = newCards[7]
-            binding.cardView9.tag = newCards[8]
-            binding.cardView10.tag = newCards[9]
-            binding.cardView11.tag = newCards[10]
-            binding.cardView12.tag = newCards[11]
-            binding.cardView13.tag = newCards[12]
-            binding.cardView14.tag = newCards[13]
-            binding.cardView15.tag = newCards[14]
-            binding.cardView16.tag = newCards[15]
-            binding.cardView17.tag = newCards[16]
-            binding.cardView18.tag = newCards[17]
-            binding.cardView19.tag = newCards[18]
-            binding.cardView20.tag = newCards[19]
-            binding.cardView21.tag = newCards[20]
-            binding.cardView22.tag = newCards[21]
-            binding.cardView23.tag = newCards[22]
-            binding.cardView24.tag = newCards[23]
-            binding.cardView25.tag = newCards[24]
-            binding.cardView26.tag = newCards[25]
-            binding.cardView27.tag = newCards[26]
-            binding.cardView28.tag = newCards[27]
-            binding.cardView29.tag = newCards[28]
-            binding.cardView30.tag = newCards[29]
+            var i = 0
+            binding.cardView1.tag = i++
+            binding.cardView2.tag = i++
+            binding.cardView3.tag = i++
+            binding.cardView4.tag = i++
+            binding.cardView5.tag = i++
+            binding.cardView6.tag = i++
+            binding.cardView7.tag = i++
+            binding.cardView8.tag = i++
+            binding.cardView9.tag = i++
+            binding.cardView10.tag = i++
+            binding.cardView11.tag = i++
+            binding.cardView12.tag = i++
+            binding.cardView13.tag = i++
+            binding.cardView14.tag = i++
+            binding.cardView15.tag = i++
+            binding.cardView16.tag = i++
+            binding.cardView17.tag = i++
+            binding.cardView18.tag = i++
+            binding.cardView19.tag = i++
+            binding.cardView20.tag = i++
+            binding.cardView21.tag = i++
+            binding.cardView22.tag = i++
+            binding.cardView23.tag = i++
+            binding.cardView24.tag = i++
+            binding.cardView25.tag = i++
+            binding.cardView26.tag = i++
+            binding.cardView27.tag = i++
+            binding.cardView28.tag = i++
+            binding.cardView29.tag = i++
+            binding.cardView30.tag = i
 
             binding.cardView1.setImageResource(cardImageResource(newCards[0]))
             binding.cardView2.setImageResource(cardImageResource(newCards[1]))
@@ -187,8 +188,10 @@ class Game2Fragment : Fragment() {
         }
 
         fun makeMove(cardView: ImageView) {
-            // swap tags (cards)
-//            selectedView?.tag = cardView.tag.also { cardView.tag = selectedView?.tag }
+            // swap cards
+            val indexOfCard1 = selectedView!!.tag as Int
+            val indexOfCard2 = cardView.tag as Int
+            viewModel.swapCards(indexOfCard1, indexOfCard2)
 
             deSelect(selectedView!!)
 
@@ -207,7 +210,8 @@ class Game2Fragment : Fragment() {
                     makeMove(cardView)
                 }
             } else {
-                val isCardOnThisTile: Boolean = cardView.tag != null
+                val indexOfCard = cardView.tag as Int
+                val isCardOnThisTile: Boolean = viewModel.cards.value?.get(indexOfCard) != null
                 if (isCardOnThisTile) select(cardView)
             }
         }
