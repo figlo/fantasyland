@@ -11,6 +11,9 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.fantasyland.databinding.ActivityMainBinding
 import timber.log.Timber
+import kotlin.random.Random
+
+val random = Random(System.currentTimeMillis())
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

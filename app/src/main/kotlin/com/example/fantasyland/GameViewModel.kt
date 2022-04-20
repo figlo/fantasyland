@@ -24,7 +24,7 @@ fun fileName(card: Card?): String =
 
 fun dealCard(): Card = Card.values()
     .filter { it.cardState == CardState.DECK }
-    .random()
+    .random(random)
     .apply { cardState = CardState.DEALT }
 
 fun isValidResult(bottomRow: BottomRow, middleRow: MiddleRow, topRow: TopRow): Boolean =
