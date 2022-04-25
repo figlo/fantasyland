@@ -218,5 +218,11 @@ class Game2Fragment : Fragment() {
 
         // set onClickListener on cardViews
         allCardViews.forEach { cardView -> cardView.setOnClickListener { onClickHandler(cardView) } }
+
+        // sort button
+        binding.buttonSort.setOnClickListener {
+            selectedView?.let { deSelect(selectedView!!) }
+            viewModel.sortCards()
+        }
     }
 }

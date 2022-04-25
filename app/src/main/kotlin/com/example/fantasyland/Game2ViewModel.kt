@@ -7,6 +7,7 @@ import androidx.preference.PreferenceManager
 
 class Game2ViewModel(application: Application) : AndroidViewModel(application) {
     var cards = MutableLiveData<MutableList<Card?>>()
+    private var sortToggle = true
 
     init {
         val preferences = PreferenceManager.getDefaultSharedPreferences(application)
@@ -15,8 +16,8 @@ class Game2ViewModel(application: Application) : AndroidViewModel(application) {
         val _cards: MutableList<Card?> = MutableList(30) { null }
 
         for (i in _cards.indices) {
-            if ( i in 13..(12 + numberOfCardsInFantasyLand))
-            _cards[i] = dealCard()
+            if (i in 13..(12 + numberOfCardsInFantasyLand))
+                _cards[i] = dealCard()
         }
 
         cards.value = _cards
@@ -26,5 +27,27 @@ class Game2ViewModel(application: Application) : AndroidViewModel(application) {
         val cardsCopy = cards.value as MutableList<Card?>
         cardsCopy[indexOfCard1] = cardsCopy[indexOfCard2].also { cardsCopy[indexOfCard2] = cardsCopy[indexOfCard1] }
         cards.value = cardsCopy
+    }
+
+    fun sortCards() {
+        val cardsCopy = cards.value as MutableList<Card?>
+
+        fun List<Card>.sortDealtCards() = if (sortToggle) sortByColorAndRank() else sortByRankAndColor()
+
+        val cardsToSort = cardsCopy
+            .drop(13)
+            .filterNotNull()
+            .sortDealtCards()
+
+        val sizeOfListOfNulls = 17 - cardsToSort.size
+        val listOfNulls: List<Card?> = List<Card?>(sizeOfListOfNulls) { null }
+
+        cards.value = cardsCopy
+            .take(13)
+            .plus(cardsToSort)
+            .plus(listOfNulls)
+            .toMutableList()
+
+        sortToggle = !sortToggle
     }
 }
