@@ -12,6 +12,7 @@ import androidx.core.view.setPadding
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.preference.PreferenceManager
 import androidx.window.layout.WindowMetricsCalculator
 import com.example.fantasyland.databinding.FragmentGame2Binding
@@ -30,6 +31,19 @@ class Game2Fragment : Fragment() {
         viewModel = ViewModelProvider(this)[Game2ViewModel::class.java]
 
         fun cardImageResource(card: Card?): Int = resources.getIdentifier(fileName(card), "drawable", requireContext().packageName)
+
+        viewModel.isMovingPhaseDone.observe(viewLifecycleOwner) { newIsMovingPhaseDone ->
+            if (newIsMovingPhaseDone) {
+                binding.buttonSort.visibility = View.GONE
+                binding.buttonSetAllCards.visibility = View.GONE
+                binding.buttonDone.visibility = View.VISIBLE
+            } else {
+                binding.buttonSort.visibility = View.VISIBLE
+                binding.buttonSetAllCards.visibility = View.VISIBLE
+                binding.buttonDone.visibility = View.GONE
+            }
+
+        }
 
         viewModel.cards.observe(viewLifecycleOwner) { newCards ->
             var i = 0
@@ -161,7 +175,7 @@ class Game2Fragment : Fragment() {
             }
         }
 
-        // unused cardviews gone
+        // setting visibility of unused cardviews to GONE
         val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         val numberOfCardsInFantasyLand: Int = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
         dealtCardViews.drop(numberOfCardsInFantasyLand).forEach { it.visibility = View.GONE }
@@ -229,6 +243,92 @@ class Game2Fragment : Fragment() {
         binding.buttonSetAllCards.setOnClickListener {
             selectedView?.let { deSelect(selectedView!!) }
             viewModel.setAllCards()
+        }
+
+        // done button
+        binding.buttonDone.setOnClickListener {
+            selectedView?.let { deSelect(selectedView!!) }
+
+            allCardViews.forEach { it.setOnClickListener(null) }
+
+            binding.apply {
+                buttonSort.visibility = View.GONE
+                buttonSetAllCards.visibility = View.GONE
+                buttonDone.visibility = View.GONE
+                buttonNewGame.visibility = View.VISIBLE
+                buttonShare.visibility = View.VISIBLE
+            }
+
+            viewModel.evaluateGame()
+
+//            var bottomRowCards: List<Card> = imageViews.subList(0, 5).map { it.tag as Card }
+//            bottomRowCards =
+//                if (bottomRowCards.isAnyWheel)
+//                    bottomRowCards.sortByRankAndColorAceLow()
+//                else
+//                    bottomRowCards.sortByCountRankAndColor()
+//
+//            var middleRowCards: List<Card> = imageViews.subList(5, 10).map { it.tag as Card }
+//            middleRowCards =
+//                if (middleRowCards.isAnyWheel)
+//                    middleRowCards.sortByRankAndColorAceLow()
+//                else
+//                    middleRowCards.sortByCountRankAndColor()
+//
+//            var topRowCards: List<Card> = imageViews.subList(10, 13).map { it.tag as Card }
+//            topRowCards = topRowCards.sortByCountRankAndColor()
+//
+//            val bottomRow = BottomRow(bottomRowCards)
+//            val middleRow = MiddleRow(middleRowCards)
+//            val topRow = TopRow(topRowCards)
+//
+//            for (i in 1..13) {
+//                val card: Card = when (i) {
+//                    in 1..5  -> bottomRowCards[i - 1]
+//                    in 6..10 -> middleRowCards[i - 6]
+//                    else     -> topRowCards[i - 11]
+//                }
+//
+//                imageViews[i - 1].apply {
+//                    setImageResource(cardImageResource(card))
+//                    tag = card
+//                }
+//            }
+//
+//            val resultOKColor: Int = ContextCompat.getColor(requireContext(), R.color.resultOK)
+//            val resultXColor: Int = ContextCompat.getColor(requireContext(), R.color.resultX)
+//            val newFantasyLandColor: Int = ContextCompat.getColor(requireContext(), R.color.newFantasyLand)
+//
+//            if (isValidResult(bottomRow, middleRow, topRow)) {
+//                val result: Int = bottomRow.value() + middleRow.value() + topRow.value()
+//                binding.apply {
+//                    bottomRowResult.text = bottomRow.value().toString()
+//                    middleRowResult.text = middleRow.value().toString()
+//                    topRowResult.text = topRow.value().toString()
+//                    finalResult.text = result.toString()
+//                    finalResult.setTextColor(resultOKColor)
+//                }
+//            } else {
+//                binding.apply {
+//                    finalResult.text = resources.getString(R.string.result_x)
+//                    finalResult.setTextColor(resultXColor)
+//                }
+//            }
+//
+//            if (isRepeatedFantasy(bottomRow, middleRow, topRow)) {
+//                binding.apply {
+//                    newFantasyLand.text = resources.getString(R.string.new_fantasyland)
+//                    newFantasyLand.setTextColor(newFantasyLandColor)
+//                }
+//            }
+        }
+
+        // new game button
+        binding.buttonNewGame.setOnClickListener {
+            val navController = it.findNavController()
+            val id: Int? = navController.currentDestination?.id
+            navController.popBackStack(id!!, true)
+            navController.navigate(id)
         }
     }
 }
