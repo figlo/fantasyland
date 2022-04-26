@@ -168,6 +168,8 @@
 
     </LinearLayout>
 
+    <!-- Dealt Cards (14 - 30) -->
+
     <LinearLayout
         android:id="@+id/linearLayoutDealtCards"
         android:layout_width="wrap_content"
@@ -334,6 +336,7 @@
 
     </LinearLayout>
 
+    <!-- Buttons -->
 
     <Button
         android:id="@+id/buttonSort"
