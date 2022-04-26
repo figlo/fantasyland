@@ -224,5 +224,11 @@ class Game2Fragment : Fragment() {
             selectedView?.let { deSelect(selectedView!!) }
             viewModel.sortCards()
         }
+
+        // set all cards button
+        binding.buttonSetAllCards.setOnClickListener {
+            selectedView?.let { deSelect(selectedView!!) }
+            viewModel.setAllCards()
+        }
     }
 }

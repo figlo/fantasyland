@@ -50,4 +50,23 @@ class Game2ViewModel(application: Application) : AndroidViewModel(application) {
 
         sortToggle = !sortToggle
     }
+
+    fun setAllCards() {
+        val cardsCopy = cards.value as MutableList<Card?>
+        val rowsCards = cardsCopy.take(13).toMutableList()
+        val cardsToSet = cardsCopy.drop(13).toMutableList()
+
+        for (i in rowsCards.indices) {
+            if (rowsCards[i] == null) {
+                // moving first card from "cards to set" to the first empty place in rows
+                val indexOfFirstCardToSet = cardsToSet.indexOfFirst { it != null }
+                swapCards(i, indexOfFirstCardToSet + 13)
+
+                // simulating card move in helper lists to properly iterate to the next step
+                val cardToSet = cardsToSet[indexOfFirstCardToSet]
+                rowsCards[i] = cardToSet
+                cardsToSet[indexOfFirstCardToSet] = null
+            }
+        }
+    }
 }
