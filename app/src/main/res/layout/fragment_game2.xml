@@ -344,7 +344,8 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/buttonSetAllCards"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutDealtCards" />
 
     <Button
         android:id="@+id/buttonSetAllCards"
@@ -355,7 +356,8 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/buttonSort" />
+        app:layout_constraintStart_toEndOf="@id/buttonSort"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutDealtCards" />
 
     <Button
         android:id="@+id/buttonDone"
@@ -367,7 +369,8 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutDealtCards" />
 
     <Button
         android:id="@+id/buttonNewGame"
@@ -379,7 +382,8 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutDealtCards" />
 
     <Button
         android:id="@+id/buttonShare"
@@ -390,6 +394,9 @@
         android:textSize="20sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toEndOf="@id/buttonNewGame"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutDealtCards" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
