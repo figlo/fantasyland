@@ -83,13 +83,13 @@ class Game2ViewModel(application: Application) : AndroidViewModel(application) {
 
     fun evaluateGame() {
 
-//        var bottomRowCards: List<Card> = imageViews.subList(0, 5).map { it.tag as Card }
+//        var bottomRowCards: List<Card> = cards.value!!.subList(0, 5).toList()
 //        bottomRowCards =
 //            if (bottomRowCards.isAnyWheel)
 //                bottomRowCards.sortByRankAndColorAceLow()
 //            else
 //                bottomRowCards.sortByCountRankAndColor()
-//
+
 //        var middleRowCards: List<Card> = imageViews.subList(5, 10).map { it.tag as Card }
 //        middleRowCards =
 //            if (middleRowCards.isAnyWheel)

@@ -11,7 +11,7 @@ import androidx.core.view.setMargins
 import androidx.core.view.setPadding
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.preference.PreferenceManager
 import androidx.window.layout.WindowMetricsCalculator
@@ -20,15 +20,13 @@ import com.example.fantasyland.databinding.FragmentGame2Binding
 
 class Game2Fragment : Fragment() {
     private lateinit var binding: FragmentGame2Binding
-    private lateinit var viewModel: Game2ViewModel
+    private val viewModel: Game2ViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentGame2Binding.inflate(inflater)
-
-        viewModel = ViewModelProvider(this)[Game2ViewModel::class.java]
 
         fun cardImageResource(card: Card?): Int = resources.getIdentifier(fileName(card), "drawable", requireContext().packageName)
 
@@ -208,9 +206,6 @@ class Game2Fragment : Fragment() {
             viewModel.swapCards(indexOfCard1, indexOfCard2)
 
             deSelect(selectedView!!)
-
-//            val isMovingPhaseDone: Boolean = allCardViews.take(13).all { it.tag != null }
-//            binding.buttonDone.visibility = if (isMovingPhaseDone) View.VISIBLE else View.INVISIBLE
         }
 
         fun onClickHandler(cardView: ImageView) {
