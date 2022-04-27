@@ -1,5 +1,6 @@
 package com.example.fantasyland
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -284,6 +285,14 @@ class Game2Fragment : Fragment() {
             val id: Int? = navController.currentDestination?.id
             navController.popBackStack(id!!, true)
             navController.navigate(id)
+        }
+
+        // share button
+        binding.buttonShare.setOnClickListener {
+            val shareIntent = Intent(Intent.ACTION_SEND)
+            shareIntent.setType("text/plain")
+                .putExtra(Intent.EXTRA_TEXT, binding.finalResult.text)
+            startActivity(shareIntent)
         }
     }
 }
