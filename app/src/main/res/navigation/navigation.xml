@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_mainFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_game2Fragment"
-            app:destination="@id/game2Fragment" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
@@ -24,15 +21,6 @@
         tools:layout="@layout/fragment_game" >
         <action
             android:id="@+id/action_gameFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/game2Fragment"
-        android:name="com.example.fantasyland.Game2Fragment"
-        android:label="Game"
-        tools:layout="@layout/fragment_game2" >
-        <action
-            android:id="@+id/action_game2Fragment_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
     <fragment

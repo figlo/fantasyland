@@ -9,7 +9,6 @@
     <!-- Game -->
     <string name="home">Home</string>
     <string name="play">Play</string>
-    <string name="play2">Play 2</string>
     <string name="sort">Sort</string>
     <string name="set_all_cards">Set All Cards</string>
     <string name="done">Done</string>

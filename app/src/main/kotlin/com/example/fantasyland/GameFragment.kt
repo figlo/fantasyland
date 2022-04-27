@@ -2,8 +2,6 @@ package com.example.fantasyland
 
 import android.content.Context
 import android.content.Intent
-import android.content.pm.ActivityInfo
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,16 +13,16 @@ import androidx.core.view.setMargins
 import androidx.core.view.setPadding
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.preference.PreferenceManager
+import androidx.window.layout.WindowMetricsCalculator
 import com.example.fantasyland.databinding.FragmentGameBinding
 import timber.log.Timber
-import kotlin.math.max
 
 class GameFragment : Fragment() {
     private lateinit var binding: FragmentGameBinding
-    private lateinit var viewModel: GameViewModel
+    private val viewModel: GameViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,10 +32,85 @@ class GameFragment : Fragment() {
 
         binding = FragmentGameBinding.inflate(inflater)
 
-        Timber.i("ViewModelProvider.get called")
-        viewModel = ViewModelProvider(this)[GameViewModel::class.java]
+        fun cardImageResource(card: Card?): Int = resources.getIdentifier(fileName(card), "drawable", requireContext().packageName)
 
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        viewModel.isMovingPhaseDone.observe(viewLifecycleOwner) { newIsMovingPhaseDone ->
+            if (newIsMovingPhaseDone) {
+                binding.buttonSort.visibility = View.GONE
+                binding.buttonSetAllCards.visibility = View.GONE
+                binding.buttonDone.visibility = View.VISIBLE
+            } else {
+                binding.buttonSort.visibility = View.VISIBLE
+                binding.buttonSetAllCards.visibility = View.VISIBLE
+                binding.buttonDone.visibility = View.GONE
+            }
+
+        }
+
+        viewModel.cards.observe(viewLifecycleOwner) { newCards ->
+            var i = 0
+            binding.cardView1.tag = i++
+            binding.cardView2.tag = i++
+            binding.cardView3.tag = i++
+            binding.cardView4.tag = i++
+            binding.cardView5.tag = i++
+            binding.cardView6.tag = i++
+            binding.cardView7.tag = i++
+            binding.cardView8.tag = i++
+            binding.cardView9.tag = i++
+            binding.cardView10.tag = i++
+            binding.cardView11.tag = i++
+            binding.cardView12.tag = i++
+            binding.cardView13.tag = i++
+            binding.cardView14.tag = i++
+            binding.cardView15.tag = i++
+            binding.cardView16.tag = i++
+            binding.cardView17.tag = i++
+            binding.cardView18.tag = i++
+            binding.cardView19.tag = i++
+            binding.cardView20.tag = i++
+            binding.cardView21.tag = i++
+            binding.cardView22.tag = i++
+            binding.cardView23.tag = i++
+            binding.cardView24.tag = i++
+            binding.cardView25.tag = i++
+            binding.cardView26.tag = i++
+            binding.cardView27.tag = i++
+            binding.cardView28.tag = i++
+            binding.cardView29.tag = i++
+            binding.cardView30.tag = i
+
+            binding.cardView1.setImageResource(cardImageResource(newCards[0]))
+            binding.cardView2.setImageResource(cardImageResource(newCards[1]))
+            binding.cardView3.setImageResource(cardImageResource(newCards[2]))
+            binding.cardView4.setImageResource(cardImageResource(newCards[3]))
+            binding.cardView5.setImageResource(cardImageResource(newCards[4]))
+            binding.cardView6.setImageResource(cardImageResource(newCards[5]))
+            binding.cardView7.setImageResource(cardImageResource(newCards[6]))
+            binding.cardView8.setImageResource(cardImageResource(newCards[7]))
+            binding.cardView9.setImageResource(cardImageResource(newCards[8]))
+            binding.cardView10.setImageResource(cardImageResource(newCards[9]))
+            binding.cardView11.setImageResource(cardImageResource(newCards[10]))
+            binding.cardView12.setImageResource(cardImageResource(newCards[11]))
+            binding.cardView13.setImageResource(cardImageResource(newCards[12]))
+            binding.cardView14.setImageResource(cardImageResource(newCards[13]))
+            binding.cardView15.setImageResource(cardImageResource(newCards[14]))
+            binding.cardView16.setImageResource(cardImageResource(newCards[15]))
+            binding.cardView17.setImageResource(cardImageResource(newCards[16]))
+            binding.cardView18.setImageResource(cardImageResource(newCards[17]))
+            binding.cardView19.setImageResource(cardImageResource(newCards[18]))
+            binding.cardView20.setImageResource(cardImageResource(newCards[19]))
+            binding.cardView21.setImageResource(cardImageResource(newCards[20]))
+            binding.cardView22.setImageResource(cardImageResource(newCards[21]))
+            binding.cardView23.setImageResource(cardImageResource(newCards[22]))
+            binding.cardView24.setImageResource(cardImageResource(newCards[23]))
+            binding.cardView25.setImageResource(cardImageResource(newCards[24]))
+            binding.cardView26.setImageResource(cardImageResource(newCards[25]))
+            binding.cardView27.setImageResource(cardImageResource(newCards[26]))
+            binding.cardView28.setImageResource(cardImageResource(newCards[27]))
+            binding.cardView29.setImageResource(cardImageResource(newCards[28]))
+            binding.cardView30.setImageResource(cardImageResource(newCards[29]))
+        }
 
         return binding.root
     }
@@ -45,67 +118,86 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Timber.i("onViewCreated called")
 
-        val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        val numberOfCardsInFantasyLand: Int = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
+        // card views settings
+        val bounds = WindowMetricsCalculator.getOrCreate()
+            .computeCurrentWindowMetrics(requireActivity())
+            .bounds
+        val displayWidth = bounds.width()
+        val cardViewWidth: Int = displayWidth / 22
+        val cardViewHeight: Int = (cardViewWidth * 1.4).toInt()
 
-        val displayWidth: Int = Resources.getSystem().displayMetrics.widthPixels
-        val displayHeight: Int = Resources.getSystem().displayMetrics.heightPixels
-        val cardWidth: Int = max(displayWidth, displayHeight) / 21
-        val cardHeight: Int = (cardWidth * 1.4).toInt()
+        val cardViewMargin = 8
+        val cardViewPadding = 1
+        val cardViewBackgroundColor: Int = ContextCompat.getColor(requireContext(), R.color.cardViewBackground)
 
-        var imageViews = listOf<ImageView>()
+        val topRowCardViews = listOf(
+            binding.cardView11,
+            binding.cardView12,
+            binding.cardView13
+        )
+        val middleRowCardViews = listOf(
+            binding.cardView6,
+            binding.cardView7,
+            binding.cardView8,
+            binding.cardView9,
+            binding.cardView10
+        )
+        val bottomRowCardViews = listOf(
+            binding.cardView1,
+            binding.cardView2,
+            binding.cardView3,
+            binding.cardView4,
+            binding.cardView5
+        )
+        val dealtCardViews = listOf(
+            binding.cardView14,
+            binding.cardView15,
+            binding.cardView16,
+            binding.cardView17,
+            binding.cardView18,
+            binding.cardView19,
+            binding.cardView20,
+            binding.cardView21,
+            binding.cardView22,
+            binding.cardView23,
+            binding.cardView24,
+            binding.cardView25,
+            binding.cardView26,
+            binding.cardView27,
+            binding.cardView28,
+            binding.cardView29,
+            binding.cardView30
+        )
 
-        val imageViewMargin = 8
-        val imageViewPadding = 1
-        val imageViewBackgroundColor: Int = ContextCompat.getColor(requireContext(), R.color.cardViewBackground)
-
-        fun cardImageResource(card: Card?): Int = resources.getIdentifier(fileName(card), "drawable", requireContext().packageName)
-
-        // new game - reset values
-        var selectedView: ImageView? = null
-        Card.values().forEach { it.cardState = CardState.DECK }
-
-        // image views
-        val layoutBottomRow: LinearLayout = binding.linearLayoutBottomRow
-        val layoutMiddleRow: LinearLayout = binding.linearLayoutMiddleRow
-        val layoutTopRow: LinearLayout = binding.linearLayoutTopRow
-        val layoutDealtCards: LinearLayout = binding.linearLayoutDealtCards
-
-        for (i in 1..(13 + numberOfCardsInFantasyLand)) {
-            val layoutRow: LinearLayout = when (i) {
-                in 1..5   -> layoutBottomRow
-                in 6..10  -> layoutMiddleRow
-                in 11..13 -> layoutTopRow
-                else      -> layoutDealtCards
-            }
-
-            val card = if (i in 1..13) null else dealCard()
-
-            ImageView(requireContext()).apply {
-                layoutParams = LinearLayout.LayoutParams(cardWidth, cardHeight)
-                setImageResource(cardImageResource(card))
-                tag = card
-                updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(imageViewMargin) }
-                setPadding(imageViewPadding)
-                setBackgroundColor(imageViewBackgroundColor)
-
-                layoutRow.addView(this)
-                imageViews += this
+        val allCardViews = listOf(topRowCardViews, middleRowCardViews, bottomRowCardViews, dealtCardViews).flatten()
+        allCardViews.forEach { cardView ->
+            with(cardView) {
+                layoutParams = LinearLayout.LayoutParams(cardViewWidth, cardViewHeight)
+                updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(cardViewMargin) }
+                setPadding(cardViewPadding)
+                setBackgroundColor(cardViewBackgroundColor)
             }
         }
 
-        // imageView functions
-        fun select(imageView: ImageView) {
-            with(imageView) {
+        // setting visibility of unused cardviews to GONE
+        val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val numberOfCardsInFantasyLand: Int = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
+        dealtCardViews.drop(numberOfCardsInFantasyLand).forEach { it.visibility = View.GONE }
+
+        // cardView functions
+        var selectedView: ImageView? = null
+
+        fun select(cardView: ImageView) {
+            with(cardView) {
                 setBackgroundColor(ContextCompat.getColor(context, R.color.cardViewSelected))
                 setPadding(4)
             }
 
-            selectedView = imageView
+            selectedView = cardView
         }
 
-        fun deSelect(imageView: ImageView) {
-            with(imageView) {
+        fun deSelect(cardView: ImageView) {
+            with(cardView) {
                 setBackgroundColor(ContextCompat.getColor(context, R.color.cardViewBackground))
                 setPadding(1)
             }
@@ -113,89 +205,54 @@ class GameFragment : Fragment() {
             selectedView = null
         }
 
-        fun makeMove(imageView: ImageView) {
-            // swap tags (cards)
-            selectedView?.tag = imageView.tag.also { imageView.tag = selectedView?.tag }
-
-            // set new imageResources from already swapped tags (cards)
-            val selectedCard: Card? = selectedView!!.tag as Card?
-            val card: Card = imageView.tag as Card
-            selectedView?.setImageResource(cardImageResource(selectedCard))
-            imageView.setImageResource(cardImageResource(card))
+        fun makeMove(cardView: ImageView) {
+            // swap cards
+            val indexOfCard1 = selectedView!!.tag as Int
+            val indexOfCard2 = cardView.tag as Int
+            viewModel.swapCards(indexOfCard1, indexOfCard2)
 
             deSelect(selectedView!!)
-
-            val isMovingPhaseDone: Boolean = imageViews.take(13).all { it.tag != null }
-            binding.buttonDone.visibility = if (isMovingPhaseDone) View.VISIBLE else View.INVISIBLE
         }
 
-        fun onClickHandler(imageView: ImageView) {
+        fun onClickHandler(cardView: ImageView) {
             val isSomeTileSelected: Boolean = selectedView != null
 
             if (isSomeTileSelected) {
-                val isThisTileSelected: Boolean = selectedView == imageView
+                val isThisTileSelected: Boolean = selectedView == cardView
                 if (isThisTileSelected) {
-                    deSelect(imageView)
+                    deSelect(cardView)
                 } else {
-                    makeMove(imageView)
+                    makeMove(cardView)
                 }
             } else {
-                val isCardOnThisTile: Boolean = imageView.tag != null
-                if (isCardOnThisTile) select(imageView)
+                val indexOfCard = cardView.tag as Int
+                val isCardOnThisTile: Boolean = viewModel.cards.value?.get(indexOfCard) != null
+                if (isCardOnThisTile) select(cardView)
             }
         }
 
-        // set onClickListener on imageViews
-        imageViews.forEach { imageView -> imageView.setOnClickListener { onClickHandler(imageView) } }
+        // set onClickListener on cardViews
+        allCardViews.forEach { cardView -> cardView.setOnClickListener { onClickHandler(cardView) } }
 
         // sort button
         binding.buttonSort.setOnClickListener {
             selectedView?.let { deSelect(selectedView!!) }
-
-            fun List<Card>.sortDealtCards() = if (viewModel.sortToggle) sortByColorAndRank() else sortByRankAndColor()
-
-            val dealtCards: List<Card> = imageViews
-                .drop(13)
-                .mapNotNull { it.tag as Card? }
-                .sortDealtCards()
-                .also { viewModel.sortToggle = !viewModel.sortToggle }
-
-            for (i in 1..numberOfCardsInFantasyLand) {
-                val setCardToView: Boolean = i <= dealtCards.size
-                val dealtCard: Card? = if (setCardToView) dealtCards[i - 1] else null
-
-                imageViews[i + 12].apply {
-                    setImageResource(cardImageResource(dealtCard))
-                    tag = dealtCard
-                }
-            }
+            viewModel.sortCards()
         }
 
         // set all cards button
         binding.buttonSetAllCards.setOnClickListener {
             selectedView?.let { deSelect(selectedView!!) }
-
-            val emptyBoardViews: MutableList<ImageView> = imageViews.take(13).filter { it.tag == null }.toMutableList()
-
-            if (emptyBoardViews.size > 0) {
-                for (i in 1..numberOfCardsInFantasyLand) {
-                    val viewHasCard: Boolean = imageViews[i + 12].tag != null
-
-                    if (viewHasCard) {
-                        selectedView = imageViews[i + 12]
-                        makeMove(emptyBoardViews[0])
-                        emptyBoardViews.removeAt(0)
-                        if (emptyBoardViews.size == 0) break
-                    }
-                }
-            }
+            viewModel.setAllCards()
         }
 
         // done button
         binding.buttonDone.setOnClickListener {
             selectedView?.let { deSelect(selectedView!!) }
 
-            imageViews.forEach { it.setOnClickListener(null) }
+            allCardViews.forEach { it.setOnClickListener(null) }
+
+            viewModel.evaluateGame()
 
             binding.apply {
                 buttonSort.visibility = View.GONE
@@ -203,66 +260,27 @@ class GameFragment : Fragment() {
                 buttonDone.visibility = View.GONE
                 buttonNewGame.visibility = View.VISIBLE
                 buttonShare.visibility = View.VISIBLE
-            }
-
-            var bottomRowCards: List<Card> = imageViews.subList(0, 5).map { it.tag as Card }
-            bottomRowCards =
-                if (bottomRowCards.isAnyWheel)
-                    bottomRowCards.sortByRankAndColorAceLow()
-                else
-                    bottomRowCards.sortByCountRankAndColor()
-
-            var middleRowCards: List<Card> = imageViews.subList(5, 10).map { it.tag as Card }
-            middleRowCards =
-                if (middleRowCards.isAnyWheel)
-                    middleRowCards.sortByRankAndColorAceLow()
-                else
-                    middleRowCards.sortByCountRankAndColor()
-
-            var topRowCards: List<Card> = imageViews.subList(10, 13).map { it.tag as Card }
-            topRowCards = topRowCards.sortByCountRankAndColor()
-
-            val bottomRow = BottomRow(bottomRowCards)
-            val middleRow = MiddleRow(middleRowCards)
-            val topRow = TopRow(topRowCards)
-
-            for (i in 1..13) {
-                val card: Card = when (i) {
-                    in 1..5  -> bottomRowCards[i - 1]
-                    in 6..10 -> middleRowCards[i - 6]
-                    else     -> topRowCards[i - 11]
-                }
-
-                imageViews[i - 1].apply {
-                    setImageResource(cardImageResource(card))
-                    tag = card
-                }
-            }
-
-            val resultOKColor: Int = ContextCompat.getColor(requireContext(), R.color.resultOK)
-            val resultXColor: Int = ContextCompat.getColor(requireContext(), R.color.resultX)
-            val newFantasyLandColor: Int = ContextCompat.getColor(requireContext(), R.color.newFantasyLand)
-
-            if (isValidResult(bottomRow, middleRow, topRow)) {
-                val result: Int = bottomRow.value() + middleRow.value() + topRow.value()
-                binding.apply {
-                    bottomRowResult.text = bottomRow.value().toString()
-                    middleRowResult.text = middleRow.value().toString()
-                    topRowResult.text = topRow.value().toString()
-                    finalResult.text = result.toString()
+                val resultOKColor: Int = ContextCompat.getColor(requireContext(), R.color.resultOK)
+                val resultXColor: Int = ContextCompat.getColor(requireContext(), R.color.resultX)
+                if (viewModel.isValidResult) {
+                    topRowResult.visibility = View.VISIBLE
+                    middleRowResult.visibility = View.VISIBLE
+                    bottomRowResult.visibility = View.VISIBLE
+                    bottomRowResult.text = viewModel.bottomRowResult.toString()
+                    middleRowResult.text = viewModel.middleRowResult.toString()
+                    topRowResult.text = viewModel.topRowResult.toString()
+                    finalResult.text = viewModel.finalResult.toString()
                     finalResult.setTextColor(resultOKColor)
-                }
-            } else {
-                binding.apply {
+                } else {
                     finalResult.text = resources.getString(R.string.result_x)
                     finalResult.setTextColor(resultXColor)
                 }
+                finalResult.visibility = View.VISIBLE
             }
 
-            if (isRepeatedFantasy(bottomRow, middleRow, topRow)) {
+            if (viewModel.isRepeatedFantasy) {
                 binding.apply {
                     newFantasyLand.text = resources.getString(R.string.new_fantasyland)
-                    newFantasyLand.setTextColor(newFantasyLandColor)
                 }
             }
         }
@@ -271,7 +289,7 @@ class GameFragment : Fragment() {
         binding.buttonNewGame.setOnClickListener {
             val navController = it.findNavController()
             val id: Int? = navController.currentDestination?.id
-            navController.popBackStack(id!!,true)
+            navController.popBackStack(id!!, true)
             navController.navigate(id)
         }
 
@@ -287,8 +305,6 @@ class GameFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         Timber.i("onDestroyView called")
-
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
     }
 
     override fun onAttach(context: Context) {

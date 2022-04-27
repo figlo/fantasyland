@@ -48,10 +48,6 @@ class MainFragment : Fragment() {
         binding.buttonPlay.setOnClickListener {
             it.findNavController().navigate(R.id.action_mainFragment_to_gameFragment)
         }
-
-        binding.buttonPlay2.setOnClickListener {
-            it.findNavController().navigate(R.id.action_mainFragment_to_game2Fragment)
-        }
     }
 
     override fun onAttach(context: Context) {
