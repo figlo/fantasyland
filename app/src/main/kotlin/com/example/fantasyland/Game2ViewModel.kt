@@ -82,40 +82,31 @@ class Game2ViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun evaluateGame() {
+        require(cards.value?.take(13)!!.all { it != null }) { "All rows cards must be not null" }
 
-//        var bottomRowCards: List<Card> = cards.value!!.subList(0, 5).toList()
-//        bottomRowCards =
-//            if (bottomRowCards.isAnyWheel)
-//                bottomRowCards.sortByRankAndColorAceLow()
-//            else
-//                bottomRowCards.sortByCountRankAndColor()
+        var bottomRowCards: List<Card> = cards.value!!.subList(0, 5).filterNotNull()
+        bottomRowCards =
+            if (bottomRowCards.isAnyWheel)
+                bottomRowCards.sortByRankAndColorAceLow()
+            else
+                bottomRowCards.sortByCountRankAndColor()
 
-//        var middleRowCards: List<Card> = imageViews.subList(5, 10).map { it.tag as Card }
-//        middleRowCards =
-//            if (middleRowCards.isAnyWheel)
-//                middleRowCards.sortByRankAndColorAceLow()
-//            else
-//                middleRowCards.sortByCountRankAndColor()
-//
-//        var topRowCards: List<Card> = imageViews.subList(10, 13).map { it.tag as Card }
-//        topRowCards = topRowCards.sortByCountRankAndColor()
-//
-//        val bottomRow = BottomRow(bottomRowCards)
-//        val middleRow = MiddleRow(middleRowCards)
-//        val topRow = TopRow(topRowCards)
-//
-//        for (i in 1..13) {
-//            val card: Card = when (i) {
-//                in 1..5  -> bottomRowCards[i - 1]
-//                in 6..10 -> middleRowCards[i - 6]
-//                else     -> topRowCards[i - 11]
-//            }
-//
-//            imageViews[i - 1].apply {
-//                setImageResource(cardImageResource(card))
-//                tag = card
-//            }
-//        }
+        var middleRowCards: List<Card> = cards.value!!.subList(5, 10).filterNotNull()
+        middleRowCards =
+            if (middleRowCards.isAnyWheel)
+                middleRowCards.sortByRankAndColorAceLow()
+            else
+                middleRowCards.sortByCountRankAndColor()
+
+        var topRowCards: List<Card> = cards.value!!.subList(10, 13).filterNotNull()
+        topRowCards = topRowCards.sortByCountRankAndColor()
+
+        cards.value = (bottomRowCards + middleRowCards + topRowCards + cards.value!!.drop(13)).toMutableList()
+
+        val bottomRow = BottomRow(bottomRowCards)
+        val middleRow = MiddleRow(middleRowCards)
+        val topRow = TopRow(topRowCards)
+
 //
 //        val resultOKColor: Int = ContextCompat.getColor(requireContext(), R.color.resultOK)
 //        val resultXColor: Int = ContextCompat.getColor(requireContext(), R.color.resultX)
