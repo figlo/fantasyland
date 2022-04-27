@@ -20,7 +20,7 @@ class Game2ViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         Card.values().forEach { it.cardState = CardState.DECK }
-        
+
         // cards
         val preferences = PreferenceManager.getDefaultSharedPreferences(application)
         val numberOfCardsInFantasyLand: Int = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
@@ -125,3 +125,26 @@ class Game2ViewModel(application: Application) : AndroidViewModel(application) {
         finalResult = bottomRow.value() + middleRow.value() + topRow.value()
     }
 }
+
+fun fileName(card: Card?): String =
+    if (card == null)
+        "empty_card"
+    else
+        "card_" + card.name.takeLast(2).lowercase()
+
+fun dealCard(): Card = Card.values()
+    .filter { it.cardState == CardState.DECK }
+    .random(random)
+    .apply { cardState = CardState.DEALT }
+
+fun isValidResult(bottomRow: BottomRow, middleRow: MiddleRow, topRow: TopRow): Boolean =
+    when {
+        middleRow isHigherThan bottomRow -> false
+        topRow isHigherThan middleRow    -> false
+        else                             -> true
+    }
+
+fun isRepeatedFantasy(bottomRow: BottomRow, middleRow: MiddleRow, topRow: TopRow): Boolean =
+    isValidResult(bottomRow, middleRow, topRow) &&
+            (bottomRow.pokerCombination >= PokerCombination.QUADS ||
+                    topRow.pokerCombination == PokerCombination.TRIPS)

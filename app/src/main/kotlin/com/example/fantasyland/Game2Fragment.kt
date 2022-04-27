@@ -17,7 +17,6 @@ import androidx.preference.PreferenceManager
 import androidx.window.layout.WindowMetricsCalculator
 import com.example.fantasyland.databinding.FragmentGame2Binding
 
-
 class Game2Fragment : Fragment() {
     private lateinit var binding: FragmentGame2Binding
     private val viewModel: Game2ViewModel by viewModels()
