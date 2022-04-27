@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
+import timber.log.Timber
 
 class Game2ViewModel(application: Application) : AndroidViewModel(application) {
     var cards = MutableLiveData<MutableList<Card?>>()
@@ -37,6 +38,8 @@ class Game2ViewModel(application: Application) : AndroidViewModel(application) {
         // isMovingPhaseDone
         val _isMovingPhaseDone = false
         isMovingPhaseDone.value = _isMovingPhaseDone
+
+        Timber.i("GameViewModel created")
     }
 
     fun swapCards(indexOfCard1: Int, indexOfCard2: Int) {
@@ -123,6 +126,11 @@ class Game2ViewModel(application: Application) : AndroidViewModel(application) {
         middleRowResult = middleRow.value()
         topRowResult = topRow.value()
         finalResult = bottomRow.value() + middleRow.value() + topRow.value()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Timber.i("GameViewModel destroyed")
     }
 }
 

@@ -1,5 +1,6 @@
 package com.example.fantasyland
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import androidx.navigation.findNavController
 import androidx.preference.PreferenceManager
 import androidx.window.layout.WindowMetricsCalculator
 import com.example.fantasyland.databinding.FragmentGame2Binding
+import timber.log.Timber
 
 class Game2Fragment : Fragment() {
     private lateinit var binding: FragmentGame2Binding
@@ -26,6 +28,8 @@ class Game2Fragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Timber.i("onCreateView called")
+
         binding = FragmentGame2Binding.inflate(inflater)
 
         fun cardImageResource(card: Card?): Int = resources.getIdentifier(fileName(card), "drawable", requireContext().packageName)
@@ -112,6 +116,8 @@ class Game2Fragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Timber.i("onViewCreated called")
+
         // card views settings
         val bounds = WindowMetricsCalculator.getOrCreate()
             .computeCurrentWindowMetrics(requireActivity())
@@ -294,5 +300,45 @@ class Game2Fragment : Fragment() {
                 .putExtra(Intent.EXTRA_TEXT, binding.finalResult.text)
             startActivity(shareIntent)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Timber.i("onDestroyView called")
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Timber.i("onAttach called")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Timber.i("onCreate called")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Timber.i("onStart called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Timber.i("onResume called")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Timber.i("onPause called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Timber.i("onStop called")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Timber.i("onDetach called")
     }
 }
