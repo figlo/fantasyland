@@ -168,6 +168,58 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/topRowResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/linearLayoutTopRow"
+        app:layout_constraintStart_toEndOf="@id/linearLayoutMiddleRow"
+        app:layout_constraintTop_toTopOf="@id/linearLayoutTopRow" />
+
+    <TextView
+        android:id="@+id/middleRowResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/linearLayoutMiddleRow"
+        app:layout_constraintEnd_toEndOf="@id/topRowResult"
+        app:layout_constraintTop_toTopOf="@id/linearLayoutMiddleRow" />
+
+    <TextView
+        android:id="@+id/bottomRowResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/linearLayoutBottomRow"
+        app:layout_constraintEnd_toEndOf="@id/topRowResult"
+        app:layout_constraintTop_toTopOf="@id/linearLayoutBottomRow" />
+
+    <TextView
+        android:id="@+id/finalResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/linearLayoutMiddleRow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/linearLayoutMiddleRow"
+        app:layout_constraintTop_toTopOf="@id/linearLayoutMiddleRow" />
+
+    <TextView
+        android:id="@+id/newFantasyLand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/newFantasyLand"
+        app:layout_constraintBottom_toBottomOf="@id/linearLayoutTopRow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/linearLayoutMiddleRow"
+        app:layout_constraintTop_toTopOf="@id/linearLayoutTopRow" />
+
     <!-- Dealt Cards (14 - 30) -->
 
     <LinearLayout

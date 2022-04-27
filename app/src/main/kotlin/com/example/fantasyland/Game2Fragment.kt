@@ -246,76 +246,37 @@ class Game2Fragment : Fragment() {
 
             allCardViews.forEach { it.setOnClickListener(null) }
 
+            viewModel.evaluateGame()
+
             binding.apply {
                 buttonSort.visibility = View.GONE
                 buttonSetAllCards.visibility = View.GONE
                 buttonDone.visibility = View.GONE
                 buttonNewGame.visibility = View.VISIBLE
                 buttonShare.visibility = View.VISIBLE
+                val resultOKColor: Int = ContextCompat.getColor(requireContext(), R.color.resultOK)
+                val resultXColor: Int = ContextCompat.getColor(requireContext(), R.color.resultX)
+                if (viewModel.isValidResult) {
+                    topRowResult.visibility = View.VISIBLE
+                    middleRowResult.visibility = View.VISIBLE
+                    bottomRowResult.visibility = View.VISIBLE
+                    bottomRowResult.text = viewModel.bottomRowResult.toString()
+                    middleRowResult.text = viewModel.middleRowResult.toString()
+                    topRowResult.text = viewModel.topRowResult.toString()
+                    finalResult.text = viewModel.finalResult.toString()
+                    finalResult.setTextColor(resultOKColor)
+                } else {
+                    finalResult.text = resources.getString(R.string.result_x)
+                    finalResult.setTextColor(resultXColor)
+                }
+                finalResult.visibility = View.VISIBLE
             }
 
-            viewModel.evaluateGame()
-
-//            var bottomRowCards: List<Card> = imageViews.subList(0, 5).map { it.tag as Card }
-//            bottomRowCards =
-//                if (bottomRowCards.isAnyWheel)
-//                    bottomRowCards.sortByRankAndColorAceLow()
-//                else
-//                    bottomRowCards.sortByCountRankAndColor()
-//
-//            var middleRowCards: List<Card> = imageViews.subList(5, 10).map { it.tag as Card }
-//            middleRowCards =
-//                if (middleRowCards.isAnyWheel)
-//                    middleRowCards.sortByRankAndColorAceLow()
-//                else
-//                    middleRowCards.sortByCountRankAndColor()
-//
-//            var topRowCards: List<Card> = imageViews.subList(10, 13).map { it.tag as Card }
-//            topRowCards = topRowCards.sortByCountRankAndColor()
-//
-//            val bottomRow = BottomRow(bottomRowCards)
-//            val middleRow = MiddleRow(middleRowCards)
-//            val topRow = TopRow(topRowCards)
-//
-//            for (i in 1..13) {
-//                val card: Card = when (i) {
-//                    in 1..5  -> bottomRowCards[i - 1]
-//                    in 6..10 -> middleRowCards[i - 6]
-//                    else     -> topRowCards[i - 11]
-//                }
-//
-//                imageViews[i - 1].apply {
-//                    setImageResource(cardImageResource(card))
-//                    tag = card
-//                }
-//            }
-//
-//            val resultOKColor: Int = ContextCompat.getColor(requireContext(), R.color.resultOK)
-//            val resultXColor: Int = ContextCompat.getColor(requireContext(), R.color.resultX)
-//            val newFantasyLandColor: Int = ContextCompat.getColor(requireContext(), R.color.newFantasyLand)
-//
-//            if (isValidResult(bottomRow, middleRow, topRow)) {
-//                val result: Int = bottomRow.value() + middleRow.value() + topRow.value()
-//                binding.apply {
-//                    bottomRowResult.text = bottomRow.value().toString()
-//                    middleRowResult.text = middleRow.value().toString()
-//                    topRowResult.text = topRow.value().toString()
-//                    finalResult.text = result.toString()
-//                    finalResult.setTextColor(resultOKColor)
-//                }
-//            } else {
-//                binding.apply {
-//                    finalResult.text = resources.getString(R.string.result_x)
-//                    finalResult.setTextColor(resultXColor)
-//                }
-//            }
-//
-//            if (isRepeatedFantasy(bottomRow, middleRow, topRow)) {
-//                binding.apply {
-//                    newFantasyLand.text = resources.getString(R.string.new_fantasyland)
-//                    newFantasyLand.setTextColor(newFantasyLandColor)
-//                }
-//            }
+            if (viewModel.isRepeatedFantasy) {
+                binding.apply {
+                    newFantasyLand.text = resources.getString(R.string.new_fantasyland)
+                }
+            }
         }
 
         // new game button

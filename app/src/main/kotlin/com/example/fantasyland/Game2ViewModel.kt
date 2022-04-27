@@ -11,7 +11,16 @@ class Game2ViewModel(application: Application) : AndroidViewModel(application) {
 
     private var sortToggle = true
 
+    var topRowResult: Int = 0
+    var middleRowResult: Int = 0
+    var bottomRowResult: Int = 0
+    var finalResult: Int = 0
+    var isValidResult: Boolean = false
+    var isRepeatedFantasy: Boolean = false
+
     init {
+        Card.values().forEach { it.cardState = CardState.DECK }
+        
         // cards
         val preferences = PreferenceManager.getDefaultSharedPreferences(application)
         val numberOfCardsInFantasyLand: Int = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
@@ -107,33 +116,12 @@ class Game2ViewModel(application: Application) : AndroidViewModel(application) {
         val middleRow = MiddleRow(middleRowCards)
         val topRow = TopRow(topRowCards)
 
-//
-//        val resultOKColor: Int = ContextCompat.getColor(requireContext(), R.color.resultOK)
-//        val resultXColor: Int = ContextCompat.getColor(requireContext(), R.color.resultX)
-//        val newFantasyLandColor: Int = ContextCompat.getColor(requireContext(), R.color.newFantasyLand)
-//
-//        if (isValidResult(bottomRow, middleRow, topRow)) {
-//            val result: Int = bottomRow.value() + middleRow.value() + topRow.value()
-//            binding.apply {
-//                bottomRowResult.text = bottomRow.value().toString()
-//                middleRowResult.text = middleRow.value().toString()
-//                topRowResult.text = topRow.value().toString()
-//                finalResult.text = result.toString()
-//                finalResult.setTextColor(resultOKColor)
-//            }
-//        } else {
-//            binding.apply {
-//                finalResult.text = resources.getString(R.string.result_x)
-//                finalResult.setTextColor(resultXColor)
-//            }
-//        }
-//
-//        if (isRepeatedFantasy(bottomRow, middleRow, topRow)) {
-//            binding.apply {
-//                newFantasyLand.text = resources.getString(R.string.new_fantasyland)
-//                newFantasyLand.setTextColor(newFantasyLandColor)
-//            }
-//        }
+        isValidResult = isValidResult(bottomRow, middleRow, topRow)
+        isRepeatedFantasy = isRepeatedFantasy(bottomRow, middleRow, topRow)
 
+        bottomRowResult = bottomRow.value()
+        middleRowResult = middleRow.value()
+        topRowResult = topRow.value()
+        finalResult = bottomRow.value() + middleRow.value() + topRow.value()
     }
 }
