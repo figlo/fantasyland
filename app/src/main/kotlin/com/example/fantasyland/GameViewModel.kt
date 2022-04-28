@@ -12,12 +12,30 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
 
     private var sortToggle = true
 
-    var topRowResult: Int = 0
-    var middleRowResult: Int = 0
-    var bottomRowResult: Int = 0
-    var finalResult: Int = 0
-    var isValidResult: Boolean = false
-    var isRepeatedFantasy: Boolean = false
+    private var _topRowResult = 0
+    val topRowResult: Int
+        get() = _topRowResult
+
+    private var _middleRowResult = 0
+    val middleRowResult: Int
+        get() = _middleRowResult
+
+    private var _bottomRowResult = 0
+    val bottomRowResult: Int
+        get() = _bottomRowResult
+
+    private var _finalResult = 0
+    val finalResult: Int
+        get() = _finalResult
+
+    private var _isValidResult = false
+    val isValidResult: Boolean
+        get() = _isValidResult
+
+    private var _isRepeatedFantasy = false
+    val isRepeatedFantasy: Boolean
+        get() = _isRepeatedFantasy
+
 
     init {
         Card.values().forEach { it.cardState = CardState.DECK }
@@ -119,13 +137,13 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         val middleRow = MiddleRow(middleRowCards)
         val topRow = TopRow(topRowCards)
 
-        isValidResult = isValidResult(bottomRow, middleRow, topRow)
-        isRepeatedFantasy = isRepeatedFantasy(bottomRow, middleRow, topRow)
+        _isValidResult = isValidResult(bottomRow, middleRow, topRow)
+        _isRepeatedFantasy = isRepeatedFantasy(bottomRow, middleRow, topRow)
 
-        bottomRowResult = bottomRow.value()
-        middleRowResult = middleRow.value()
-        topRowResult = topRow.value()
-        finalResult = bottomRow.value() + middleRow.value() + topRow.value()
+        _bottomRowResult = bottomRow.value()
+        _middleRowResult = middleRow.value()
+        _topRowResult = topRow.value()
+        _finalResult = bottomRow.value() + middleRow.value() + topRow.value()
     }
 
     override fun onCleared() {
