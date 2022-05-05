@@ -2,15 +2,25 @@ package com.example.fantasyland
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
 import timber.log.Timber
 
 class GameViewModel(application: Application) : AndroidViewModel(application) {
-    var cards = MutableLiveData<MutableList<Card?>>()
-    var isMovingPhaseDone = MutableLiveData<Boolean>()
-
     private var sortToggle = true
+
+    private val _cards = MutableLiveData<MutableList<Card?>>()
+    val cards: LiveData<MutableList<Card?>>
+        get() = _cards
+
+    private val _isMovingPhaseDone = MutableLiveData(false)
+    val isMovingPhaseDone: LiveData<Boolean>
+        get() = _isMovingPhaseDone
+
+    private val _isGameFinished = MutableLiveData(false)
+    val isGameFinished: LiveData<Boolean>
+        get() = _isGameFinished
 
     private var _topRowResult = 0
     val topRowResult: Int
@@ -36,42 +46,41 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     val isRepeatedFantasy: Boolean
         get() = _isRepeatedFantasy
 
-
     init {
         Card.values().forEach { it.cardState = CardState.DECK }
+        _isGameFinished.value = false
 
         // cards
         val preferences = PreferenceManager.getDefaultSharedPreferences(application)
         val numberOfCardsInFantasyLand: Int = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
 
-        val _cards: MutableList<Card?> = MutableList(30) { null }
+        val cards: MutableList<Card?> = MutableList(30) { null }
 
-        for (i in _cards.indices) {
+        for (i in cards.indices) {
             if (i in 13..(12 + numberOfCardsInFantasyLand))
-                _cards[i] = dealCard()
+                cards[i] = dealCard()
         }
 
-        cards.value = _cards
+        _cards.value = cards
 
         // isMovingPhaseDone
-        val _isMovingPhaseDone = false
-        isMovingPhaseDone.value = _isMovingPhaseDone
+        _isMovingPhaseDone.value = false
 
         Timber.i("GameViewModel created")
     }
 
     fun swapCards(indexOfCard1: Int, indexOfCard2: Int) {
-        val cardsCopy = cards.value as MutableList<Card?>
+        val cardsCopy = _cards.value as MutableList<Card?>
         cardsCopy[indexOfCard1] = cardsCopy[indexOfCard2].also { cardsCopy[indexOfCard2] = cardsCopy[indexOfCard1] }
-        cards.value = cardsCopy
+        _cards.value = cardsCopy
 
         // checking if all cards are set
         val rowsCards = cardsCopy.take(13)
-        isMovingPhaseDone.value = rowsCards.all { it != null }
+        _isMovingPhaseDone.value = rowsCards.all { it != null }
     }
 
     fun sortCards() {
-        val cardsCopy = cards.value as MutableList<Card?>
+        val cardsCopy = _cards.value as MutableList<Card?>
 
         fun List<Card>.sortDealtCards() = if (sortToggle) sortByColorAndRank() else sortByRankAndColor()
 
@@ -83,7 +92,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         val sizeOfListOfNulls = 17 - cardsToSort.size
         val listOfNulls: List<Card?> = List<Card?>(sizeOfListOfNulls) { null }
 
-        cards.value = cardsCopy
+        _cards.value = cardsCopy
             .take(13)
             .plus(cardsToSort)
             .plus(listOfNulls)
@@ -93,7 +102,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun setAllCards() {
-        val cardsCopy = cards.value as MutableList<Card?>
+        val cardsCopy = _cards.value as MutableList<Card?>
         val rowsCards = cardsCopy.take(13).toMutableList()
         val cardsToSet = cardsCopy.drop(13).toMutableList()
 
@@ -112,26 +121,26 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun evaluateGame() {
-        require(cards.value?.take(13)!!.all { it != null }) { "All rows cards must be not null" }
+        require(_cards.value?.take(13)!!.all { it != null }) { "All rows cards must be not null" }
 
-        var bottomRowCards: List<Card> = cards.value!!.subList(0, 5).filterNotNull()
+        var bottomRowCards: List<Card> = _cards.value!!.subList(0, 5).filterNotNull()
         bottomRowCards =
             if (bottomRowCards.isAnyWheel)
                 bottomRowCards.sortByRankAndColorAceLow()
             else
                 bottomRowCards.sortByCountRankAndColor()
 
-        var middleRowCards: List<Card> = cards.value!!.subList(5, 10).filterNotNull()
+        var middleRowCards: List<Card> = _cards.value!!.subList(5, 10).filterNotNull()
         middleRowCards =
             if (middleRowCards.isAnyWheel)
                 middleRowCards.sortByRankAndColorAceLow()
             else
                 middleRowCards.sortByCountRankAndColor()
 
-        var topRowCards: List<Card> = cards.value!!.subList(10, 13).filterNotNull()
+        var topRowCards: List<Card> = _cards.value!!.subList(10, 13).filterNotNull()
         topRowCards = topRowCards.sortByCountRankAndColor()
 
-        cards.value = (bottomRowCards + middleRowCards + topRowCards + cards.value!!.drop(13)).toMutableList()
+        _cards.value = (bottomRowCards + middleRowCards + topRowCards + _cards.value!!.drop(13)).toMutableList()
 
         val bottomRow = BottomRow(bottomRowCards)
         val middleRow = MiddleRow(middleRowCards)
@@ -144,6 +153,8 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         _middleRowResult = middleRow.value()
         _topRowResult = topRow.value()
         _finalResult = bottomRow.value() + middleRow.value() + topRow.value()
+
+        _isGameFinished.value = true
     }
 
     override fun onCleared() {

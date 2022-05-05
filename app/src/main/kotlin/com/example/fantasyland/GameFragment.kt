@@ -44,7 +44,6 @@ class GameFragment : Fragment() {
                 binding.buttonSetAllCards.visibility = View.VISIBLE
                 binding.buttonDone.visibility = View.GONE
             }
-
         }
 
         viewModel.cards.observe(viewLifecycleOwner) { newCards ->
@@ -110,6 +109,40 @@ class GameFragment : Fragment() {
             binding.cardView28.setImageResource(cardImageResource(newCards[27]))
             binding.cardView29.setImageResource(cardImageResource(newCards[28]))
             binding.cardView30.setImageResource(cardImageResource(newCards[29]))
+        }
+
+        viewModel.isGameFinished.observe(viewLifecycleOwner) { newIsGameFinished ->
+            if (newIsGameFinished) {
+                binding.apply {
+                    buttonSort.visibility = View.GONE
+                    buttonSetAllCards.visibility = View.GONE
+                    buttonDone.visibility = View.GONE
+                    buttonNewGame.visibility = View.VISIBLE
+                    buttonShare.visibility = View.VISIBLE
+                    if (viewModel.isValidResult) {
+                        val resultOKColor: Int = ContextCompat.getColor(requireContext(), R.color.resultOK)
+                        topRowResult.visibility = View.VISIBLE
+                        middleRowResult.visibility = View.VISIBLE
+                        bottomRowResult.visibility = View.VISIBLE
+                        bottomRowResult.text = viewModel.bottomRowResult.toString()
+                        middleRowResult.text = viewModel.middleRowResult.toString()
+                        topRowResult.text = viewModel.topRowResult.toString()
+                        finalResult.text = viewModel.finalResult.toString()
+                        finalResult.setTextColor(resultOKColor)
+                    } else {
+                        val resultXColor: Int = ContextCompat.getColor(requireContext(), R.color.resultX)
+                        finalResult.text = resources.getString(R.string.result_x)
+                        finalResult.setTextColor(resultXColor)
+                    }
+                    finalResult.visibility = View.VISIBLE
+                }
+
+                if (viewModel.isRepeatedFantasy) {
+                    binding.apply {
+                        newFantasyLand.text = resources.getString(R.string.new_fantasyland)
+                    }
+                }
+            }
         }
 
         return binding.root
@@ -253,36 +286,6 @@ class GameFragment : Fragment() {
             allCardViews.forEach { it.setOnClickListener(null) }
 
             viewModel.evaluateGame()
-
-            binding.apply {
-                buttonSort.visibility = View.GONE
-                buttonSetAllCards.visibility = View.GONE
-                buttonDone.visibility = View.GONE
-                buttonNewGame.visibility = View.VISIBLE
-                buttonShare.visibility = View.VISIBLE
-                val resultOKColor: Int = ContextCompat.getColor(requireContext(), R.color.resultOK)
-                val resultXColor: Int = ContextCompat.getColor(requireContext(), R.color.resultX)
-                if (viewModel.isValidResult) {
-                    topRowResult.visibility = View.VISIBLE
-                    middleRowResult.visibility = View.VISIBLE
-                    bottomRowResult.visibility = View.VISIBLE
-                    bottomRowResult.text = viewModel.bottomRowResult.toString()
-                    middleRowResult.text = viewModel.middleRowResult.toString()
-                    topRowResult.text = viewModel.topRowResult.toString()
-                    finalResult.text = viewModel.finalResult.toString()
-                    finalResult.setTextColor(resultOKColor)
-                } else {
-                    finalResult.text = resources.getString(R.string.result_x)
-                    finalResult.setTextColor(resultXColor)
-                }
-                finalResult.visibility = View.VISIBLE
-            }
-
-            if (viewModel.isRepeatedFantasy) {
-                binding.apply {
-                    newFantasyLand.text = resources.getString(R.string.new_fantasyland)
-                }
-            }
         }
 
         // new game button
