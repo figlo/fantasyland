@@ -10,8 +10,8 @@ import timber.log.Timber
 class GameViewModel(application: Application) : AndroidViewModel(application) {
     private var sortToggle = true
 
-    private val _cards = MutableLiveData<MutableList<Card?>>()
-    val cards: LiveData<MutableList<Card?>>
+    private val _cards = MutableLiveData<List<Card?>>()
+    val cards: LiveData<List<Card?>>
         get() = _cards
 
     private val _isMovingPhaseDone = MutableLiveData(false)
@@ -80,7 +80,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun sortCards() {
-        val cardsCopy = _cards.value as MutableList<Card?>
+        val cardsCopy = _cards.value as List<Card?>
 
         fun List<Card>.sortDealtCards() = if (sortToggle) sortByColorAndRank() else sortByRankAndColor()
 
@@ -102,7 +102,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun setAllCards() {
-        val cardsCopy = _cards.value as MutableList<Card?>
+        val cardsCopy = _cards.value as List<Card?>
         val rowsCards = cardsCopy.take(13).toMutableList()
         val cardsToSet = cardsCopy.drop(13).toMutableList()
 
