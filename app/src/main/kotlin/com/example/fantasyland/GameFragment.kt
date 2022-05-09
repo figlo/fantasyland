@@ -49,10 +49,12 @@ class GameFragment : Fragment() {
         val cardViewPadding = 1
         val cardViewBackgroundColor: Int = ContextCompat.getColor(requireContext(), R.color.cardViewBackground)
 
-        val topRowCardViews = listOf(
-            binding.cardView11,
-            binding.cardView12,
-            binding.cardView13
+        val bottomRowCardViews = listOf(
+            binding.cardView1,
+            binding.cardView2,
+            binding.cardView3,
+            binding.cardView4,
+            binding.cardView5
         )
         val middleRowCardViews = listOf(
             binding.cardView6,
@@ -61,12 +63,10 @@ class GameFragment : Fragment() {
             binding.cardView9,
             binding.cardView10
         )
-        val bottomRowCardViews = listOf(
-            binding.cardView1,
-            binding.cardView2,
-            binding.cardView3,
-            binding.cardView4,
-            binding.cardView5
+        val topRowCardViews = listOf(
+            binding.cardView11,
+            binding.cardView12,
+            binding.cardView13
         )
         val dealtCardViews = listOf(
             binding.cardView14,
@@ -88,7 +88,7 @@ class GameFragment : Fragment() {
             binding.cardView30
         )
 
-        val allCardViews = listOf(topRowCardViews, middleRowCardViews, bottomRowCardViews, dealtCardViews).flatten()
+        val allCardViews = listOf(bottomRowCardViews, middleRowCardViews, topRowCardViews, dealtCardViews).flatten()
         allCardViews.forEach { cardView ->
             with(cardView) {
                 layoutParams = LinearLayout.LayoutParams(cardViewWidth, cardViewHeight)
