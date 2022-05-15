@@ -37,7 +37,10 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Timber.i("onViewCreated called")
 
-        // card views settings
+        /*
+        * Setup card views
+        */
+
         val bounds = WindowMetricsCalculator.getOrCreate()
             .computeCurrentWindowMetrics(requireActivity())
             .bounds
@@ -103,8 +106,12 @@ class GameFragment : Fragment() {
         val numberOfCardsInFantasyLand: Int = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
         dealtCardViews.drop(numberOfCardsInFantasyLand).forEach { it.visibility = View.GONE }
 
-        // cardView functions
+        // setting tags in cardviews (1 - 30)
         setCardViewsTags()
+
+        /*
+        * Card views functions
+        */
 
         var selectedView: ImageView? = null
 
@@ -126,7 +133,7 @@ class GameFragment : Fragment() {
             selectedView = null
         }
 
-        fun makeMove(cardView: ImageView) {
+        fun makeMoveTo(cardView: ImageView) {
             // swap cards
             val indexOfCard1 = selectedView!!.tag as Int
             val indexOfCard2 = cardView.tag as Int
@@ -143,7 +150,7 @@ class GameFragment : Fragment() {
                 if (isThisTileSelected) {
                     deSelect(cardView)
                 } else {
-                    makeMove(cardView)
+                    makeMoveTo(cardView)
                 }
             } else {
                 val indexOfCard = cardView.tag as Int
@@ -152,7 +159,11 @@ class GameFragment : Fragment() {
             }
         }
 
-        // set onClickListener on cardViews
+        /*
+        * Setup listeners
+        */
+
+        // cardViews
         allCardViews.forEach { cardView -> cardView.setOnClickListener { onClickHandler(cardView) } }
 
         // sort button
@@ -170,9 +181,7 @@ class GameFragment : Fragment() {
         // done button
         binding.buttonDone.setOnClickListener {
             selectedView?.let { deSelect(selectedView!!) }
-
             allCardViews.forEach { it.setOnClickListener(null) }
-
             viewModel.evaluateGame()
         }
 
@@ -191,6 +200,10 @@ class GameFragment : Fragment() {
                 .putExtra(Intent.EXTRA_TEXT, binding.finalResult.text)
             startActivity(shareIntent)
         }
+
+        /*
+        * Setup observers
+        */
 
         viewModel.isMovingPhaseDone.observe(viewLifecycleOwner) { newIsMovingPhaseDone ->
             if (newIsMovingPhaseDone) {
