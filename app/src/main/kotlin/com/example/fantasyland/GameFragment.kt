@@ -294,7 +294,7 @@ class GameFragment : Fragment() {
     private fun cardImageResource(card: Card?): Int = resources.getIdentifier(fileName(card), "drawable", requireContext().packageName)
 
     private fun setCardViewsTags() {
-        var i = 1
+        var i = 0
         binding.cardView1.tag = i++
         binding.cardView2.tag = i++
         binding.cardView3.tag = i++
