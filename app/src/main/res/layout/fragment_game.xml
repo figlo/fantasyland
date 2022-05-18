@@ -23,32 +23,20 @@
 
         <ImageView
             android:id="@+id/cardView11"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_11"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView12"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_12"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView13"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_13"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
     </LinearLayout>
@@ -67,52 +55,32 @@
 
         <ImageView
             android:id="@+id/cardView6"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_6"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView7"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_7"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView8"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_8"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView9"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_9"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView10"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_10"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
     </LinearLayout>
@@ -131,52 +99,32 @@
 
         <ImageView
             android:id="@+id/cardView1"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_1"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView2"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_2"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView3"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_3"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView4"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_4"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView5"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_5"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
     </LinearLayout>
@@ -226,8 +174,8 @@
         android:id="@+id/newFantasyLand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
         android:textColor="@color/newFantasyLand"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/linearLayoutTopRow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/linearLayoutMiddleRow"
@@ -248,172 +196,104 @@
 
         <ImageView
             android:id="@+id/cardView14"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_14"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView15"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_15"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView16"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_16"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView17"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_17"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView18"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_18"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView19"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_19"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView20"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_20"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView21"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_21"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView22"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_22"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView23"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_23"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView24"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_24"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView25"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_25"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView26"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_26"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView27"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_27"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView28"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_28"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView29"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_29"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView30"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:layout_margin="@dimen/card_margin"
+            style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_30"
-            android:padding="@dimen/card_padding"
-            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
     </LinearLayout>

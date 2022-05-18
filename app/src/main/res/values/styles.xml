@@ -5,7 +5,14 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-<!--        <item name="android:background">@color/colorBackground</item>-->
+    </style>
+
+    <style name="cardViewStyle">
+        <item name="android:layout_width">@dimen/card_width</item>
+        <item name="android:layout_height">@dimen/card_height</item>
+        <item name="android:layout_margin">@dimen/card_margin</item>
+        <item name="android:padding">@dimen/card_padding</item>
+        <item name="android:background">@color/cardViewBackground</item>
     </style>
 
 </resources>
