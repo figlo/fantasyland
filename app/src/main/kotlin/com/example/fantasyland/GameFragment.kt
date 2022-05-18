@@ -92,14 +92,14 @@ class GameFragment : Fragment() {
             .computeCurrentWindowMetrics(requireActivity())
             .bounds
         val displayWidth = bounds.width()
-        val cardViewWidth: Int = displayWidth / 22
-        val cardViewHeight: Int = (cardViewWidth * 1.4).toInt()
+        val cardViewWidth: Int = displayWidth / 22                  // empirically found out
+        val cardViewHeight: Int = (cardViewWidth * 1.4).toInt()     // official poker card ratio
 
         // margin and padding must be set again programmatically (allready set in xml)
         val cardViewMargin = 8
         val cardViewPadding = 1
 
-        allCardViews.forEach { cardView ->
+        for (cardView in allCardViews) {
             with(cardView) {
                 layoutParams = LinearLayout.LayoutParams(cardViewWidth, cardViewHeight)
                 updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(cardViewMargin) }
@@ -111,9 +111,6 @@ class GameFragment : Fragment() {
         val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         val numberOfCardsInFantasyLand: Int = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
         dealtCardViews.drop(numberOfCardsInFantasyLand).forEach { it.visibility = View.GONE }
-
-        // setting tags in card views (0 - 29)
-        setCardViewsTags()
 
         /*
         * Card views functions
@@ -141,8 +138,8 @@ class GameFragment : Fragment() {
 
         fun makeMoveTo(cardView: ImageView) {
             // swap cards
-            val indexOfCard1 = selectedView!!.tag as Int
-            val indexOfCard2 = cardView.tag as Int
+            val indexOfCard1 = allCardViews.indexOf(selectedView!!)
+            val indexOfCard2 = allCardViews.indexOf(cardView)
             viewModel.swapCards(indexOfCard1, indexOfCard2)
 
             deSelect(selectedView!!)
@@ -159,7 +156,7 @@ class GameFragment : Fragment() {
                     makeMoveTo(cardView)
                 }
             } else {
-                val indexOfCard = cardView.tag as Int
+                val indexOfCard = allCardViews.indexOf(cardView)
                 val isCardOnThisTile: Boolean = viewModel.cards.value?.get(indexOfCard) != null
                 if (isCardOnThisTile) select(cardView)
             }
@@ -258,74 +255,13 @@ class GameFragment : Fragment() {
         }
 
         viewModel.cards.observe(viewLifecycleOwner) { newCards ->
-            binding.cardView0.setImageResource(cardImageResource(newCards[0]))
-            binding.cardView1.setImageResource(cardImageResource(newCards[1]))
-            binding.cardView2.setImageResource(cardImageResource(newCards[2]))
-            binding.cardView3.setImageResource(cardImageResource(newCards[3]))
-            binding.cardView4.setImageResource(cardImageResource(newCards[4]))
-            binding.cardView5.setImageResource(cardImageResource(newCards[5]))
-            binding.cardView6.setImageResource(cardImageResource(newCards[6]))
-            binding.cardView7.setImageResource(cardImageResource(newCards[7]))
-            binding.cardView8.setImageResource(cardImageResource(newCards[8]))
-            binding.cardView9.setImageResource(cardImageResource(newCards[9]))
-            binding.cardView10.setImageResource(cardImageResource(newCards[10]))
-            binding.cardView11.setImageResource(cardImageResource(newCards[11]))
-            binding.cardView12.setImageResource(cardImageResource(newCards[12]))
-            binding.cardView13.setImageResource(cardImageResource(newCards[13]))
-            binding.cardView14.setImageResource(cardImageResource(newCards[14]))
-            binding.cardView15.setImageResource(cardImageResource(newCards[15]))
-            binding.cardView16.setImageResource(cardImageResource(newCards[16]))
-            binding.cardView17.setImageResource(cardImageResource(newCards[17]))
-            binding.cardView18.setImageResource(cardImageResource(newCards[18]))
-            binding.cardView19.setImageResource(cardImageResource(newCards[19]))
-            binding.cardView20.setImageResource(cardImageResource(newCards[20]))
-            binding.cardView21.setImageResource(cardImageResource(newCards[21]))
-            binding.cardView22.setImageResource(cardImageResource(newCards[22]))
-            binding.cardView23.setImageResource(cardImageResource(newCards[23]))
-            binding.cardView24.setImageResource(cardImageResource(newCards[24]))
-            binding.cardView25.setImageResource(cardImageResource(newCards[25]))
-            binding.cardView26.setImageResource(cardImageResource(newCards[26]))
-            binding.cardView27.setImageResource(cardImageResource(newCards[27]))
-            binding.cardView28.setImageResource(cardImageResource(newCards[28]))
-            binding.cardView29.setImageResource(cardImageResource(newCards[29]))
+            for ((index, cardView) in allCardViews.withIndex()) {
+                cardView.setImageResource(cardImageResource(newCards[index]))
+            }
         }
     }
 
     private fun cardImageResource(card: Card?): Int = resources.getIdentifier(fileName(card), "drawable", requireContext().packageName)
-
-    private fun setCardViewsTags() {
-        var i = 0
-        binding.cardView0.tag = i++
-        binding.cardView1.tag = i++
-        binding.cardView2.tag = i++
-        binding.cardView3.tag = i++
-        binding.cardView4.tag = i++
-        binding.cardView5.tag = i++
-        binding.cardView6.tag = i++
-        binding.cardView7.tag = i++
-        binding.cardView8.tag = i++
-        binding.cardView9.tag = i++
-        binding.cardView10.tag = i++
-        binding.cardView11.tag = i++
-        binding.cardView12.tag = i++
-        binding.cardView13.tag = i++
-        binding.cardView14.tag = i++
-        binding.cardView15.tag = i++
-        binding.cardView16.tag = i++
-        binding.cardView17.tag = i++
-        binding.cardView18.tag = i++
-        binding.cardView19.tag = i++
-        binding.cardView20.tag = i++
-        binding.cardView21.tag = i++
-        binding.cardView22.tag = i++
-        binding.cardView23.tag = i++
-        binding.cardView24.tag = i++
-        binding.cardView25.tag = i++
-        binding.cardView26.tag = i++
-        binding.cardView27.tag = i++
-        binding.cardView28.tag = i++
-        binding.cardView29.tag = i
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
