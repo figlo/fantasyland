@@ -6,7 +6,7 @@
     android:background="@color/background"
     tools:context=".GameFragment">
 
-    <!-- Top Row Cards (11 - 13) -->
+    <!-- Top Row Cards (10 - 12) -->
 
     <LinearLayout
         android:id="@+id/linearLayoutTopRow"
@@ -22,6 +22,12 @@
         app:layout_constraintVertical_chainStyle="packed">
 
         <ImageView
+            android:id="@+id/cardView10"
+            style="@style/cardViewStyle"
+            android:contentDescription="@string/card_view_10"
+            app:srcCompat="@drawable/empty_card" />
+
+        <ImageView
             android:id="@+id/cardView11"
             style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_11"
@@ -33,15 +39,9 @@
             android:contentDescription="@string/card_view_12"
             app:srcCompat="@drawable/empty_card" />
 
-        <ImageView
-            android:id="@+id/cardView13"
-            style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_13"
-            app:srcCompat="@drawable/empty_card" />
-
     </LinearLayout>
 
-    <!-- Middle Row Cards (6 - 10) -->
+    <!-- Middle Row Cards (5 - 9) -->
 
     <LinearLayout
         android:id="@+id/linearLayoutMiddleRow"
@@ -52,6 +52,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearLayoutTopRow">
+
+        <ImageView
+            android:id="@+id/cardView5"
+            style="@style/cardViewStyle"
+            android:contentDescription="@string/card_view_5"
+            app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView6"
@@ -77,15 +83,9 @@
             android:contentDescription="@string/card_view_9"
             app:srcCompat="@drawable/empty_card" />
 
-        <ImageView
-            android:id="@+id/cardView10"
-            style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_10"
-            app:srcCompat="@drawable/empty_card" />
-
     </LinearLayout>
 
-    <!-- Bottom Row Cards (1 - 5) -->
+    <!-- Bottom Row Cards (0 - 4) -->
 
     <LinearLayout
         android:id="@+id/linearLayoutBottomRow"
@@ -96,6 +96,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearLayoutMiddleRow">
+
+        <ImageView
+            android:id="@+id/cardView0"
+            style="@style/cardViewStyle"
+            android:contentDescription="@string/card_view_0"
+            app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView1"
@@ -119,12 +125,6 @@
             android:id="@+id/cardView4"
             style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_4"
-            app:srcCompat="@drawable/empty_card" />
-
-        <ImageView
-            android:id="@+id/cardView5"
-            style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_5"
             app:srcCompat="@drawable/empty_card" />
 
     </LinearLayout>
@@ -181,7 +181,7 @@
         app:layout_constraintStart_toEndOf="@id/linearLayoutMiddleRow"
         app:layout_constraintTop_toTopOf="@id/linearLayoutTopRow" />
 
-    <!-- Dealt Cards (14 - 30) -->
+    <!-- Dealt Cards (13 - 29) -->
 
     <LinearLayout
         android:id="@+id/linearLayoutDealtCards"
@@ -193,6 +193,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearLayoutBottomRow"
         app:layout_constraintVertical_bias="0.20">
+
+        <ImageView
+            android:id="@+id/cardView13"
+            style="@style/cardViewStyle"
+            android:contentDescription="@string/card_view_13"
+            app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView14"
@@ -288,12 +294,6 @@
             android:id="@+id/cardView29"
             style="@style/cardViewStyle"
             android:contentDescription="@string/card_view_29"
-            app:srcCompat="@drawable/empty_card" />
-
-        <ImageView
-            android:id="@+id/cardView30"
-            style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_30"
             app:srcCompat="@drawable/empty_card" />
 
     </LinearLayout>

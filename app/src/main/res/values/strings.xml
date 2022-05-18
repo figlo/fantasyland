@@ -17,6 +17,7 @@
     <string name="new_fantasyland">New FantasyLand!</string>
     <string name="share">Share</string>
 
+    <string name="card_view_0">Card 0</string>
     <string name="card_view_1">Card 1</string>
     <string name="card_view_2">Card 2</string>
     <string name="card_view_3">Card 3</string>
@@ -46,7 +47,6 @@
     <string name="card_view_27">Card 27</string>
     <string name="card_view_28">Card 28</string>
     <string name="card_view_29">Card 29</string>
-    <string name="card_view_30">Card 30</string>
 
     <!-- Menu -->
     <string name="rules">Rules</string>

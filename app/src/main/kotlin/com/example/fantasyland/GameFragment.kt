@@ -42,25 +42,26 @@ class GameFragment : Fragment() {
         */
 
         val bottomRowCardViews = listOf(
+            binding.cardView0,
             binding.cardView1,
             binding.cardView2,
             binding.cardView3,
-            binding.cardView4,
-            binding.cardView5
+            binding.cardView4
         )
         val middleRowCardViews = listOf(
+            binding.cardView5,
             binding.cardView6,
             binding.cardView7,
             binding.cardView8,
-            binding.cardView9,
-            binding.cardView10
+            binding.cardView9
         )
         val topRowCardViews = listOf(
+            binding.cardView10,
             binding.cardView11,
-            binding.cardView12,
-            binding.cardView13
+            binding.cardView12
         )
         val dealtCardViews = listOf(
+            binding.cardView13,
             binding.cardView14,
             binding.cardView15,
             binding.cardView16,
@@ -76,8 +77,7 @@ class GameFragment : Fragment() {
             binding.cardView26,
             binding.cardView27,
             binding.cardView28,
-            binding.cardView29,
-            binding.cardView30
+            binding.cardView29
         )
         val allCardViews = listOf(
             bottomRowCardViews,
@@ -112,7 +112,7 @@ class GameFragment : Fragment() {
         val numberOfCardsInFantasyLand: Int = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
         dealtCardViews.drop(numberOfCardsInFantasyLand).forEach { it.visibility = View.GONE }
 
-        // setting tags in card views (1 - 30)
+        // setting tags in card views (0 - 29)
         setCardViewsTags()
 
         /*
@@ -258,36 +258,36 @@ class GameFragment : Fragment() {
         }
 
         viewModel.cards.observe(viewLifecycleOwner) { newCards ->
-            binding.cardView1.setImageResource(cardImageResource(newCards[0]))
-            binding.cardView2.setImageResource(cardImageResource(newCards[1]))
-            binding.cardView3.setImageResource(cardImageResource(newCards[2]))
-            binding.cardView4.setImageResource(cardImageResource(newCards[3]))
-            binding.cardView5.setImageResource(cardImageResource(newCards[4]))
-            binding.cardView6.setImageResource(cardImageResource(newCards[5]))
-            binding.cardView7.setImageResource(cardImageResource(newCards[6]))
-            binding.cardView8.setImageResource(cardImageResource(newCards[7]))
-            binding.cardView9.setImageResource(cardImageResource(newCards[8]))
-            binding.cardView10.setImageResource(cardImageResource(newCards[9]))
-            binding.cardView11.setImageResource(cardImageResource(newCards[10]))
-            binding.cardView12.setImageResource(cardImageResource(newCards[11]))
-            binding.cardView13.setImageResource(cardImageResource(newCards[12]))
-            binding.cardView14.setImageResource(cardImageResource(newCards[13]))
-            binding.cardView15.setImageResource(cardImageResource(newCards[14]))
-            binding.cardView16.setImageResource(cardImageResource(newCards[15]))
-            binding.cardView17.setImageResource(cardImageResource(newCards[16]))
-            binding.cardView18.setImageResource(cardImageResource(newCards[17]))
-            binding.cardView19.setImageResource(cardImageResource(newCards[18]))
-            binding.cardView20.setImageResource(cardImageResource(newCards[19]))
-            binding.cardView21.setImageResource(cardImageResource(newCards[20]))
-            binding.cardView22.setImageResource(cardImageResource(newCards[21]))
-            binding.cardView23.setImageResource(cardImageResource(newCards[22]))
-            binding.cardView24.setImageResource(cardImageResource(newCards[23]))
-            binding.cardView25.setImageResource(cardImageResource(newCards[24]))
-            binding.cardView26.setImageResource(cardImageResource(newCards[25]))
-            binding.cardView27.setImageResource(cardImageResource(newCards[26]))
-            binding.cardView28.setImageResource(cardImageResource(newCards[27]))
-            binding.cardView29.setImageResource(cardImageResource(newCards[28]))
-            binding.cardView30.setImageResource(cardImageResource(newCards[29]))
+            binding.cardView0.setImageResource(cardImageResource(newCards[0]))
+            binding.cardView1.setImageResource(cardImageResource(newCards[1]))
+            binding.cardView2.setImageResource(cardImageResource(newCards[2]))
+            binding.cardView3.setImageResource(cardImageResource(newCards[3]))
+            binding.cardView4.setImageResource(cardImageResource(newCards[4]))
+            binding.cardView5.setImageResource(cardImageResource(newCards[5]))
+            binding.cardView6.setImageResource(cardImageResource(newCards[6]))
+            binding.cardView7.setImageResource(cardImageResource(newCards[7]))
+            binding.cardView8.setImageResource(cardImageResource(newCards[8]))
+            binding.cardView9.setImageResource(cardImageResource(newCards[9]))
+            binding.cardView10.setImageResource(cardImageResource(newCards[10]))
+            binding.cardView11.setImageResource(cardImageResource(newCards[11]))
+            binding.cardView12.setImageResource(cardImageResource(newCards[12]))
+            binding.cardView13.setImageResource(cardImageResource(newCards[13]))
+            binding.cardView14.setImageResource(cardImageResource(newCards[14]))
+            binding.cardView15.setImageResource(cardImageResource(newCards[15]))
+            binding.cardView16.setImageResource(cardImageResource(newCards[16]))
+            binding.cardView17.setImageResource(cardImageResource(newCards[17]))
+            binding.cardView18.setImageResource(cardImageResource(newCards[18]))
+            binding.cardView19.setImageResource(cardImageResource(newCards[19]))
+            binding.cardView20.setImageResource(cardImageResource(newCards[20]))
+            binding.cardView21.setImageResource(cardImageResource(newCards[21]))
+            binding.cardView22.setImageResource(cardImageResource(newCards[22]))
+            binding.cardView23.setImageResource(cardImageResource(newCards[23]))
+            binding.cardView24.setImageResource(cardImageResource(newCards[24]))
+            binding.cardView25.setImageResource(cardImageResource(newCards[25]))
+            binding.cardView26.setImageResource(cardImageResource(newCards[26]))
+            binding.cardView27.setImageResource(cardImageResource(newCards[27]))
+            binding.cardView28.setImageResource(cardImageResource(newCards[28]))
+            binding.cardView29.setImageResource(cardImageResource(newCards[29]))
         }
     }
 
@@ -295,6 +295,7 @@ class GameFragment : Fragment() {
 
     private fun setCardViewsTags() {
         var i = 0
+        binding.cardView0.tag = i++
         binding.cardView1.tag = i++
         binding.cardView2.tag = i++
         binding.cardView3.tag = i++
@@ -323,8 +324,7 @@ class GameFragment : Fragment() {
         binding.cardView26.tag = i++
         binding.cardView27.tag = i++
         binding.cardView28.tag = i++
-        binding.cardView29.tag = i++
-        binding.cardView30.tag = i
+        binding.cardView29.tag = i
     }
 
     override fun onDestroyView() {
