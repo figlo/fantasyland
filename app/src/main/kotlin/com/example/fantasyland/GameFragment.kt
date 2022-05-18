@@ -48,9 +48,8 @@ class GameFragment : Fragment() {
         val cardViewWidth: Int = displayWidth / 22
         val cardViewHeight: Int = (cardViewWidth * 1.4).toInt()
 
-        val cardViewMargin = 8
+        val cardViewMargin = 8      // margin and padding must be set again programmatically
         val cardViewPadding = 1
-        val cardViewBackgroundColor: Int = ContextCompat.getColor(requireContext(), R.color.cardViewBackground)
 
         val bottomRowCardViews = listOf(
             binding.cardView1,
@@ -97,7 +96,6 @@ class GameFragment : Fragment() {
                 layoutParams = LinearLayout.LayoutParams(cardViewWidth, cardViewHeight)
                 updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(cardViewMargin) }
                 setPadding(cardViewPadding)
-                setBackgroundColor(cardViewBackgroundColor)
             }
         }
 

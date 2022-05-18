@@ -28,6 +28,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_11"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -37,6 +38,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_12"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -46,6 +48,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_13"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
     </LinearLayout>
@@ -69,6 +72,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_6"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -78,6 +82,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_7"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -87,6 +92,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_8"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -96,6 +102,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_9"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -105,6 +112,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_10"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
     </LinearLayout>
@@ -128,6 +136,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_1"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -137,6 +146,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_2"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -146,6 +156,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_3"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -155,6 +166,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_4"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -164,6 +176,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_5"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
     </LinearLayout>
@@ -240,6 +253,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_14"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -249,6 +263,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_15"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -258,6 +273,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_16"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -267,6 +283,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_17"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -276,6 +293,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_18"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -285,6 +303,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_19"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -294,6 +313,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_20"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -303,6 +323,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_21"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -312,6 +333,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_22"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -321,6 +343,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_23"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -330,6 +353,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_24"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -339,6 +363,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_25"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -348,6 +373,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_26"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -357,6 +383,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_27"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -366,6 +393,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_28"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -375,6 +403,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_29"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
@@ -384,6 +413,7 @@
             android:layout_margin="@dimen/card_margin"
             android:contentDescription="@string/card_view_30"
             android:padding="@dimen/card_padding"
+            android:background="@color/cardViewBackground"
             app:srcCompat="@drawable/empty_card" />
 
     </LinearLayout>
