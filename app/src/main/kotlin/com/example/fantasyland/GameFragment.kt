@@ -255,13 +255,18 @@ class GameFragment : Fragment() {
         }
 
         viewModel.cards.observe(viewLifecycleOwner) { newCards ->
+            fun fileName(card: Card?): String =
+                if (card == null)
+                    "empty_card"
+                else
+                    "card_" + card.name.takeLast(2).lowercase()
+
             for ((index, cardView) in allCardViews.withIndex()) {
-                cardView.setImageResource(cardImageResource(newCards[index]))
+                val imageResource = resources.getIdentifier(fileName(newCards[index]), "drawable", requireContext().packageName)
+                cardView.setImageResource(imageResource)
             }
         }
     }
-
-    private fun cardImageResource(card: Card?): Int = resources.getIdentifier(fileName(card), "drawable", requireContext().packageName)
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -163,12 +163,6 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     }
 }
 
-fun fileName(card: Card?): String =
-    if (card == null)
-        "empty_card"
-    else
-        "card_" + card.name.takeLast(2).lowercase()
-
 fun dealCard(): Card = Card.values()
     .filter { it.cardState == CardState.DECK }
     .random(random)
