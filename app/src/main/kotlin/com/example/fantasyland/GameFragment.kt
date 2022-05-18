@@ -41,16 +41,6 @@ class GameFragment : Fragment() {
         * Setup card views
         */
 
-        val bounds = WindowMetricsCalculator.getOrCreate()
-            .computeCurrentWindowMetrics(requireActivity())
-            .bounds
-        val displayWidth = bounds.width()
-        val cardViewWidth: Int = displayWidth / 22
-        val cardViewHeight: Int = (cardViewWidth * 1.4).toInt()
-
-        val cardViewMargin = 8      // margin and padding must be set again programmatically
-        val cardViewPadding = 1
-
         val bottomRowCardViews = listOf(
             binding.cardView1,
             binding.cardView2,
@@ -89,8 +79,26 @@ class GameFragment : Fragment() {
             binding.cardView29,
             binding.cardView30
         )
+        val allCardViews = listOf(
+            bottomRowCardViews,
+            middleRowCardViews,
+            topRowCardViews,
+            dealtCardViews
+        ).flatten()
 
-        val allCardViews = listOf(bottomRowCardViews, middleRowCardViews, topRowCardViews, dealtCardViews).flatten()
+        // calculating card view width and height
+        val bounds = WindowMetricsCalculator
+            .getOrCreate()
+            .computeCurrentWindowMetrics(requireActivity())
+            .bounds
+        val displayWidth = bounds.width()
+        val cardViewWidth: Int = displayWidth / 22
+        val cardViewHeight: Int = (cardViewWidth * 1.4).toInt()
+
+        // margin and padding must be set again programmatically (allready set in xml)
+        val cardViewMargin = 8
+        val cardViewPadding = 1
+
         allCardViews.forEach { cardView ->
             with(cardView) {
                 layoutParams = LinearLayout.LayoutParams(cardViewWidth, cardViewHeight)
@@ -99,12 +107,12 @@ class GameFragment : Fragment() {
             }
         }
 
-        // setting visibility of unused cardviews to GONE
+        // setting visibility of unused card views to GONE
         val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         val numberOfCardsInFantasyLand: Int = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
         dealtCardViews.drop(numberOfCardsInFantasyLand).forEach { it.visibility = View.GONE }
 
-        // setting tags in cardviews (1 - 30)
+        // setting tags in card views (1 - 30)
         setCardViewsTags()
 
         /*
@@ -286,7 +294,7 @@ class GameFragment : Fragment() {
     private fun cardImageResource(card: Card?): Int = resources.getIdentifier(fileName(card), "drawable", requireContext().packageName)
 
     private fun setCardViewsTags() {
-        var i = 0
+        var i = 1
         binding.cardView1.tag = i++
         binding.cardView2.tag = i++
         binding.cardView3.tag = i++
