@@ -208,6 +208,21 @@ class GameFragment : Fragment() {
         * Setup observers
         */
 
+        // setting card images in card views
+        viewModel.cards.observe(viewLifecycleOwner) { newCards ->
+            fun fileName(card: Card?): String =
+                if (card == null)
+                    "empty_card"
+                else
+                    "card_" + card.name.takeLast(2).lowercase()
+
+            for ((index, cardView) in allCardViews.withIndex()) {
+                val imageResource = resources.getIdentifier(fileName(newCards[index]), "drawable", requireContext().packageName)
+                cardView.setImageResource(imageResource)
+            }
+        }
+
+        // managing visibility of buttons after all cards are set to rows
         viewModel.isMovingPhaseDone.observe(viewLifecycleOwner) { newIsMovingPhaseDone ->
             if (newIsMovingPhaseDone) {
                 binding.buttonSort.visibility = View.GONE
@@ -220,6 +235,7 @@ class GameFragment : Fragment() {
             }
         }
 
+        // displaying result of the game
         viewModel.isGameFinished.observe(viewLifecycleOwner) { newIsGameFinished ->
             if (newIsGameFinished) {
                 binding.apply {
@@ -228,11 +244,13 @@ class GameFragment : Fragment() {
                     buttonDone.visibility = View.GONE
                     buttonNewGame.visibility = View.VISIBLE
                     buttonShare.visibility = View.VISIBLE
+                    finalResult.visibility = View.VISIBLE
+
                     if (viewModel.isValidResult) {
                         val resultOKColor: Int = ContextCompat.getColor(requireContext(), R.color.resultOK)
-                        topRowResult.visibility = View.VISIBLE
-                        middleRowResult.visibility = View.VISIBLE
                         bottomRowResult.visibility = View.VISIBLE
+                        middleRowResult.visibility = View.VISIBLE
+                        topRowResult.visibility = View.VISIBLE
                         bottomRowResult.text = viewModel.bottomRowResult.toString()
                         middleRowResult.text = viewModel.middleRowResult.toString()
                         topRowResult.text = viewModel.topRowResult.toString()
@@ -243,27 +261,11 @@ class GameFragment : Fragment() {
                         finalResult.text = resources.getString(R.string.result_x)
                         finalResult.setTextColor(resultXColor)
                     }
-                    finalResult.visibility = View.VISIBLE
-                }
 
-                if (viewModel.isRepeatedFantasy) {
-                    binding.apply {
+                    if (viewModel.isRepeatedFantasy) {
                         newFantasyLand.text = resources.getString(R.string.new_fantasyland)
                     }
                 }
-            }
-        }
-
-        viewModel.cards.observe(viewLifecycleOwner) { newCards ->
-            fun fileName(card: Card?): String =
-                if (card == null)
-                    "empty_card"
-                else
-                    "card_" + card.name.takeLast(2).lowercase()
-
-            for ((index, cardView) in allCardViews.withIndex()) {
-                val imageResource = resources.getIdentifier(fileName(newCards[index]), "drawable", requireContext().packageName)
-                cardView.setImageResource(imageResource)
             }
         }
     }

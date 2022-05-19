@@ -22,17 +22,17 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     val isGameFinished: LiveData<Boolean>
         get() = _isGameFinished
 
-    private var _topRowResult = 0
-    val topRowResult: Int
-        get() = _topRowResult
+    private var _bottomRowResult = 0
+    val bottomRowResult: Int
+        get() = _bottomRowResult
 
     private var _middleRowResult = 0
     val middleRowResult: Int
         get() = _middleRowResult
 
-    private var _bottomRowResult = 0
-    val bottomRowResult: Int
-        get() = _bottomRowResult
+    private var _topRowResult = 0
+    val topRowResult: Int
+        get() = _topRowResult
 
     private var _finalResult = 0
     val finalResult: Int
