@@ -47,24 +47,21 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         get() = _isRepeatedFantasy
 
     init {
+        // resetting variables for a new game
         Card.values().forEach { it.cardState = CardState.DECK }
+        _isMovingPhaseDone.value = false
         _isGameFinished.value = false
 
-        // cards
+        // dealing cards
         val preferences = PreferenceManager.getDefaultSharedPreferences(application)
         val numberOfCardsInFantasyLand: Int = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
 
         val cards: MutableList<Card?> = MutableList(30) { null }
-
         for (i in cards.indices) {
             if (i in 13..(12 + numberOfCardsInFantasyLand))
                 cards[i] = dealCard()
         }
-
         _cards.value = cards
-
-        // isMovingPhaseDone
-        _isMovingPhaseDone.value = false
 
         Timber.i("GameViewModel created")
     }
@@ -82,7 +79,11 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     fun sortCards() {
         val cardsCopy = _cards.value as List<Card?>
 
-        fun List<Card>.sortDealtCards() = if (sortToggle) sortByColorAndRank() else sortByRankAndColor()
+        fun List<Card>.sortDealtCards() =
+            if (sortToggle)
+                sortByColorAndRank()
+            else
+                sortByRankAndColor()
 
         val cardsToSort = cardsCopy
             .drop(13)
@@ -96,7 +97,6 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
             .take(13)
             .plus(cardsToSort)
             .plus(listOfNulls)
-            .toMutableList()
 
         sortToggle = !sortToggle
     }
@@ -140,7 +140,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         var topRowCards: List<Card> = _cards.value!!.subList(10, 13).filterNotNull()
         topRowCards = topRowCards.sortByCountRankAndColor()
 
-        _cards.value = (bottomRowCards + middleRowCards + topRowCards + _cards.value!!.drop(13)).toMutableList()
+        _cards.value = (bottomRowCards + middleRowCards + topRowCards + _cards.value!!.drop(13))
 
         val bottomRow = BottomRow(bottomRowCards)
         val middleRow = MiddleRow(middleRowCards)
