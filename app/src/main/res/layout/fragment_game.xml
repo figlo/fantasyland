@@ -24,19 +24,19 @@
         <ImageView
             android:id="@+id/cardView10"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_10"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView11"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_11"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView12"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_12"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
     </LinearLayout>
@@ -56,31 +56,31 @@
         <ImageView
             android:id="@+id/cardView5"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_5"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView6"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_6"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView7"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_7"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView8"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_8"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView9"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_9"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
     </LinearLayout>
@@ -100,31 +100,31 @@
         <ImageView
             android:id="@+id/cardView0"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_0"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView1"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_1"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView2"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_2"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView3"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_3"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView4"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_4"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
     </LinearLayout>
@@ -197,103 +197,103 @@
         <ImageView
             android:id="@+id/cardView13"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_13"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView14"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_14"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView15"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_15"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView16"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_16"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView17"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_17"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView18"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_18"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView19"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_19"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView20"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_20"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView21"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_21"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView22"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_22"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView23"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_23"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView24"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_24"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView25"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_25"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView26"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_26"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView27"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_27"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView28"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_28"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
         <ImageView
             android:id="@+id/cardView29"
             style="@style/cardViewStyle"
-            android:contentDescription="@string/card_view_29"
+            android:contentDescription="@null"
             app:srcCompat="@drawable/empty_card" />
 
     </LinearLayout>
