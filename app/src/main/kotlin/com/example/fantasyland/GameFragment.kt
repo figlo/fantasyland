@@ -199,7 +199,8 @@ class GameFragment : Fragment() {
         // share button
         binding.buttonShare.setOnClickListener {
             val shareIntent = Intent(Intent.ACTION_SEND)
-            shareIntent.setType("text/plain")
+                .setType("text/plain")
+                .putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_subject))
                 .putExtra(Intent.EXTRA_TEXT, binding.finalResult.text)
             startActivity(shareIntent)
         }

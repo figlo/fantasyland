@@ -16,6 +16,7 @@
     <string name="result_x">X</string>
     <string name="new_fantasyland">New FantasyLand!</string>
     <string name="share">Share</string>
+    <string name="share_subject">My FantasyLand Result</string>
 
     <string name="card_view_0">Card 0</string>
     <string name="card_view_1">Card 1</string>
