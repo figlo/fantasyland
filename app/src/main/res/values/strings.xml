@@ -31,7 +31,11 @@
     <string name="rulesHtml">
         <![CDATA[
 
+        <body style=\"margin:20px auto; padding: 10px; max-width: 900px;\">
+
         <h1>Rules</h1>
+
+        <br>
 
         <h2>Game</h2>
 
@@ -48,6 +52,8 @@
         <br>Middle row hand must rank higher of equal to top row hand.</p>
 
         <p>The regular Texas Hold\'em showdown hand values are used for comparison.</p>
+
+        <br>
 
         <h2>Scoring</h2>
 
@@ -190,6 +196,8 @@
                 <td>1</td>
             </tr>
         </table>
+
+        </body>
 
         ]]>
     </string>
