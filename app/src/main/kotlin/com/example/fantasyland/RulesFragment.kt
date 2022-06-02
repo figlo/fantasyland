@@ -10,7 +10,8 @@ import com.example.fantasyland.databinding.FragmentRulesBinding
 import timber.log.Timber
 
 class RulesFragment : Fragment() {
-    private lateinit var binding: FragmentRulesBinding
+    private var _binding: FragmentRulesBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -18,7 +19,7 @@ class RulesFragment : Fragment() {
     ): View {
         Timber.i("onCreateView called")
 
-        binding = FragmentRulesBinding.inflate(inflater)
+        _binding = FragmentRulesBinding.inflate(inflater)
 
         return binding.root
     }
@@ -60,6 +61,7 @@ class RulesFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding = null
         Timber.i("onDestroyView called")
     }
 

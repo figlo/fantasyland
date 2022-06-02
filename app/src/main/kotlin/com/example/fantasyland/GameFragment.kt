@@ -21,8 +21,9 @@ import com.example.fantasyland.databinding.FragmentGameBinding
 import timber.log.Timber
 
 class GameFragment : Fragment() {
-    private lateinit var binding: FragmentGameBinding
     private val viewModel: GameViewModel by viewModels()
+    private var _binding: FragmentGameBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +31,7 @@ class GameFragment : Fragment() {
     ): View {
         Timber.i("onCreateView called")
 
-        binding = FragmentGameBinding.inflate(inflater)
+        _binding = FragmentGameBinding.inflate(inflater)
         return binding.root
     }
 
@@ -273,6 +274,7 @@ class GameFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding = null
         Timber.i("onDestroyView called")
     }
 

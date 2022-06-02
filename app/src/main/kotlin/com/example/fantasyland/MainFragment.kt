@@ -13,7 +13,8 @@ import com.example.fantasyland.databinding.FragmentMainBinding
 import timber.log.Timber
 
 class MainFragment : Fragment() {
-    private lateinit var binding: FragmentMainBinding
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,7 +22,7 @@ class MainFragment : Fragment() {
     ): View {
         Timber.i("onCreateView called")
 
-        binding = FragmentMainBinding.inflate(inflater)
+        _binding = FragmentMainBinding.inflate(inflater)
 
         return binding.root
     }
@@ -82,6 +83,7 @@ class MainFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        _binding = null
         Timber.i("onDestroyView called")
     }
 
