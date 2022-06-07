@@ -4,7 +4,6 @@ import androidx.lifecycle.*
 import com.example.fantasyland.data.UserPreferencesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -72,8 +71,6 @@ class GameViewModel @Inject constructor(userPreferencesRepository: UserPreferenc
                 cards[i] = dealCard()
         }
         _cards.value = cards
-
-        Timber.i("GameViewModel created")
     }
 
     fun swapCards(indexOfCard1: Int, indexOfCard2: Int) {
@@ -166,16 +163,11 @@ class GameViewModel @Inject constructor(userPreferencesRepository: UserPreferenc
 
         _isGameFinished.value = true
     }
-
-    override fun onCleared() {
-        super.onCleared()
-        Timber.i("GameViewModel destroyed")
-    }
 }
 
 class GameViewModelFactory(
     private val userPreferencesRepository: UserPreferencesRepository
-): ViewModelProvider.Factory {
+) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(GameViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
