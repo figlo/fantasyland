@@ -6,13 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.preference.PreferenceManager
+import com.example.fantasyland.data.UserPreferencesRepository
 import com.example.fantasyland.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
+
+    private lateinit var viewModel: MainViewModel
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
@@ -21,8 +25,14 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMainBinding.inflate(inflater)
+        viewModel = ViewModelProvider(
+            this,
+            MainViewModelFactory(
+                UserPreferencesRepository(requireContext().dataStore)
+            )
+        )[MainViewModel::class.java]
 
+        _binding = FragmentMainBinding.inflate(inflater)
         return binding.root
     }
 

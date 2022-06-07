@@ -1,6 +1,5 @@
 package com.example.fantasyland
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +11,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.setMargins
 import androidx.core.view.setPadding
 import androidx.core.view.updateLayoutParams
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -21,12 +19,6 @@ import androidx.window.layout.WindowMetricsCalculator
 import com.example.fantasyland.data.UserPreferencesRepository
 import com.example.fantasyland.databinding.FragmentGameBinding
 import dagger.hilt.android.AndroidEntryPoint
-
-private const val USER_PREFERENCES_NAME = "user_preferences"
-
-private val Context.dataStore by preferencesDataStore(
-    name = USER_PREFERENCES_NAME
-)
 
 @AndroidEntryPoint
 class GameFragment : Fragment() {

@@ -1,9 +1,11 @@
 package com.example.fantasyland
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -14,6 +16,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlin.random.Random
 
 val random = Random(System.currentTimeMillis())
+
+private const val USER_PREFERENCES_NAME = "user_preferences"
+
+val Context.dataStore by preferencesDataStore(
+    name = USER_PREFERENCES_NAME
+)
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
