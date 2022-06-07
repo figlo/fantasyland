@@ -1,13 +1,14 @@
 package com.example.fantasyland
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.preference.PreferenceManager
+import androidx.lifecycle.*
+import com.example.fantasyland.data.UserPreferencesRepository
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class GameViewModel(application: Application) : AndroidViewModel(application) {
+class GameViewModel(userPreferencesRepository: UserPreferencesRepository) : ViewModel() {
+
+    private val userPreferencesFlow = userPreferencesRepository.userPreferencesFlow
+
     private var sortToggle = true
 
     private val _cards = MutableLiveData<List<Card?>>()
@@ -53,8 +54,14 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         _isGameFinished.value = false
 
         // dealing cards
-        val preferences = PreferenceManager.getDefaultSharedPreferences(application)
-        val numberOfCardsInFantasyLand: Int = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
+//        val preferences = PreferenceManager.getDefaultSharedPreferences(application)
+//        val numberOfCardsInFantasyLand: Int = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
+        var numberOfCardsInFantasyLand = 14
+        viewModelScope.launch {
+            userPreferencesFlow.collect { userPreferences ->
+                numberOfCardsInFantasyLand = userPreferences.numberOfCardsInFantasyLand
+            }
+        }
 
         val cards: MutableList<Card?> = MutableList(30) { null }
         for (i in cards.indices) {
@@ -160,6 +167,18 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     override fun onCleared() {
         super.onCleared()
         Timber.i("GameViewModel destroyed")
+    }
+}
+
+class GameViewModelFactory(
+    private val userPreferencesRepository: UserPreferencesRepository
+): ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(GameViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return GameViewModel(userPreferencesRepository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
 

@@ -12,16 +12,24 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.setMargins
 import androidx.core.view.setPadding
 import androidx.core.view.updateLayoutParams
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.preference.PreferenceManager
 import androidx.window.layout.WindowMetricsCalculator
+import com.example.fantasyland.data.UserPreferencesRepository
 import com.example.fantasyland.databinding.FragmentGameBinding
 import timber.log.Timber
 
+private const val USER_PREFERENCES_NAME = "user_preferences"
+
+private val Context.dataStore by preferencesDataStore(
+    name = USER_PREFERENCES_NAME
+)
+
 class GameFragment : Fragment() {
-    private val viewModel: GameViewModel by viewModels()
+    private lateinit var viewModel: GameViewModel
     private var _binding: FragmentGameBinding? = null
     private val binding get() = _binding!!
 
@@ -30,6 +38,13 @@ class GameFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         Timber.i("onCreateView called")
+
+        viewModel = ViewModelProvider(
+            this,
+            GameViewModelFactory(
+                UserPreferencesRepository(requireContext().dataStore)
+            )
+        )[GameViewModel::class.java]
 
         _binding = FragmentGameBinding.inflate(inflater)
         return binding.root
