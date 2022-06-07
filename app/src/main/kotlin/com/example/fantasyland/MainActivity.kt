@@ -10,11 +10,14 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.fantasyland.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.random.Random
 
 val random = Random(System.currentTimeMillis())
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityMainBinding
     private val navHostFragment: NavHostFragment by lazy {
         supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment

@@ -2,10 +2,13 @@ package com.example.fantasyland
 
 import androidx.lifecycle.*
 import com.example.fantasyland.data.UserPreferencesRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class GameViewModel(userPreferencesRepository: UserPreferencesRepository) : ViewModel() {
+@HiltViewModel
+class GameViewModel @Inject constructor(userPreferencesRepository: UserPreferencesRepository) : ViewModel() {
 
     private val userPreferencesFlow = userPreferencesRepository.userPreferencesFlow
 

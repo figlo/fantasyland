@@ -20,6 +20,7 @@ import androidx.preference.PreferenceManager
 import androidx.window.layout.WindowMetricsCalculator
 import com.example.fantasyland.data.UserPreferencesRepository
 import com.example.fantasyland.databinding.FragmentGameBinding
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 private const val USER_PREFERENCES_NAME = "user_preferences"
@@ -28,7 +29,9 @@ private val Context.dataStore by preferencesDataStore(
     name = USER_PREFERENCES_NAME
 )
 
+@AndroidEntryPoint
 class GameFragment : Fragment() {
+
     private lateinit var viewModel: GameViewModel
     private var _binding: FragmentGameBinding? = null
     private val binding get() = _binding!!
