@@ -8,10 +8,11 @@ import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.preference.PreferenceManager
 import com.example.fantasyland.data.UserPreferencesRepository
 import com.example.fantasyland.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -20,6 +21,8 @@ class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
+
+    private var numberOfCardsInFantasyLand = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,16 +40,20 @@ class MainFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+//        viewModel.userPreferencesLiveData.observe(viewLifecycleOwner) { userPreferencesLiveData ->
+//            numberOfCardsInFantasyLand = userPreferencesLiveData.numberOfCardsInFantasyLand
+//        }
 
-        val spinnerValue: String = preferences.getString("number_of_cards_in_fantasy_land", "14") ?: "14"
-        val spinnerIndex: Int = spinnerValue.toInt() - 13
+        numberOfCardsInFantasyLand = runBlocking { requireContext().dataStore.data.first()[UserPreferencesRepository.PreferencesKeys.NUMBER_OF_CARDS_IN_FANTASY_LAND] } ?: 0
+
+        val spinnerValue= numberOfCardsInFantasyLand
+        val spinnerIndex: Int = spinnerValue - 13
         binding.spinnerNumberOfFantasyLandCards.setSelection(spinnerIndex)
 
         binding.spinnerNumberOfFantasyLandCards.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedItem = parent?.getItemAtPosition(position).toString()
-                preferences.edit().putString("number_of_cards_in_fantasy_land", selectedItem).apply()
+                val selectedItem = parent?.getItemAtPosition(position).toString().toInt()
+                viewModel.setNumberOfCardsInFantasyLand(selectedItem)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

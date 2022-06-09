@@ -14,17 +14,20 @@ import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.preference.PreferenceManager
 import androidx.window.layout.WindowMetricsCalculator
 import com.example.fantasyland.data.UserPreferencesRepository
 import com.example.fantasyland.databinding.FragmentGameBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class GameFragment : Fragment() {
     private lateinit var viewModel: GameViewModel
     private var _binding: FragmentGameBinding? = null
     private val binding get() = _binding!!
+
+    private var numberOfCardsInFantasyLand = 14
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +45,12 @@ class GameFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        viewModel.userPreferencesLiveData.observe(viewLifecycleOwner) { userPreferencesLiveData ->
+//            numberOfCardsInFantasyLand = userPreferencesLiveData.numberOfCardsInFantasyLand
+//        }
+
+        numberOfCardsInFantasyLand = runBlocking { requireContext().dataStore.data.first()[UserPreferencesRepository.PreferencesKeys.NUMBER_OF_CARDS_IN_FANTASY_LAND] } ?: 0
+
         /*
         * Setup card views
         */
@@ -113,8 +122,6 @@ class GameFragment : Fragment() {
         }
 
         // setting visibility of unused card views to GONE
-        val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        val numberOfCardsInFantasyLand: Int = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
         dealtCardViews.drop(numberOfCardsInFantasyLand).forEach { it.visibility = View.GONE }
 
         /*

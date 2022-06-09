@@ -9,16 +9,30 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(userPreferencesRepository: UserPreferencesRepository) : ViewModel() {
+class MainViewModel @Inject constructor(private val userPreferencesRepository: UserPreferencesRepository) : ViewModel() {
+
+//    val initialSetupEvent = liveData {
+//        emit(userPreferencesRepository.fetchInitialPreferences())
+//    }
 
     private val userPreferencesFlow = userPreferencesRepository.userPreferencesFlow
 
+//    val userPreferencesLiveData = userPreferencesFlow.asLiveData()
+
     init {
-        var numberOfCardsInFantasyLand = 14
+        var numberOfCardsInFantasyLand: Int
         viewModelScope.launch {
             userPreferencesFlow.collect { userPreferences ->
                 numberOfCardsInFantasyLand = userPreferences.numberOfCardsInFantasyLand
             }
+        }
+    }
+
+//    val numberOfCardsInFantasyLand = userPreferencesFlow.asLiveData()
+
+    fun setNumberOfCardsInFantasyLand(numberOfCardsInFantasyLand: Int) {
+        viewModelScope.launch {
+            userPreferencesRepository.setNumberOfCardsInFantasyLand(numberOfCardsInFantasyLand)
         }
     }
 }
