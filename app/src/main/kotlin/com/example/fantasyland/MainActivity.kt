@@ -17,11 +17,7 @@ import kotlin.random.Random
 
 val random = Random(System.currentTimeMillis())
 
-private const val USER_PREFERENCES_NAME = "user_preferences"
-
-val Context.dataStore by preferencesDataStore(
-    name = USER_PREFERENCES_NAME
-)
+val Context.dataStore by preferencesDataStore("user_preferences")
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
