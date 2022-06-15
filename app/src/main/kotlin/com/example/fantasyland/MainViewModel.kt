@@ -15,18 +15,18 @@ class MainViewModel @Inject constructor(private val userPreferencesRepository: U
 //        emit(userPreferencesRepository.fetchInitialPreferences())
 //    }
 
-    private val userPreferencesFlow = userPreferencesRepository.userPreferencesFlow
+//    private val userPreferencesFlow = userPreferencesRepository.userPreferencesFlow
 
 //    val userPreferencesLiveData = userPreferencesFlow.asLiveData()
 
-    init {
-        var numberOfCardsInFantasyLand: Int
-        viewModelScope.launch {
-            userPreferencesFlow.collect { userPreferences ->
-                numberOfCardsInFantasyLand = userPreferences.numberOfCardsInFantasyLand
-            }
-        }
-    }
+//    init {
+//        var numberOfCardsInFantasyLand: Int
+//        viewModelScope.launch {
+//            userPreferencesFlow.collect { userPreferences ->
+//                numberOfCardsInFantasyLand = userPreferences.numberOfCardsInFantasyLand
+//            }
+//        }
+//    }
 
 //    val numberOfCardsInFantasyLand = userPreferencesFlow.asLiveData()
 

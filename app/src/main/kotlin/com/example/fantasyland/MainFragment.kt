@@ -44,9 +44,14 @@ class MainFragment : Fragment() {
 //            numberOfCardsInFantasyLand = userPreferencesLiveData.numberOfCardsInFantasyLand
 //        }
 
-        numberOfCardsInFantasyLand = runBlocking { requireContext().dataStore.data.first()[UserPreferencesRepository.PreferencesKeys.NUMBER_OF_CARDS_IN_FANTASY_LAND] } ?: 0
+//        lifecycleScope.launch {
+//            numberOfCardsInFantasyLand = requireContext().dataStore.data.first()[UserPreferencesRepository.PreferencesKeys.NUMBER_OF_CARDS_IN_FANTASY_LAND] ?: 0
+//        }
 
-        val spinnerValue= numberOfCardsInFantasyLand
+        numberOfCardsInFantasyLand = runBlocking { requireContext().dataStore.data.first()[UserPreferencesRepository.PreferencesKeys.NUMBER_OF_CARDS_IN_FANTASY_LAND] } ?: 0
+//        numberOfCardsInFantasyLand = viewModel.initialSetupEvent.value!!.numberOfCardsInFantasyLand
+
+        val spinnerValue = numberOfCardsInFantasyLand
         val spinnerIndex: Int = spinnerValue - 13
         binding.spinnerNumberOfFantasyLandCards.setSelection(spinnerIndex)
 
