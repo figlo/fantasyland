@@ -34,9 +34,6 @@ class UserPreferencesRepository @Inject constructor(private val dataStore: DataS
             mapUserPreferences(preferences)
         }
 
-//    suspend fun fetchInitialPreferences() =
-//        mapUserPreferences(dataStore.data.first().toPreferences())
-
     private fun mapUserPreferences(preferences: Preferences): UserPreferences {
         val numberOfCardsInFantasyLand = preferences[PreferencesKeys.NUMBER_OF_CARDS_IN_FANTASY_LAND] ?: 14
         return UserPreferences(numberOfCardsInFantasyLand)

@@ -40,16 +40,7 @@ class MainFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        viewModel.userPreferencesLiveData.observe(viewLifecycleOwner) { userPreferencesLiveData ->
-//            numberOfCardsInFantasyLand = userPreferencesLiveData.numberOfCardsInFantasyLand
-//        }
-
-//        lifecycleScope.launch {
-//            numberOfCardsInFantasyLand = requireContext().dataStore.data.first()[UserPreferencesRepository.PreferencesKeys.NUMBER_OF_CARDS_IN_FANTASY_LAND] ?: 0
-//        }
-
         numberOfCardsInFantasyLand = runBlocking { requireContext().dataStore.data.first()[UserPreferencesRepository.PreferencesKeys.NUMBER_OF_CARDS_IN_FANTASY_LAND] } ?: 0
-//        numberOfCardsInFantasyLand = viewModel.initialSetupEvent.value!!.numberOfCardsInFantasyLand
 
         val spinnerValue = numberOfCardsInFantasyLand
         val spinnerIndex: Int = spinnerValue - 13

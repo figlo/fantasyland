@@ -23,6 +23,7 @@ import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class GameFragment : Fragment() {
+
     private lateinit var viewModel: GameViewModel
     private var _binding: FragmentGameBinding? = null
     private val binding get() = _binding!!
@@ -45,10 +46,6 @@ class GameFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        viewModel.userPreferencesLiveData.observe(viewLifecycleOwner) { userPreferencesLiveData ->
-//            numberOfCardsInFantasyLand = userPreferencesLiveData.numberOfCardsInFantasyLand
-//        }
-
         numberOfCardsInFantasyLand = runBlocking { requireContext().dataStore.data.first()[UserPreferencesRepository.PreferencesKeys.NUMBER_OF_CARDS_IN_FANTASY_LAND] } ?: 0
 
         /*

@@ -11,12 +11,6 @@ class GameViewModel @Inject constructor(userPreferencesRepository: UserPreferenc
 
     private val userPreferencesFlow = userPreferencesRepository.userPreferencesFlow
 
-//    val userPreferencesLiveData = userPreferencesFlow.asLiveData()
-
-//    val initialSetupEvent = liveData {
-//        emit(userPreferencesRepository.fetchInitialPreferences())
-//    }
-
     private var sortToggle = true
 
     private val _cards = MutableLiveData<List<Card?>>()
@@ -62,8 +56,6 @@ class GameViewModel @Inject constructor(userPreferencesRepository: UserPreferenc
         _isGameFinished.value = false
 
         // dealing cards
-//        val preferences = PreferenceManager.getDefaultSharedPreferences(application)
-//        val numberOfCardsInFantasyLand: Int = preferences.getString("number_of_cards_in_fantasy_land", "14")?.toInt()!!
         var numberOfCardsInFantasyLand = 0
         viewModelScope.launch {
             userPreferencesFlow.collect { userPreferences ->
@@ -174,6 +166,7 @@ class GameViewModel @Inject constructor(userPreferencesRepository: UserPreferenc
 class GameViewModelFactory(
     private val userPreferencesRepository: UserPreferencesRepository
 ) : ViewModelProvider.Factory {
+
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(GameViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
