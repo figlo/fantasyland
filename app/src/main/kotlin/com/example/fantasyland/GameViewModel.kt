@@ -49,6 +49,10 @@ class GameViewModel @Inject constructor(userPreferencesRepository: UserPreferenc
     val isRepeatedFantasy: Boolean
         get() = _isRepeatedFantasy
 
+    private var _numberOfCardsInFantasyLand = 0
+    val numberOfCardsInFantasyLand: Int
+        get() = _numberOfCardsInFantasyLand
+
     init {
         // resetting variables for a new game
         Card.values().forEach { it.cardState = CardState.DECK }
@@ -56,16 +60,15 @@ class GameViewModel @Inject constructor(userPreferencesRepository: UserPreferenc
         _isGameFinished.value = false
 
         // dealing cards
-        var numberOfCardsInFantasyLand = 0
         viewModelScope.launch {
             userPreferencesFlow.collect { userPreferences ->
-                numberOfCardsInFantasyLand = userPreferences.numberOfCardsInFantasyLand
+                _numberOfCardsInFantasyLand = userPreferences.numberOfCardsInFantasyLand
             }
         }
 
         val cards: MutableList<Card?> = MutableList(30) { null }
         for (i in cards.indices) {
-            if (i in 13..(12 + numberOfCardsInFantasyLand))
+            if (i in 13..(12 + _numberOfCardsInFantasyLand))
                 cards[i] = dealCard()
         }
         _cards.value = cards

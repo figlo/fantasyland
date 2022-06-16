@@ -18,8 +18,6 @@ import androidx.window.layout.WindowMetricsCalculator
 import com.example.fantasyland.data.UserPreferencesRepository
 import com.example.fantasyland.databinding.FragmentGameBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class GameFragment : Fragment() {
@@ -27,8 +25,6 @@ class GameFragment : Fragment() {
     private lateinit var viewModel: GameViewModel
     private var _binding: FragmentGameBinding? = null
     private val binding get() = _binding!!
-
-    private var numberOfCardsInFantasyLand = 14
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +42,7 @@ class GameFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        numberOfCardsInFantasyLand = runBlocking { requireContext().dataStore.data.first()[UserPreferencesRepository.PreferencesKeys.NUMBER_OF_CARDS_IN_FANTASY_LAND] } ?: 0
+        val numberOfCardsInFantasyLand = viewModel.numberOfCardsInFantasyLand
 
         /*
         * Setup card views
