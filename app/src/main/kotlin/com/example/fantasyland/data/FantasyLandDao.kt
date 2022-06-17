@@ -18,5 +18,5 @@ interface FantasyLandDao {
     suspend fun clear()
 
     @Query("SELECT * FROM games_table ORDER BY gameId DESC")
-    suspend fun getAllGames(): LiveData<List<Game>>
+    fun getAllGames(): LiveData<List<Game>>
 }
