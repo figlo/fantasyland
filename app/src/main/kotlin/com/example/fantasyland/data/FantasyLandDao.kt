@@ -9,14 +9,14 @@ import androidx.room.Query
 interface FantasyLandDao {
 
     @Insert
-    fun insert(game: Game)
+    suspend fun insert(game: Game)
 
     @Query("SELECT * FROM games_table WHERE gameId = :key")
-    fun get(key: Long): Game?
+    suspend fun get(key: Long): Game?
 
     @Query("DELETE FROM games_table")
-    fun clear()
+    suspend fun clear()
 
     @Query("SELECT * FROM games_table ORDER BY gameId DESC")
-    fun getAllGames(): LiveData<List<Game>>
+    suspend fun getAllGames(): LiveData<List<Game>>
 }
