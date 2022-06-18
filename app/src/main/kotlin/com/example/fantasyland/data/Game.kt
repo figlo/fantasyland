@@ -11,8 +11,8 @@ data class Game(
     var gameId: Long = 0L,
 
     @ColumnInfo(name = "date_time")
-    val dateTime: Instant,
+    val dateTime: Instant = Instant.now(),
 
     @ColumnInfo(name = "nick_name")
-    val nickName: String
+    val nickName: String = "Guest"
 )
