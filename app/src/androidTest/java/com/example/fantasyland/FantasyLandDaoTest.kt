@@ -39,6 +39,10 @@ class FantasyLandDaoTest {
         val game = Game()
         dao.insert(game)
         assertEquals(1, dao.count())
+
+        val loadedGame = dao.get(1)                     // autoincrement primary key starts from 1
+        assertEquals("Guest", loadedGame?.nickName)
+
         dao.clear()
         assertEquals(0, dao.count())
     }
