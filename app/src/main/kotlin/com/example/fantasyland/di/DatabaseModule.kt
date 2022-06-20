@@ -22,4 +22,8 @@ object DatabaseModule {
             FantasyLandDatabase::class.java,
             "fantasy_land_database"
         ).build()
+
+    @Singleton
+    @Provides
+    fun provideFantasyLandDao(db: FantasyLandDatabase) = db.fantasyLandDao
 }
