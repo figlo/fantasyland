@@ -6,18 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import com.example.fantasyland.data.UserPreferencesRepository
 import com.example.fantasyland.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
 
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModels()
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
@@ -26,19 +23,14 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(
-            this,
-            MainViewModelFactory(
-                UserPreferencesRepository(requireContext().dataStore)
-            )
-        )[MainViewModel::class.java]
-
         _binding = FragmentMainBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val numberOfCardsInFantasyLand = runBlocking { requireContext().dataStore.data.first()[UserPreferencesRepository.PreferencesKeys.NUMBER_OF_CARDS_IN_FANTASY_LAND] } ?: 0
+        val numberOfCardsInFantasyLand = viewModel.numberOfCardsInFantasyLand
+//        val numberOfCardsInFantasyLand = runBlocking { requireContext().dataStore.data.first()[UserPreferencesRepository.PreferencesKeys.NUMBER_OF_CARDS_IN_FANTASY_LAND] } ?: 0
+//        val numberOfCardsInFantasyLand = 14
 
         val spinnerIndex: Int = numberOfCardsInFantasyLand - 13
         binding.spinnerNumberOfFantasyLandCards.setSelection(spinnerIndex)

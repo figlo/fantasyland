@@ -1,6 +1,9 @@
 package com.example.fantasyland
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.fantasyland.data.UserPreferencesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -171,19 +174,6 @@ class GameViewModel @Inject constructor(userPreferencesRepository: UserPreferenc
     }
 
     private fun saveGame() {
-    }
-}
-
-class GameViewModelFactory(
-    private val userPreferencesRepository: UserPreferencesRepository
-) : ViewModelProvider.Factory {
-
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(GameViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return GameViewModel(userPreferencesRepository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
 

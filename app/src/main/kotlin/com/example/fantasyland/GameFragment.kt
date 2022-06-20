@@ -12,17 +12,16 @@ import androidx.core.view.setMargins
 import androidx.core.view.setPadding
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.window.layout.WindowMetricsCalculator
-import com.example.fantasyland.data.UserPreferencesRepository
 import com.example.fantasyland.databinding.FragmentGameBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class GameFragment : Fragment() {
 
-    private lateinit var viewModel: GameViewModel
+    private val viewModel: GameViewModel by viewModels()
     private var _binding: FragmentGameBinding? = null
     private val binding get() = _binding!!
 
@@ -30,13 +29,6 @@ class GameFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(
-            this,
-            GameViewModelFactory(
-                UserPreferencesRepository(requireContext().dataStore)
-            )
-        )[GameViewModel::class.java]
-
         _binding = FragmentGameBinding.inflate(inflater)
         return binding.root
     }
