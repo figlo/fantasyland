@@ -29,9 +29,6 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val numberOfCardsInFantasyLand = viewModel.numberOfCardsInFantasyLand
-//        val numberOfCardsInFantasyLand = runBlocking { requireContext().dataStore.data.first()[UserPreferencesRepository.PreferencesKeys.NUMBER_OF_CARDS_IN_FANTASY_LAND] } ?: 0
-//        val numberOfCardsInFantasyLand = 14
-
         val spinnerIndex: Int = numberOfCardsInFantasyLand - 13
         binding.spinnerNumberOfFantasyLandCards.setSelection(spinnerIndex)
 
