@@ -16,7 +16,7 @@ data class UserPreferences(
     val numberOfCardsInFantasyLand: Int
 )
 
-class UserPreferencesRepository @Inject constructor(private val dataStore: DataStore<Preferences>) {
+class UserPreferencesRepository @Inject constructor(val dataStore: DataStore<Preferences>) {
 
     object PreferencesKeys {
         val NUMBER_OF_CARDS_IN_FANTASY_LAND = intPreferencesKey("number_of_cards")
