@@ -129,6 +129,11 @@ class GameViewModel @Inject constructor(userPreferencesRepository: UserPreferenc
     }
 
     fun evaluateGame() {
+        computeGameResult()
+        saveGame()
+    }
+
+    private fun computeGameResult() {
         require(_cards.value?.take(13)!!.all { it != null }) { "All rows cards must be not null" }
 
         var bottomRowCards: List<Card> = _cards.value!!.subList(0, 5).filterNotNull()
@@ -163,6 +168,9 @@ class GameViewModel @Inject constructor(userPreferencesRepository: UserPreferenc
         _finalResult = bottomRow.value() + middleRow.value() + topRow.value()
 
         _isGameFinished.value = true
+    }
+
+    private fun saveGame() {
     }
 }
 
