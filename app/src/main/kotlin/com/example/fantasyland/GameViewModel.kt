@@ -1,9 +1,11 @@
 package com.example.fantasyland
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.preference.PreferenceManager
 import com.example.fantasyland.data.FantasyLandDao
 import com.example.fantasyland.data.Game
 import com.example.fantasyland.data.UserPreferencesRepository
@@ -12,7 +14,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GameViewModel @Inject constructor(userPreferencesRepository: UserPreferencesRepository, private val dao: FantasyLandDao) : ViewModel() {
+class GameViewModel @Inject constructor(
+    userPreferencesRepository: UserPreferencesRepository,
+    private val dao: FantasyLandDao,
+    application: Application
+    ) : AndroidViewModel(application) {
 
     private val userPreferencesFlow = userPreferencesRepository.userPreferencesFlow
 
@@ -176,8 +182,10 @@ class GameViewModel @Inject constructor(userPreferencesRepository: UserPreferenc
     }
 
     private fun saveGame() {
+        val preferences = PreferenceManager.getDefaultSharedPreferences(getApplication())
+        val nickName: String = preferences.getString("nickName", "Guest") ?: "Guest"
         viewModelScope.launch {
-            val newGame = Game()
+            val newGame = Game(nickName = nickName)
             insertGame(newGame)
         }
     }
