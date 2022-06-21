@@ -4,13 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.fantasyland.data.FantasyLandDao
+import com.example.fantasyland.data.Game
 import com.example.fantasyland.data.UserPreferencesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class GameViewModel @Inject constructor(userPreferencesRepository: UserPreferencesRepository) : ViewModel() {
+class GameViewModel @Inject constructor(userPreferencesRepository: UserPreferencesRepository, private val dao: FantasyLandDao) : ViewModel() {
 
     private val userPreferencesFlow = userPreferencesRepository.userPreferencesFlow
 
@@ -174,6 +176,14 @@ class GameViewModel @Inject constructor(userPreferencesRepository: UserPreferenc
     }
 
     private fun saveGame() {
+        viewModelScope.launch {
+            val newGame = Game()
+            insertGame(newGame)
+        }
+    }
+
+    private suspend fun insertGame(game: Game) {
+        dao.insert(game)
     }
 }
 
