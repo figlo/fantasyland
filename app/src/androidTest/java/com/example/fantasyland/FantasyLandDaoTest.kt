@@ -7,6 +7,7 @@ import com.example.fantasyland.data.FantasyLandDao
 import com.example.fantasyland.data.FantasyLandDatabase
 import com.example.fantasyland.data.Game
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -35,7 +36,7 @@ class FantasyLandDaoTest {
     }
 
     @Test
-    fun insertAndGetGame() {
+    fun insertAndGetGame() = runBlocking {
         val game = Game()
         dao.insert(game)
         assertEquals(1, dao.count())
