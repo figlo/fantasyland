@@ -26,6 +26,9 @@ class GamesArchiveFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel.gamesString.observe(viewLifecycleOwner) { newGamesString ->
+            binding.gamesList.text = newGamesString.toString()
+        }
     }
 
     override fun onDestroyView() {
