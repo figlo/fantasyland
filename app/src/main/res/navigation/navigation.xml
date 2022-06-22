@@ -21,6 +21,12 @@
         tools:layout="@layout/fragment_game" >
     </fragment>
     <fragment
+        android:id="@+id/gamesArchiveFragment"
+        android:name="com.example.fantasyland.GamesArchiveFragment"
+        android:label="Games Archive"
+        tools:layout="@layout/fragment_games_archive" >
+    </fragment>
+    <fragment
         android:id="@+id/rulesFragment"
         android:name="com.example.fantasyland.RulesFragment"
         android:label="Rules"

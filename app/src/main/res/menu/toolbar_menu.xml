@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/gamesArchiveFragment"
+        android:menuCategory="secondary"
+        android:title="@string/games_archive"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/rulesFragment"
         android:menuCategory="secondary"
         android:title="@string/rules"

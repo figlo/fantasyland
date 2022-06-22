@@ -19,6 +19,7 @@
     <string name="share_subject">My FantasyLand Result</string>
 
     <!-- Menu -->
+    <string name="games_archive">Games Archive</string>
     <string name="rules">Rules</string>
     <string name="settings">Settings</string>
 
