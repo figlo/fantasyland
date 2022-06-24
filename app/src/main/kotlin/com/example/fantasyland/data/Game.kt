@@ -16,6 +16,9 @@ data class Game(
     @ColumnInfo(name = "nick_name")
     val nickName: String = "Guest",
 
+    @ColumnInfo(name = "number_of_cards_in_fantasy_land", defaultValue = "13")
+    val numberOfCardsInFantasyLand: Int = 13,
+
     @ColumnInfo(name = "result", defaultValue = "-1")
     val result: Int = -1
 )

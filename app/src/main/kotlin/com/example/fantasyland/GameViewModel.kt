@@ -185,7 +185,8 @@ class GameViewModel @Inject constructor(
         val preferences = PreferenceManager.getDefaultSharedPreferences(getApplication())
         val nickName: String = preferences.getString("nickName", "Guest") ?: "Guest"
         viewModelScope.launch {
-            val newGame = Game(nickName = nickName, result = finalResult)
+            val result = if (isValidResult) finalResult else -1
+            val newGame = Game(nickName = nickName, numberOfCardsInFantasyLand = numberOfCardsInFantasyLand, result = result)
             insertGame(newGame)
         }
     }

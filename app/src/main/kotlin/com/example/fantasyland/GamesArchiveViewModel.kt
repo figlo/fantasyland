@@ -35,6 +35,7 @@ fun formatGames(games: List<Game>): Spanned {
             append("<br><br>")
             append(formatter.format(game.dateTime))
             append("\t" + game.nickName)
+            append("\t" + game.numberOfCardsInFantasyLand)
             val resultString = if(game.result == -1) "X" else game.result
             append("\t" + resultString)
         }
