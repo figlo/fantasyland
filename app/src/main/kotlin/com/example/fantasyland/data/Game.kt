@@ -14,5 +14,8 @@ data class Game(
     val dateTime: Instant = Instant.now(),
 
     @ColumnInfo(name = "nick_name")
-    val nickName: String = "Guest"
+    val nickName: String = "Guest",
+
+    @ColumnInfo(name = "result", defaultValue = "-1")
+    val result: Int = -1
 )
