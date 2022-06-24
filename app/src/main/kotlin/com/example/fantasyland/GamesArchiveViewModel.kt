@@ -35,6 +35,8 @@ fun formatGames(games: List<Game>): Spanned {
             append("<br><br>")
             append(formatter.format(game.dateTime))
             append("\t" + game.nickName)
+            val resultString = if(game.result == -1) "X" else game.result
+            append("\t" + resultString)
         }
     }
     return HtmlCompat.fromHtml(sb.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
