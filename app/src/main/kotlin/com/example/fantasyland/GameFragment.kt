@@ -35,8 +35,6 @@ class GameFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val numberOfCardsInFantasyLand = viewModel.numberOfCardsInFantasyLand
-
         /*
         * Setup card views
         */
@@ -108,13 +106,14 @@ class GameFragment : Fragment() {
         }
 
         // setting visibility of unused card views to GONE
+        val numberOfCardsInFantasyLand = viewModel.numberOfCardsInFantasyLand
         dealtCardViews.drop(numberOfCardsInFantasyLand).forEach { it.visibility = View.GONE }
 
         /*
         * Card views functions
         */
 
-        var selectedView: ImageView? = null
+        var selectedCardView: ImageView? = null
 
         fun select(cardView: ImageView) {
             with(cardView) {
@@ -122,7 +121,7 @@ class GameFragment : Fragment() {
                 setPadding(4)
             }
 
-            selectedView = cardView
+            selectedCardView = cardView
         }
 
         fun deSelect(cardView: ImageView) {
@@ -131,32 +130,32 @@ class GameFragment : Fragment() {
                 setPadding(1)
             }
 
-            selectedView = null
+            selectedCardView = null
         }
 
         fun makeMoveTo(cardView: ImageView) {
             // swap cards
-            val indexOfCard1 = allCardViews.indexOf(selectedView!!)
+            val indexOfCard1 = allCardViews.indexOf(selectedCardView!!)
             val indexOfCard2 = allCardViews.indexOf(cardView)
             viewModel.swapCards(indexOfCard1, indexOfCard2)
 
-            deSelect(selectedView!!)
+            deSelect(selectedCardView!!)
         }
 
         fun onClickHandler(cardView: ImageView) {
-            val isSomeTileSelected: Boolean = selectedView != null
+            val isSomeCardViewSelected: Boolean = selectedCardView != null
 
-            if (isSomeTileSelected) {
-                val isThisTileSelected: Boolean = selectedView == cardView
-                if (isThisTileSelected) {
+            if (isSomeCardViewSelected) {
+                val isThisCardViewSelected: Boolean = selectedCardView == cardView
+                if (isThisCardViewSelected) {
                     deSelect(cardView)
                 } else {
                     makeMoveTo(cardView)
                 }
             } else {
-                val indexOfCard = allCardViews.indexOf(cardView)
-                val isCardOnThisTile: Boolean = viewModel.cards.value?.get(indexOfCard) != null
-                if (isCardOnThisTile) select(cardView)
+                val indexOfCardView = allCardViews.indexOf(cardView)
+                val isCardOnThisCardView: Boolean = viewModel.cards.value?.get(indexOfCardView) != null
+                if (isCardOnThisCardView) select(cardView)
             }
         }
 
@@ -169,19 +168,19 @@ class GameFragment : Fragment() {
 
         // sort button
         binding.buttonSort.setOnClickListener {
-            selectedView?.let { deSelect(selectedView!!) }
+            selectedCardView?.let { deSelect(selectedCardView!!) }
             viewModel.sortCards()
         }
 
         // set all cards button
         binding.buttonSetAllCards.setOnClickListener {
-            selectedView?.let { deSelect(selectedView!!) }
+            selectedCardView?.let { deSelect(selectedCardView!!) }
             viewModel.setAllCards()
         }
 
         // done button
         binding.buttonDone.setOnClickListener {
-            selectedView?.let { deSelect(selectedView!!) }
+            selectedCardView?.let { deSelect(selectedCardView!!) }
             allCardViews.forEach { it.setOnClickListener(null) }
             viewModel.evaluateGame()
         }
