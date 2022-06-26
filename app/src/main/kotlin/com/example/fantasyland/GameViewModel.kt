@@ -6,12 +6,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
+import com.example.fantasyland.GameState.*
 import com.example.fantasyland.data.FantasyLandDao
 import com.example.fantasyland.data.Game
 import com.example.fantasyland.data.UserPreferencesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+enum class GameState {
+    START,
+    MOVING_PHASE_FINISHED,
+    DONE,
+}
 
 @HiltViewModel
 class GameViewModel @Inject constructor(
@@ -28,17 +35,9 @@ class GameViewModel @Inject constructor(
     val cards: LiveData<List<Card?>>
         get() = _cards
 
-    private val _isNewGame = MutableLiveData(true)
-    val isNewGame: LiveData<Boolean>
-        get() = _isNewGame
-
-    private val _isMovingPhaseFinished = MutableLiveData(false)
-    val isMovingPhaseFinished: LiveData<Boolean>
-        get() = _isMovingPhaseFinished
-
-    private val _isGameDone = MutableLiveData(false)
-    val isGameDone: LiveData<Boolean>
-        get() = _isGameDone
+    private val _gameState = MutableLiveData(START)
+    val gameState: LiveData<GameState>
+        get() = _gameState
 
     private var _bottomRowResult = 0
     val bottomRowResult: Int
@@ -73,9 +72,7 @@ class GameViewModel @Inject constructor(
 
     fun newGame() {
         // resetting variables for a new game
-        _isMovingPhaseFinished.value = false
-        _isGameDone.value = false
-        _isNewGame.value = true
+        _gameState.value = START
         _bottomRowResult = 0
         _middleRowResult = 0
         _topRowResult = 0
@@ -108,7 +105,7 @@ class GameViewModel @Inject constructor(
 
         // checking if all cards are set
         val rowsCards = cardsCopy.take(13)
-        _isMovingPhaseFinished.value = rowsCards.all { it != null }
+        if (rowsCards.all { it != null }) _gameState.value = MOVING_PHASE_FINISHED
     }
 
     fun sortCards() {
@@ -193,7 +190,7 @@ class GameViewModel @Inject constructor(
         _middleRowResult = middleRow.value()
         _topRowResult = topRow.value()
 
-        _isGameDone.value = true
+        _gameState.value = DONE
     }
 
     private fun saveGame() {

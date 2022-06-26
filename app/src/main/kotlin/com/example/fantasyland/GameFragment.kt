@@ -14,6 +14,7 @@ import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.window.layout.WindowMetricsCalculator
+import com.example.fantasyland.GameState.*
 import com.example.fantasyland.databinding.FragmentGameBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -157,7 +158,6 @@ class GameFragment : Fragment() {
     private fun setUpDoneButtonListener() {
         binding.buttonDone.setOnClickListener {
             selectedCardView?.let { deSelect(selectedCardView!!) }
-            cardViews.forEach { it.setOnClickListener(null) }
             viewModel.evaluateGame()
         }
     }
@@ -185,9 +185,7 @@ class GameFragment : Fragment() {
 
     private fun setUpObservers() {
         setUpCardsObservers()
-        setUpIsNewGame()
-        setUpIsMovingPhaseFinishedObserver()
-        setUpIsGameDoneObserver()
+        setUpGameStateObserver()
     }
 
     private fun setUpCardsObservers() {
@@ -209,72 +207,74 @@ class GameFragment : Fragment() {
         }
     }
 
-    private fun setUpIsNewGame() {
-        viewModel.isNewGame.observe(viewLifecycleOwner) { newIsNewGame ->
-            if (newIsNewGame) {
-                binding.apply {
-                    buttonSort.visibility = View.VISIBLE
-                    buttonSetAllCards.visibility = View.VISIBLE
-                    buttonDone.visibility = View.GONE
-                    buttonShare.visibility = View.GONE
-                    buttonNewGame.visibility = View.GONE
-                    bottomRowResult.visibility = View.GONE
-                    middleRowResult.visibility = View.GONE
-                    topRowResult.visibility = View.GONE
-                    finalResult.visibility = View.GONE
-                    newFantasyLand.visibility = View.GONE
-                }
+    private fun setUpGameStateObserver() {
+        viewModel.gameState.observe(viewLifecycleOwner) { newGameState ->
+            @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
+            when (newGameState) {
+                START                 -> gameStateStart()
+                MOVING_PHASE_FINISHED -> gameStateMovingPhaseFinished()
+                DONE                  -> gameStateDone()
             }
         }
     }
 
-    private fun setUpIsMovingPhaseFinishedObserver() {
-        viewModel.isMovingPhaseFinished.observe(viewLifecycleOwner) { newIsMovingPhaseFinished ->
-            if (newIsMovingPhaseFinished) {
-                binding.apply {
-                    buttonSort.visibility = View.GONE
-                    buttonSetAllCards.visibility = View.GONE
-                    buttonDone.visibility = View.VISIBLE
-                }
-            }
+    private fun gameStateStart() {
+        binding.apply {
+            buttonSort.visibility = View.VISIBLE
+            buttonSetAllCards.visibility = View.VISIBLE
+            buttonDone.visibility = View.GONE
+            buttonShare.visibility = View.GONE
+            buttonNewGame.visibility = View.GONE
+            bottomRowResult.visibility = View.GONE
+            middleRowResult.visibility = View.GONE
+            topRowResult.visibility = View.GONE
+            finalResult.visibility = View.GONE
+            newFantasyLand.visibility = View.GONE
         }
     }
 
-    private fun setUpIsGameDoneObserver() {
+    private fun gameStateMovingPhaseFinished() {
+        binding.apply {
+            buttonSort.visibility = View.GONE
+            buttonSetAllCards.visibility = View.GONE
+            buttonDone.visibility = View.VISIBLE
+        }
+    }
+
+    private fun gameStateDone() {
         // displaying result of the game
-        viewModel.isGameDone.observe(viewLifecycleOwner) { newIsGameDone ->
-            if (newIsGameDone) {
-                binding.apply {
-                    buttonDone.visibility = View.GONE
-                    buttonNewGame.visibility = View.VISIBLE
-                    buttonShare.visibility = View.VISIBLE
-                    finalResult.visibility = View.VISIBLE
+        binding.apply {
+            buttonSort.visibility = View.GONE
+            buttonSetAllCards.visibility = View.GONE
+            buttonDone.visibility = View.GONE
+            buttonNewGame.visibility = View.VISIBLE
+            buttonShare.visibility = View.VISIBLE
+            finalResult.visibility = View.VISIBLE
 
-                    if (viewModel.isValidResult) {
-                        bottomRowResult.visibility = View.VISIBLE
-                        middleRowResult.visibility = View.VISIBLE
-                        topRowResult.visibility = View.VISIBLE
+            if (viewModel.isValidResult) {
+                bottomRowResult.visibility = View.VISIBLE
+                middleRowResult.visibility = View.VISIBLE
+                topRowResult.visibility = View.VISIBLE
 
-                        bottomRowResult.text = viewModel.bottomRowResult.toString()
-                        middleRowResult.text = viewModel.middleRowResult.toString()
-                        topRowResult.text = viewModel.topRowResult.toString()
-                        finalResult.text = viewModel.finalResult.toString()
+                bottomRowResult.text = viewModel.bottomRowResult.toString()
+                middleRowResult.text = viewModel.middleRowResult.toString()
+                topRowResult.text = viewModel.topRowResult.toString()
+                finalResult.text = viewModel.finalResult.toString()
 
-                        val resultOKColor: Int = ContextCompat.getColor(requireContext(), R.color.resultOK)
-                        finalResult.setTextColor(resultOKColor)
-                    } else {
-                        finalResult.text = resources.getString(R.string.result_x)
+                val resultOKColor: Int = ContextCompat.getColor(requireContext(), R.color.resultOK)
+                finalResult.setTextColor(resultOKColor)
+            } else {
+                finalResult.text = resources.getString(R.string.result_x)
 
-                        val resultXColor: Int = ContextCompat.getColor(requireContext(), R.color.resultX)
-                        finalResult.setTextColor(resultXColor)
-                    }
+                val resultXColor: Int = ContextCompat.getColor(requireContext(), R.color.resultX)
+                finalResult.setTextColor(resultXColor)
+            }
 
-                    if (viewModel.isRepeatedFantasy) {
-                        newFantasyLand.text = resources.getString(R.string.new_fantasyland)
-                    }
-                }
+            if (viewModel.isRepeatedFantasy) {
+                newFantasyLand.text = resources.getString(R.string.new_fantasyland)
             }
         }
+        cardViews.forEach { it.setOnClickListener(null) }
     }
 
     /*
