@@ -28,13 +28,13 @@ class GameViewModel @Inject constructor(
     val cards: LiveData<List<Card?>>
         get() = _cards
 
-    private val _isMovingPhaseDone = MutableLiveData(false)
-    val isMovingPhaseDone: LiveData<Boolean>
-        get() = _isMovingPhaseDone
+    private val _isMovingPhaseFinished = MutableLiveData(false)
+    val isMovingPhaseFinished: LiveData<Boolean>
+        get() = _isMovingPhaseFinished
 
-    private val _isGameFinished = MutableLiveData(false)
-    val isGameFinished: LiveData<Boolean>
-        get() = _isGameFinished
+    private val _isGameDone = MutableLiveData(false)
+    val isGameDone: LiveData<Boolean>
+        get() = _isGameDone
 
     private var _bottomRowResult = 0
     val bottomRowResult: Int
@@ -48,9 +48,8 @@ class GameViewModel @Inject constructor(
     val topRowResult: Int
         get() = _topRowResult
 
-    private var _finalResult = 0
     val finalResult: Int
-        get() = _finalResult
+        get() = bottomRowResult + middleRowResult + topRowResult
 
     private var _isValidResult = false
     val isValidResult: Boolean
@@ -66,8 +65,8 @@ class GameViewModel @Inject constructor(
 
     init {
         // resetting variables for a new game
-        _isMovingPhaseDone.value = false
-        _isGameFinished.value = false
+        _isMovingPhaseFinished.value = false
+        _isGameDone.value = false
 
         // dealing cards
         viewModelScope.launch {
@@ -95,7 +94,7 @@ class GameViewModel @Inject constructor(
 
         // checking if all cards are set
         val rowsCards = cardsCopy.take(13)
-        _isMovingPhaseDone.value = rowsCards.all { it != null }
+        _isMovingPhaseFinished.value = rowsCards.all { it != null }
     }
 
     fun sortCards() {
@@ -179,9 +178,8 @@ class GameViewModel @Inject constructor(
         _bottomRowResult = bottomRow.value()
         _middleRowResult = middleRow.value()
         _topRowResult = topRow.value()
-        _finalResult = bottomRow.value() + middleRow.value() + topRow.value()
 
-        _isGameFinished.value = true
+        _isGameDone.value = true
     }
 
     private fun saveGame() {

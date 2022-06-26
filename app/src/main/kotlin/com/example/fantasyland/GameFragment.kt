@@ -25,6 +25,9 @@ class GameFragment : Fragment() {
     private var _binding: FragmentGameBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var cardViews: List<ImageView>
+    private var selectedCardView: ImageView? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,55 +38,64 @@ class GameFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        /*
-        * Setup card views
-        */
+        setUpCardViews()
+        setUpListeners()
+        setUpObservers()
+    }
 
-        val bottomRowCardViews = listOf(
-            binding.cardView0,
-            binding.cardView1,
-            binding.cardView2,
-            binding.cardView3,
-            binding.cardView4
-        )
-        val middleRowCardViews = listOf(
-            binding.cardView5,
-            binding.cardView6,
-            binding.cardView7,
-            binding.cardView8,
-            binding.cardView9
-        )
-        val topRowCardViews = listOf(
-            binding.cardView10,
-            binding.cardView11,
-            binding.cardView12
-        )
-        val dealtCardViews = listOf(
-            binding.cardView13,
-            binding.cardView14,
-            binding.cardView15,
-            binding.cardView16,
-            binding.cardView17,
-            binding.cardView18,
-            binding.cardView19,
-            binding.cardView20,
-            binding.cardView21,
-            binding.cardView22,
-            binding.cardView23,
-            binding.cardView24,
-            binding.cardView25,
-            binding.cardView26,
-            binding.cardView27,
-            binding.cardView28,
-            binding.cardView29
-        )
-        val allCardViews = listOf(
-            bottomRowCardViews,
-            middleRowCardViews,
-            topRowCardViews,
-            dealtCardViews
-        ).flatten()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
+    /*
+    * Set up card views
+    */
+
+    private fun setUpCardViews() {
+        setUpCardViewsList()
+        setUpCardViewsParams()
+        setUpVisibilityOfUnusedCardViews()
+    }
+
+    private fun setUpCardViewsList() {
+        binding.apply {
+            cardViews = listOf(
+                cardView0,
+                cardView1,
+                cardView2,
+                cardView3,
+                cardView4,
+                cardView5,
+                cardView6,
+                cardView7,
+                cardView8,
+                cardView9,
+                cardView10,
+                cardView11,
+                cardView12,
+                cardView13,
+                cardView14,
+                cardView15,
+                cardView16,
+                cardView17,
+                cardView18,
+                cardView19,
+                cardView20,
+                cardView21,
+                cardView22,
+                cardView23,
+                cardView24,
+                cardView25,
+                cardView26,
+                cardView27,
+                cardView28,
+                cardView29,
+            )
+        }
+    }
+
+    private fun setUpCardViewsParams() {
         // calculating card view width and height
         val bounds = WindowMetricsCalculator
             .getOrCreate()
@@ -97,103 +109,70 @@ class GameFragment : Fragment() {
         val cardViewMargin = 8
         val cardViewPadding = 1
 
-        for (cardView in allCardViews) {
+        for (cardView in cardViews) {
             with(cardView) {
                 layoutParams = LinearLayout.LayoutParams(cardViewWidth, cardViewHeight)
                 updateLayoutParams<ViewGroup.MarginLayoutParams> { setMargins(cardViewMargin) }
                 setPadding(cardViewPadding)
             }
         }
+    }
 
-        // setting visibility of unused card views to GONE
+    private fun setUpVisibilityOfUnusedCardViews() {
         val numberOfCardsInFantasyLand = viewModel.numberOfCardsInFantasyLand
+        val dealtCardViews = cardViews.drop(13)
         dealtCardViews.drop(numberOfCardsInFantasyLand).forEach { it.visibility = View.GONE }
+    }
 
-        /*
-        * Card views functions
-        */
+    /*
+    * Set up listeners
+    */
 
-        var selectedCardView: ImageView? = null
+    private fun setUpListeners() {
+        setUpCardViewsListeners()
+        setUpSortButtonListener()
+        setUpSetAllCardsButtonListener()
+        setUpDoneButtonListener()
+        setUpNewGameButtonListener()
+        setUpShareButtonListener()
+    }
 
-        fun select(cardView: ImageView) {
-            with(cardView) {
-                setBackgroundColor(ContextCompat.getColor(context, R.color.cardViewSelected))
-                setPadding(4)
-            }
+    private fun setUpCardViewsListeners() {
+        cardViews.forEach { cardView -> cardView.setOnClickListener { onClickHandler(cardView) } }
+    }
 
-            selectedCardView = cardView
-        }
-
-        fun deSelect(cardView: ImageView) {
-            with(cardView) {
-                setBackgroundColor(ContextCompat.getColor(context, R.color.cardViewBackground))
-                setPadding(1)
-            }
-
-            selectedCardView = null
-        }
-
-        fun makeMoveTo(cardView: ImageView) {
-            // swap cards
-            val indexOfCard1 = allCardViews.indexOf(selectedCardView!!)
-            val indexOfCard2 = allCardViews.indexOf(cardView)
-            viewModel.swapCards(indexOfCard1, indexOfCard2)
-
-            deSelect(selectedCardView!!)
-        }
-
-        fun onClickHandler(cardView: ImageView) {
-            val isSomeCardViewSelected: Boolean = selectedCardView != null
-
-            if (isSomeCardViewSelected) {
-                val isThisCardViewSelected: Boolean = selectedCardView == cardView
-                if (isThisCardViewSelected) {
-                    deSelect(cardView)
-                } else {
-                    makeMoveTo(cardView)
-                }
-            } else {
-                val indexOfCardView = allCardViews.indexOf(cardView)
-                val isCardOnThisCardView: Boolean = viewModel.cards.value?.get(indexOfCardView) != null
-                if (isCardOnThisCardView) select(cardView)
-            }
-        }
-
-        /*
-        * Setup listeners
-        */
-
-        // cardViews
-        allCardViews.forEach { cardView -> cardView.setOnClickListener { onClickHandler(cardView) } }
-
-        // sort button
+    private fun setUpSortButtonListener() {
         binding.buttonSort.setOnClickListener {
             selectedCardView?.let { deSelect(selectedCardView!!) }
             viewModel.sortCards()
         }
+    }
 
-        // set all cards button
+    private fun setUpSetAllCardsButtonListener() {
         binding.buttonSetAllCards.setOnClickListener {
             selectedCardView?.let { deSelect(selectedCardView!!) }
             viewModel.setAllCards()
         }
+    }
 
-        // done button
+    private fun setUpDoneButtonListener() {
         binding.buttonDone.setOnClickListener {
             selectedCardView?.let { deSelect(selectedCardView!!) }
-            allCardViews.forEach { it.setOnClickListener(null) }
+            cardViews.forEach { it.setOnClickListener(null) }
             viewModel.evaluateGame()
         }
+    }
 
-        // new game button
+    private fun setUpNewGameButtonListener() {
         binding.buttonNewGame.setOnClickListener {
             val navController = it.findNavController()
             val id: Int? = navController.currentDestination?.id
             navController.popBackStack(id!!, true)
             navController.navigate(id)
         }
+    }
 
-        // share button
+    private fun setUpShareButtonListener() {
         binding.buttonShare.setOnClickListener {
             val shareIntent = Intent(Intent.ACTION_SEND)
                 .setType("text/plain")
@@ -201,41 +180,53 @@ class GameFragment : Fragment() {
                 .putExtra(Intent.EXTRA_TEXT, binding.finalResult.text)
             startActivity(shareIntent)
         }
+    }
 
-        /*
-        * Setup observers
-        */
+    /*
+    * Set up observers
+    */
 
-        // setting card images in card views
+    private fun setUpObservers() {
+        setUpCardsObservers()
+        setUpIsMovingPhaseFinishedObserver()
+        setUpIsGameDoneObserver()
+    }
+
+    private fun setUpCardsObservers() {
         viewModel.cards.observe(viewLifecycleOwner) { newCards ->
-            fun fileName(card: Card?): String =
+            fun cardFileName(card: Card?): String =
                 if (card == null)
                     "empty_card"
                 else
                     "card_" + card.name.takeLast(2).lowercase()
 
-            for ((index, cardView) in allCardViews.withIndex()) {
-                val imageResource = resources.getIdentifier(fileName(newCards[index]), "drawable", requireContext().packageName)
+            for ((index, cardView) in cardViews.withIndex()) {
+                val imageResource = resources.getIdentifier(
+                    cardFileName(newCards[index]),
+                    "drawable",
+                    requireContext().packageName,
+                )
                 cardView.setImageResource(imageResource)
             }
         }
+    }
 
-        // managing visibility of buttons after all cards are set to rows
-        viewModel.isMovingPhaseDone.observe(viewLifecycleOwner) { newIsMovingPhaseDone ->
-            if (newIsMovingPhaseDone) {
-                binding.buttonSort.visibility = View.GONE
-                binding.buttonSetAllCards.visibility = View.GONE
-                binding.buttonDone.visibility = View.VISIBLE
-            } else {
-                binding.buttonSort.visibility = View.VISIBLE
-                binding.buttonSetAllCards.visibility = View.VISIBLE
-                binding.buttonDone.visibility = View.GONE
+    private fun setUpIsMovingPhaseFinishedObserver() {
+        viewModel.isMovingPhaseFinished.observe(viewLifecycleOwner) { newIsMovingPhaseFinished ->
+            if (newIsMovingPhaseFinished) {
+                binding.apply {
+                    buttonSort.visibility = View.GONE
+                    buttonSetAllCards.visibility = View.GONE
+                    buttonDone.visibility = View.VISIBLE
+                }
             }
         }
+    }
 
+    private fun setUpIsGameDoneObserver() {
         // displaying result of the game
-        viewModel.isGameFinished.observe(viewLifecycleOwner) { newIsGameFinished ->
-            if (newIsGameFinished) {
+        viewModel.isGameDone.observe(viewLifecycleOwner) { newIsGameDone ->
+            if (newIsGameDone) {
                 binding.apply {
                     buttonSort.visibility = View.GONE
                     buttonSetAllCards.visibility = View.GONE
@@ -245,18 +236,21 @@ class GameFragment : Fragment() {
                     finalResult.visibility = View.VISIBLE
 
                     if (viewModel.isValidResult) {
-                        val resultOKColor: Int = ContextCompat.getColor(requireContext(), R.color.resultOK)
                         bottomRowResult.visibility = View.VISIBLE
                         middleRowResult.visibility = View.VISIBLE
                         topRowResult.visibility = View.VISIBLE
+
                         bottomRowResult.text = viewModel.bottomRowResult.toString()
                         middleRowResult.text = viewModel.middleRowResult.toString()
                         topRowResult.text = viewModel.topRowResult.toString()
                         finalResult.text = viewModel.finalResult.toString()
+
+                        val resultOKColor: Int = ContextCompat.getColor(requireContext(), R.color.resultOK)
                         finalResult.setTextColor(resultOKColor)
                     } else {
-                        val resultXColor: Int = ContextCompat.getColor(requireContext(), R.color.resultX)
                         finalResult.text = resources.getString(R.string.result_x)
+
+                        val resultXColor: Int = ContextCompat.getColor(requireContext(), R.color.resultX)
                         finalResult.setTextColor(resultXColor)
                     }
 
@@ -268,8 +262,51 @@ class GameFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    /*
+    * Card views functions
+    */
+
+    private fun select(cardView: ImageView) {
+        with(cardView) {
+            setBackgroundColor(ContextCompat.getColor(context, R.color.cardViewSelected))
+            setPadding(4)
+        }
+
+        selectedCardView = cardView
+    }
+
+    private fun deSelect(cardView: ImageView) {
+        with(cardView) {
+            setBackgroundColor(ContextCompat.getColor(context, R.color.cardViewBackground))
+            setPadding(1)
+        }
+
+        selectedCardView = null
+    }
+
+    private fun makeMoveTo(cardView: ImageView) {
+        // swap cards
+        val indexOfCard1 = cardViews.indexOf(selectedCardView!!)
+        val indexOfCard2 = cardViews.indexOf(cardView)
+        viewModel.swapCards(indexOfCard1, indexOfCard2)
+
+        deSelect(selectedCardView!!)
+    }
+
+    private fun onClickHandler(cardView: ImageView) {
+        val isSomeCardViewSelected: Boolean = selectedCardView != null
+
+        if (isSomeCardViewSelected) {
+            val isThisCardViewSelected: Boolean = selectedCardView == cardView
+            if (isThisCardViewSelected) {
+                deSelect(cardView)
+            } else {
+                makeMoveTo(cardView)
+            }
+        } else {
+            val indexOfCardView = cardViews.indexOf(cardView)
+            val isCardOnThisCardView: Boolean = viewModel.cards.value?.get(indexOfCardView) != null
+            if (isCardOnThisCardView) select(cardView)
+        }
     }
 }
