@@ -18,7 +18,7 @@ class GameViewModel @Inject constructor(
     userPreferencesRepository: UserPreferencesRepository,
     private val dao: FantasyLandDao,
     application: Application
-    ) : AndroidViewModel(application) {
+) : AndroidViewModel(application) {
 
     private val userPreferencesFlow = userPreferencesRepository.userPreferencesFlow
 
@@ -66,7 +66,6 @@ class GameViewModel @Inject constructor(
 
     init {
         // resetting variables for a new game
-        Card.values().forEach { it.cardState = CardState.DECK }
         _isMovingPhaseDone.value = false
         _isGameFinished.value = false
 
@@ -77,11 +76,15 @@ class GameViewModel @Inject constructor(
             }
         }
 
-        val cards: MutableList<Card?> = MutableList(30) { null }
-        for (i in cards.indices) {
-            if (i in 13..(12 + _numberOfCardsInFantasyLand))
-                cards[i] = dealCard()
-        }
+        val dealtCards = Card.values()
+            .asSequence()
+            .shuffled()
+            .take(numberOfCardsInFantasyLand).toList()
+
+        val cards = List(13) { null } +
+                dealtCards +
+                List(17 - numberOfCardsInFantasyLand) { null }
+
         _cards.value = cards
     }
 
@@ -195,11 +198,6 @@ class GameViewModel @Inject constructor(
         dao.insert(game)
     }
 }
-
-fun dealCard(): Card = Card.values()
-    .filter { it.cardState == CardState.DECK }
-    .random(random)
-    .apply { cardState = CardState.DEALT }
 
 fun isValidResult(bottomRow: BottomRow, middleRow: MiddleRow, topRow: TopRow): Boolean =
     when {
