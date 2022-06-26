@@ -78,7 +78,7 @@ class GameViewModel @Inject constructor(
 
         val dealtCards = Card.values()
             .asSequence()
-            .shuffled()
+            .shuffled(random)
             .take(numberOfCardsInFantasyLand).toList()
 
         val cards = List(13) { null } +
