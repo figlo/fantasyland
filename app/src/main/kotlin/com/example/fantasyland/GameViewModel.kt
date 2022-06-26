@@ -28,6 +28,10 @@ class GameViewModel @Inject constructor(
     val cards: LiveData<List<Card?>>
         get() = _cards
 
+    private val _isNewGame = MutableLiveData(true)
+    val isNewGame: LiveData<Boolean>
+        get() = _isNewGame
+
     private val _isMovingPhaseFinished = MutableLiveData(false)
     val isMovingPhaseFinished: LiveData<Boolean>
         get() = _isMovingPhaseFinished
@@ -64,9 +68,19 @@ class GameViewModel @Inject constructor(
         get() = _numberOfCardsInFantasyLand
 
     init {
+        newGame()
+    }
+
+    fun newGame() {
         // resetting variables for a new game
         _isMovingPhaseFinished.value = false
         _isGameDone.value = false
+        _isNewGame.value = true
+        _bottomRowResult = 0
+        _middleRowResult = 0
+        _topRowResult = 0
+        _isValidResult = false
+        _isRepeatedFantasy = false
 
         // dealing cards
         viewModelScope.launch {

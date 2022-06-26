@@ -13,7 +13,6 @@ import androidx.core.view.setPadding
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.window.layout.WindowMetricsCalculator
 import com.example.fantasyland.databinding.FragmentGameBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -165,10 +164,8 @@ class GameFragment : Fragment() {
 
     private fun setUpNewGameButtonListener() {
         binding.buttonNewGame.setOnClickListener {
-            val navController = it.findNavController()
-            val id: Int? = navController.currentDestination?.id
-            navController.popBackStack(id!!, true)
-            navController.navigate(id)
+            setUpCardViewsListeners()
+            viewModel.newGame()
         }
     }
 
@@ -188,6 +185,7 @@ class GameFragment : Fragment() {
 
     private fun setUpObservers() {
         setUpCardsObservers()
+        setUpIsNewGame()
         setUpIsMovingPhaseFinishedObserver()
         setUpIsGameDoneObserver()
     }
@@ -211,6 +209,25 @@ class GameFragment : Fragment() {
         }
     }
 
+    private fun setUpIsNewGame() {
+        viewModel.isNewGame.observe(viewLifecycleOwner) { newIsNewGame ->
+            if (newIsNewGame) {
+                binding.apply {
+                    buttonSort.visibility = View.VISIBLE
+                    buttonSetAllCards.visibility = View.VISIBLE
+                    buttonDone.visibility = View.GONE
+                    buttonShare.visibility = View.GONE
+                    buttonNewGame.visibility = View.GONE
+                    bottomRowResult.visibility = View.GONE
+                    middleRowResult.visibility = View.GONE
+                    topRowResult.visibility = View.GONE
+                    finalResult.visibility = View.GONE
+                    newFantasyLand.visibility = View.GONE
+                }
+            }
+        }
+    }
+
     private fun setUpIsMovingPhaseFinishedObserver() {
         viewModel.isMovingPhaseFinished.observe(viewLifecycleOwner) { newIsMovingPhaseFinished ->
             if (newIsMovingPhaseFinished) {
@@ -228,8 +245,6 @@ class GameFragment : Fragment() {
         viewModel.isGameDone.observe(viewLifecycleOwner) { newIsGameDone ->
             if (newIsGameDone) {
                 binding.apply {
-                    buttonSort.visibility = View.GONE
-                    buttonSetAllCards.visibility = View.GONE
                     buttonDone.visibility = View.GONE
                     buttonNewGame.visibility = View.VISIBLE
                     buttonShare.visibility = View.VISIBLE
