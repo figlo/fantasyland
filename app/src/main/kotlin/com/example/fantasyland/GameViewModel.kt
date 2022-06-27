@@ -71,16 +71,9 @@ class GameViewModel @Inject constructor(
 
     init {
         when (gameState.value) {
-            // first game
-            null -> newGame()
-
-            // gameState loaded from savedStateHandle
-            // navigate to MainFragment (TODO)
-            DONE -> newGame()
-
-            // gameState loaded from savedStateHandle
-            // need to find out gameState (STARTED or CARDS_ARE_SET) to properly display buttons
-            else -> checkIfCardsAreSet()
+            null -> newGame()                   // first game after application start
+            DONE -> computeGameResult()         // gameState loaded from savedStateHandle
+            else -> {}                          // gameState (STARTED or CARDS_ARE_SET) loaded from savedStateHandle
         }
     }
 
@@ -91,6 +84,7 @@ class GameViewModel @Inject constructor(
     }
 
     private fun initializeVariables() {
+        sortToggle = true
         _gameState.value = STARTED
         _bottomRowResult = 0
         _middleRowResult = 0
