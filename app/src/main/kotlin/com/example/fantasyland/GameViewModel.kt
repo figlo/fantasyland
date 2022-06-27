@@ -1,9 +1,10 @@
 package com.example.fantasyland
 
 import android.app.Application
+import android.os.Parcelable
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
 import com.example.fantasyland.GameState.*
@@ -12,9 +13,11 @@ import com.example.fantasyland.data.Game
 import com.example.fantasyland.data.UserPreferencesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import kotlinx.parcelize.Parcelize
 import javax.inject.Inject
 
-enum class GameState {
+@Parcelize
+enum class GameState: Parcelable {
     STARTED,
     CARDS_ARE_SET,
     DONE,
@@ -23,21 +26,25 @@ enum class GameState {
 @HiltViewModel
 class GameViewModel @Inject constructor(
     userPreferencesRepository: UserPreferencesRepository,
+    private val savedStateHandle: SavedStateHandle,
     private val dao: FantasyLandDao,
-    application: Application
+    application: Application,
 ) : AndroidViewModel(application) {
 
     private val userPreferencesFlow = userPreferencesRepository.userPreferencesFlow
 
     private var sortToggle = true
 
-    private val _cards = MutableLiveData<List<Card?>>()
+    private val _cards = savedStateHandle.getLiveData<List<Card?>>("cards")
     val cards: LiveData<List<Card?>>
         get() = _cards
 
-    private val _gameState = MutableLiveData(STARTED)
+    private val _gameState = savedStateHandle.getLiveData<GameState>("game_state")
     val gameState: LiveData<GameState>
         get() = _gameState
+
+    val numberOfCardsInFantasyLand: Int
+        get() = savedStateHandle["number_of_cards_in_fantasy_land"] ?: 0
 
     private var _bottomRowResult = 0
     val bottomRowResult: Int
@@ -62,30 +69,45 @@ class GameViewModel @Inject constructor(
     val isRepeatedFantasy: Boolean
         get() = _isRepeatedFantasy
 
-    private var _numberOfCardsInFantasyLand = 0
-    val numberOfCardsInFantasyLand: Int
-        get() = _numberOfCardsInFantasyLand
-
     init {
-        newGame()
+        when (gameState.value) {
+            // first game
+            null -> newGame()
+
+            // gameState loaded from savedStateHandle
+            // navigate to MainFragment (TODO)
+            DONE -> newGame()
+
+            // gameState loaded from savedStateHandle
+            // need to find out gameState (STARTED or CARDS_ARE_SET) to properly display buttons
+            else -> checkIfCardsAreSet()
+        }
     }
 
     fun newGame() {
-        // resetting variables for a new game
+        initializeVariables()
+        getNumberOfCardsInFantasyLand()
+        dealCards()
+    }
+
+    private fun initializeVariables() {
         _gameState.value = STARTED
         _bottomRowResult = 0
         _middleRowResult = 0
         _topRowResult = 0
         _isValidResult = false
         _isRepeatedFantasy = false
+    }
 
-        // dealing cards
+    private fun getNumberOfCardsInFantasyLand() {
         viewModelScope.launch {
             userPreferencesFlow.collect { userPreferences ->
-                _numberOfCardsInFantasyLand = userPreferences.numberOfCardsInFantasyLand
+                savedStateHandle["number_of_cards_in_fantasy_land"] = userPreferences.numberOfCardsInFantasyLand
             }
         }
+    }
 
+    private fun dealCards() {
         val dealtCards = Card.values()
             .asSequence()
             .shuffled(random)

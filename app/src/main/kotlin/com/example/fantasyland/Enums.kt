@@ -1,7 +1,9 @@
 package com.example.fantasyland
 
+import android.os.Parcelable
 import com.example.fantasyland.CardFace.*
 import com.example.fantasyland.CardSuit.*
+import kotlinx.parcelize.Parcelize
 
 enum class CardFace {
     ACE,
@@ -28,7 +30,8 @@ enum class CardSuit {
     CLUBS;
 }
 
-enum class Card(val face: CardFace, val suit: CardSuit) {
+@Parcelize
+enum class Card(val face: CardFace, val suit: CardSuit): Parcelable {
     CARD_AS(ACE, SPADES),
     CARD_2S(TWO, SPADES),
     CARD_3S(THREE, SPADES),
