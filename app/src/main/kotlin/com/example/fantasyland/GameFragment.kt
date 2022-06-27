@@ -211,9 +211,9 @@ class GameFragment : Fragment() {
         viewModel.gameState.observe(viewLifecycleOwner) { newGameState ->
             @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
             when (newGameState) {
-                START                 -> gameStateStart()
-                MOVING_PHASE_FINISHED -> gameStateMovingPhaseFinished()
-                DONE                  -> gameStateDone()
+                STARTED       -> gameStateStart()
+                CARDS_ARE_SET -> gameStateCardsAreSet()
+                DONE          -> gameStateDone()
             }
         }
     }
@@ -223,8 +223,8 @@ class GameFragment : Fragment() {
             buttonSort.visibility = View.VISIBLE
             buttonSetAllCards.visibility = View.VISIBLE
             buttonDone.visibility = View.GONE
-            buttonShare.visibility = View.GONE
             buttonNewGame.visibility = View.GONE
+            buttonShare.visibility = View.GONE
             bottomRowResult.visibility = View.GONE
             middleRowResult.visibility = View.GONE
             topRowResult.visibility = View.GONE
@@ -233,11 +233,18 @@ class GameFragment : Fragment() {
         }
     }
 
-    private fun gameStateMovingPhaseFinished() {
+    private fun gameStateCardsAreSet() {
         binding.apply {
             buttonSort.visibility = View.GONE
             buttonSetAllCards.visibility = View.GONE
             buttonDone.visibility = View.VISIBLE
+            buttonNewGame.visibility = View.GONE
+            buttonShare.visibility = View.GONE
+            bottomRowResult.visibility = View.GONE
+            middleRowResult.visibility = View.GONE
+            topRowResult.visibility = View.GONE
+            finalResult.visibility = View.GONE
+            newFantasyLand.visibility = View.GONE
         }
     }
 
@@ -264,6 +271,9 @@ class GameFragment : Fragment() {
                 val resultOKColor: Int = ContextCompat.getColor(requireContext(), R.color.resultOK)
                 finalResult.setTextColor(resultOKColor)
             } else {
+                bottomRowResult.visibility = View.GONE
+                middleRowResult.visibility = View.GONE
+                topRowResult.visibility = View.GONE
                 finalResult.text = resources.getString(R.string.result_x)
 
                 val resultXColor: Int = ContextCompat.getColor(requireContext(), R.color.resultX)
@@ -271,7 +281,10 @@ class GameFragment : Fragment() {
             }
 
             if (viewModel.isRepeatedFantasy) {
+                newFantasyLand.visibility = View.VISIBLE
                 newFantasyLand.text = resources.getString(R.string.new_fantasyland)
+            } else {
+                newFantasyLand.visibility = View.GONE
             }
         }
         cardViews.forEach { it.setOnClickListener(null) }

@@ -15,8 +15,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 enum class GameState {
-    START,
-    MOVING_PHASE_FINISHED,
+    STARTED,
+    CARDS_ARE_SET,
     DONE,
 }
 
@@ -35,7 +35,7 @@ class GameViewModel @Inject constructor(
     val cards: LiveData<List<Card?>>
         get() = _cards
 
-    private val _gameState = MutableLiveData(START)
+    private val _gameState = MutableLiveData(STARTED)
     val gameState: LiveData<GameState>
         get() = _gameState
 
@@ -72,7 +72,7 @@ class GameViewModel @Inject constructor(
 
     fun newGame() {
         // resetting variables for a new game
-        _gameState.value = START
+        _gameState.value = STARTED
         _bottomRowResult = 0
         _middleRowResult = 0
         _topRowResult = 0
@@ -103,9 +103,12 @@ class GameViewModel @Inject constructor(
         cardsCopy[indexOfCard1] = cardsCopy[indexOfCard2].also { cardsCopy[indexOfCard2] = cardsCopy[indexOfCard1] }
         _cards.value = cardsCopy
 
-        // checking if all cards are set
-        val rowsCards = cardsCopy.take(13)
-        if (rowsCards.all { it != null }) _gameState.value = MOVING_PHASE_FINISHED
+        checkIfCardsAreSet()
+    }
+
+    private fun checkIfCardsAreSet() {
+        val rowsCards = _cards.value!!.take(13)
+        _gameState.value = if (rowsCards.all { it != null }) CARDS_ARE_SET else STARTED
     }
 
     fun sortCards() {
