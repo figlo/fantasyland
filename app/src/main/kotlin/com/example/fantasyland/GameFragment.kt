@@ -299,13 +299,13 @@ class GameFragment : Fragment() {
         selectedCardView = null
     }
 
-    private fun makeMoveTo(cardView: ImageView) {
+    private fun makeMove(fromCardView: ImageView, toCardView: ImageView) {
         // swap cards
-        val indexOfCard1 = cardViews.indexOf(selectedCardView!!)
-        val indexOfCard2 = cardViews.indexOf(cardView)
+        val indexOfCard1 = cardViews.indexOf(fromCardView)
+        val indexOfCard2 = cardViews.indexOf(toCardView)
         viewModel.swapCards(indexOfCard1, indexOfCard2)
 
-        deSelect(selectedCardView!!)
+        deSelect(fromCardView)
     }
 
     private fun onClickHandler(cardView: ImageView) {
@@ -316,7 +316,7 @@ class GameFragment : Fragment() {
             if (isThisCardViewSelected) {
                 deSelect(cardView)
             } else {
-                makeMoveTo(cardView)
+                makeMove(selectedCardView!!, cardView)
             }
         } else {
             val indexOfCardView = cardViews.indexOf(cardView)
