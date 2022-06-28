@@ -312,13 +312,15 @@ class GameFragment : Fragment() {
         selectedCardView = null
     }
 
-    private fun makeMove(fromCardView: ImageView, toCardView: ImageView) {
+    private fun makeMove(cardView1: ImageView, cardView2: ImageView) {
+        require(cardView1 != cardView2) { "Card view 1 must be different from card view 2." }
+
         // swap cards
-        val indexOfCard1 = cardViews.indexOf(fromCardView)
-        val indexOfCard2 = cardViews.indexOf(toCardView)
+        val indexOfCard1 = cardViews.indexOf(cardView1)
+        val indexOfCard2 = cardViews.indexOf(cardView2)
         viewModel.swapCards(indexOfCard1, indexOfCard2)
 
-        deSelect(fromCardView)
+        deSelect(cardView1)
     }
 
     private fun onClickHandler(cardView: ImageView) {

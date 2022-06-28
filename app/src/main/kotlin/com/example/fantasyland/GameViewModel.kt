@@ -71,7 +71,7 @@ class GameViewModel @Inject constructor(
 
     init {
         when (gameState.value) {
-            null -> newGame()                   // first game after application start
+            null -> newGame()                   // first game after coming from MainFragment
             DONE -> computeGameResult()         // gameState loaded from savedStateHandle
             else -> {}                          // gameState (STARTED or CARDS_ARE_SET) loaded from savedStateHandle
         }
@@ -115,6 +115,10 @@ class GameViewModel @Inject constructor(
     }
 
     fun swapCards(indexOfCard1: Int, indexOfCard2: Int) {
+        require(indexOfCard1 in (0..(12 + numberOfCardsInFantasyLand))) { "Index of card 1 must come from visible cardviews." }
+        require(indexOfCard2 in (0..(12 + numberOfCardsInFantasyLand))) { "Index of card 2 must come from visible cardviews." }
+        require(indexOfCard1 != indexOfCard2) { "Index of card 1 must be different from Index of card 2." }
+
         val cardsCopy = _cards.value as MutableList<Card?>
         cardsCopy[indexOfCard1] = cardsCopy[indexOfCard2].also { cardsCopy[indexOfCard2] = cardsCopy[indexOfCard1] }
         _cards.value = cardsCopy
