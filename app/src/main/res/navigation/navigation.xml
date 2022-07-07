@@ -19,6 +19,9 @@
         android:name="com.example.fantasyland.GameFragment"
         android:label="Game"
         tools:layout="@layout/fragment_game" >
+        <argument
+            android:name="numberOfCards"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/gamesArchiveFragment"

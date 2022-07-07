@@ -2,13 +2,14 @@
     <string name="app_name">FantasyLand</string>
 
     <!-- Main -->
-    <string name="your_nickname">Your nickname</string>
-    <string name="nickname_hint">Enter your nickname</string>
-    <string name="fantasy_land_cards">FantasyLand cards</string>
+    <string name="choose_number_of_cards">Choose number of cards in Fantasy Land:</string>
+    <string name="cards_13">13</string>
+    <string name="cards_14">14</string>
+    <string name="cards_15">15</string>
+    <string name="cards_16">16</string>
+    <string name="cards_17">17</string>
 
     <!-- Game -->
-    <string name="home">Home</string>
-    <string name="play">Play</string>
     <string name="sort">Sort</string>
     <string name="set_all_cards">Set All Cards</string>
     <string name="done">Done</string>

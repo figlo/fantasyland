@@ -43,8 +43,7 @@ class GameViewModel @Inject constructor(
     val gameState: LiveData<GameState>
         get() = _gameState
 
-    val numberOfCardsInFantasyLand: Int
-        get() = savedStateHandle["number_of_cards_in_fantasy_land"] ?: 0
+    val numberOfCardsInFantasyLand: Int = savedStateHandle["numberOfCards"]!!
 
     private var _bottomRowResult = 0
     val bottomRowResult: Int
