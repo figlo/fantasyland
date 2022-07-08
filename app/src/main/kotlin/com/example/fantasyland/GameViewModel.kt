@@ -10,7 +10,6 @@ import androidx.preference.PreferenceManager
 import com.example.fantasyland.GameState.*
 import com.example.fantasyland.data.FantasyLandDao
 import com.example.fantasyland.data.Game
-import com.example.fantasyland.data.UserPreferencesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
@@ -25,13 +24,13 @@ enum class GameState: Parcelable {
 
 @HiltViewModel
 class GameViewModel @Inject constructor(
-    userPreferencesRepository: UserPreferencesRepository,
-    private val savedStateHandle: SavedStateHandle,
+//    userPreferencesRepository: UserPreferencesRepository,
+    savedStateHandle: SavedStateHandle,
     private val dao: FantasyLandDao,
     application: Application,
 ) : AndroidViewModel(application) {
 
-    private val userPreferencesFlow = userPreferencesRepository.userPreferencesFlow
+//    private val userPreferencesFlow = userPreferencesRepository.userPreferencesFlow
 
     private var sortToggle = true
 
@@ -69,7 +68,7 @@ class GameViewModel @Inject constructor(
         get() = _isRepeatedFantasy
 
     init {
-        when (gameState.value) {
+        when (_gameState.value) {
             null -> newGame()                   // first game after coming from MainFragment
             DONE -> computeGameResult()         // gameState loaded from savedStateHandle
             else -> {}                          // gameState (STARTED or CARDS_ARE_SET) loaded from savedStateHandle
@@ -78,7 +77,7 @@ class GameViewModel @Inject constructor(
 
     fun newGame() {
         initializeVariables()
-        getNumberOfCardsInFantasyLand()
+//        getNumberOfCardsInFantasyLand()
         dealCards()
     }
 
@@ -92,13 +91,13 @@ class GameViewModel @Inject constructor(
         _isRepeatedFantasy = false
     }
 
-    private fun getNumberOfCardsInFantasyLand() {
-        viewModelScope.launch {
-            userPreferencesFlow.collect { userPreferences ->
-                savedStateHandle["number_of_cards_in_fantasy_land"] = userPreferences.numberOfCardsInFantasyLand
-            }
-        }
-    }
+//    private fun getNumberOfCardsInFantasyLand() {
+//        viewModelScope.launch {
+//            userPreferencesFlow.collect { userPreferences ->
+//                savedStateHandle["number_of_cards_in_fantasy_land"] = userPreferences.numberOfCardsInFantasyLand
+//            }
+//        }
+//    }
 
     private fun dealCards() {
         val dealtCards = Card.values()
