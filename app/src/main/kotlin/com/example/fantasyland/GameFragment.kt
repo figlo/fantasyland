@@ -23,7 +23,10 @@ class GameFragment : Fragment() {
 
     private val viewModel: GameViewModel by viewModels()
     private var _binding: FragmentGameBinding? = null
-    private val binding get() = _binding!!
+    private val binding
+        get() = checkNotNull(_binding) {
+            "Cannot access binding because it is null. Is the view visible?"
+        }
 
     private lateinit var cardViews: List<ImageView>
     private var selectedCardView: ImageView? = null

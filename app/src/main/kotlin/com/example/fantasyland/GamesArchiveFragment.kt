@@ -14,7 +14,10 @@ class GamesArchiveFragment : Fragment() {
 
     private val viewModel: GamesArchiveViewModel by viewModels()
     private var _binding: FragmentGamesArchiveBinding? = null
-    private val binding get() = _binding!!
+    private val binding
+        get() = checkNotNull(_binding) {
+            "Cannot access binding because it is null. Is the view visible?"
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,

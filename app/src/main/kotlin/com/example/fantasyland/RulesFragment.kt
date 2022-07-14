@@ -10,7 +10,10 @@ import com.example.fantasyland.databinding.FragmentRulesBinding
 class RulesFragment : Fragment() {
 
     private var _binding: FragmentRulesBinding? = null
-    private val binding get() = _binding!!
+    private val binding
+        get() = checkNotNull(_binding) {
+            "Cannot access binding because it is null. Is the view visible?"
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
