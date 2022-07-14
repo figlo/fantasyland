@@ -16,7 +16,7 @@ import kotlinx.parcelize.Parcelize
 import javax.inject.Inject
 
 @Parcelize
-enum class GameState: Parcelable {
+enum class GameState : Parcelable {
     STARTED,
     CARDS_ARE_SET,
     DONE,
@@ -25,7 +25,7 @@ enum class GameState: Parcelable {
 @HiltViewModel
 class GameViewModel @Inject constructor(
 //    userPreferencesRepository: UserPreferencesRepository,
-    savedStateHandle: SavedStateHandle,
+    private val savedStateHandle: SavedStateHandle,
     private val dao: FantasyLandDao,
     application: Application,
 ) : AndroidViewModel(application) {
@@ -42,7 +42,9 @@ class GameViewModel @Inject constructor(
     val gameState: LiveData<GameState>
         get() = _gameState
 
-    val numberOfCardsInFantasyLand: Int = savedStateHandle["numberOfCards"]!!
+    var numberOfCardsInFantasyLand: Int
+        get() = savedStateHandle["numberOfCards"] ?: 13
+        set(value) = savedStateHandle.set("numberOfCards", value)
 
     private var _bottomRowResult = 0
     val bottomRowResult: Int
