@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import androidx.core.view.setMargins
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -69,15 +70,10 @@ class MainFragment : Fragment() {
         val buttonMargin = 20
 
         for (button in buttons) {
-            with(button) {
-                // setup button width and height
-                layoutParams = android.widget.LinearLayout.LayoutParams(buttonWidth, buttonHeight)
-
-                // setup button margins
-                val params = button.layoutParams as ViewGroup.MarginLayoutParams
-                params.setMargins(buttonMargin)
-                layoutParams = params
-            }
+            // setup button width and height
+            val layoutParams = LinearLayout.LayoutParams(buttonWidth, buttonHeight)
+            layoutParams.setMargins(buttonMargin)
+            button.layoutParams = layoutParams
         }
     }
 
