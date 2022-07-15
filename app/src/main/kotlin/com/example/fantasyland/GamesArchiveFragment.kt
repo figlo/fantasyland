@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fantasyland.databinding.FragmentGamesArchiveBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,6 +26,9 @@ class GamesArchiveFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentGamesArchiveBinding.inflate(inflater)
+
+        binding.gamesArchiveRecyclerView.layoutManager = LinearLayoutManager(context)
+
         return binding.root
     }
 
