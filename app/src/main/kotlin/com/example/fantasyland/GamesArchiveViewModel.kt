@@ -18,7 +18,7 @@ class GamesArchiveViewModel @Inject constructor(
     dao: FantasyLandDao
 ) : ViewModel() {
 
-    private val games: LiveData<List<Game>> = dao.getAllGames()
+    val games: LiveData<List<Game>> = dao.getAllGames()
     val gamesString = Transformations.map(games) { games ->
         formatGames(games)
     }
@@ -36,7 +36,7 @@ fun formatGames(games: List<Game>): Spanned {
             append(formatter.format(game.dateTime))
             append("\t" + game.nickName)
             append("\t" + game.numberOfCardsInFantasyLand)
-            val resultString = if(game.result == -1) "X" else game.result
+            val resultString = if (game.result == -1) "X" else game.result
             append("\t" + resultString)
         }
     }

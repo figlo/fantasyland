@@ -29,6 +29,10 @@ class GamesArchiveFragment : Fragment() {
 
         binding.gamesArchiveRecyclerView.layoutManager = LinearLayoutManager(context)
 
+        val games = viewModel.games
+//        val adapter = GameListAdapter(games.value)
+//        binding.gamesArchiveRecyclerView.adapter = adapter
+
         return binding.root
     }
 
