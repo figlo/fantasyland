@@ -46,11 +46,6 @@ class GamesArchiveFragment : Fragment() {
                 }
             }
         }
-
-//        viewModel.games.observe(viewLifecycleOwner) { newGames ->
-//            val adapter = GameListAdapter(newGames)
-//            binding.gamesArchiveRecyclerView.adapter = adapter
-//        }
     }
 
     override fun onDestroyView() {
