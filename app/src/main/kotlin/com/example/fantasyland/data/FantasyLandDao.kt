@@ -1,9 +1,9 @@
 package com.example.fantasyland.data
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FantasyLandDao {
@@ -21,5 +21,5 @@ interface FantasyLandDao {
     suspend fun clear()
 
     @Query("SELECT * FROM games_table ORDER BY gameId DESC")
-    fun getAllGames(): LiveData<List<Game>>
+    fun getAllGames(): Flow<List<Game>>
 }
