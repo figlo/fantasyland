@@ -3,6 +3,8 @@ package com.example.fantasyland.data
 import android.content.Context
 import androidx.room.*
 
+private const val DATABASE_NAME = "fantasy_land_database"
+
 @Database(
     entities = [Game::class],
     version = 3,
@@ -30,7 +32,7 @@ abstract class FantasyLandDatabase : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         FantasyLandDatabase::class.java,
-                        "fantasy_land_database"
+                        DATABASE_NAME
                     )
                         .fallbackToDestructiveMigration()
                         .build()
