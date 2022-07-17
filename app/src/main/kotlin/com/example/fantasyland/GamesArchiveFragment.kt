@@ -29,16 +29,13 @@ class GamesArchiveFragment : Fragment() {
 
         binding.gamesArchiveRecyclerView.layoutManager = LinearLayoutManager(context)
 
-        val games = viewModel.games
-//        val adapter = GameListAdapter(games.value)
-//        binding.gamesArchiveRecyclerView.adapter = adapter
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.gamesString.observe(viewLifecycleOwner) { newGamesString ->
-            binding.gamesList.text = newGamesString.toString()
+        viewModel.games.observe(viewLifecycleOwner) { newGames ->
+            val adapter = GameListAdapter(newGames)
+            binding.gamesArchiveRecyclerView.adapter = adapter
         }
     }
 

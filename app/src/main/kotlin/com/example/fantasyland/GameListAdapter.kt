@@ -6,13 +6,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fantasyland.data.Game
 import com.example.fantasyland.databinding.ListItemGameBinding
 import com.google.android.material.snackbar.Snackbar
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 class GameHolder(
     private val binding: ListItemGameBinding
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(game: Game) {
         binding.apply {
-            gameDate.text = game.dateTime.toString()
+            val formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).withZone(ZoneId.systemDefault())
+            val dateString = formatter.format(game.dateTime)
+            gameDate.text = dateString
+
             gameNickname.text = game.nickName
             gameNumberOfCards.text = game.numberOfCardsInFantasyLand.toString()
             gameResult.text = game.result.toString()
@@ -20,7 +26,7 @@ class GameHolder(
             root.setOnClickListener {
                 Snackbar.make(
                     itemView,
-                    "${game.dateTime} clicked",
+                    "$dateString clicked",
                     Snackbar.LENGTH_LONG
                 ).show()
             }
