@@ -1,6 +1,8 @@
 package com.example.fantasyland
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -137,7 +139,9 @@ class GameFragment : Fragment() {
         setUpSetAllCardsButtonListener()
         setUpDoneButtonListener()
         setUpNewGameButtonListener()
-        setUpShareButtonListener()
+        if (canResolveShareIntent()) {
+            setUpShareButtonListener()
+        }
     }
 
     private fun setUpCardViewsListeners() {
@@ -172,13 +176,27 @@ class GameFragment : Fragment() {
         }
     }
 
+    private fun canResolveShareIntent(): Boolean {
+        val packageManager = requireActivity().packageManager
+        val resolvedActivity: ResolveInfo? =
+            packageManager.resolveActivity(
+                getShareIntent(),
+                PackageManager.MATCH_DEFAULT_ONLY
+            )
+        return resolvedActivity != null
+    }
+
+    private fun getShareIntent(): Intent {
+        return Intent(Intent.ACTION_SEND)
+            .setType("text/plain")
+            .putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_subject))
+            .putExtra(Intent.EXTRA_TEXT, binding.finalResult.text)
+            // .addCategory(Intent.CATEGORY_HOME)        // dummy filter for testing
+    }
+
     private fun setUpShareButtonListener() {
         binding.buttonShare.setOnClickListener {
-            val shareIntent = Intent(Intent.ACTION_SEND)
-                .setType("text/plain")
-                .putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_subject))
-                .putExtra(Intent.EXTRA_TEXT, binding.finalResult.text)
-            startActivity(shareIntent)
+            startActivity(getShareIntent())
         }
     }
 
@@ -258,7 +276,11 @@ class GameFragment : Fragment() {
             buttonSetAllCards.visibility = View.GONE
             buttonDone.visibility = View.GONE
             buttonNewGame.visibility = View.VISIBLE
-            buttonShare.visibility = View.VISIBLE
+            if (canResolveShareIntent()) {
+                buttonShare.visibility = View.VISIBLE
+            } else {
+                buttonShare.visibility = View.GONE
+            }
             finalResult.visibility = View.VISIBLE
 
             if (viewModel.isValidResult) {
