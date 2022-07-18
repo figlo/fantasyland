@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fantasyland.databinding.FragmentGamesArchiveBinding
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -42,7 +43,16 @@ class GamesArchiveFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.games.collect { newGames ->
-                    binding.gamesArchiveRecyclerView.adapter = GameListAdapter(newGames)
+                    binding.gamesArchiveRecyclerView.adapter = GameListAdapter(newGames) { gameId ->
+                            // TODO navigation to game detail
+                            // findNavController().navigate(GameListFragmentDirections.action___)
+
+                            Snackbar.make(
+                                requireView(),
+                                "Game $gameId clicked",
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                    }
                 }
             }
         }
