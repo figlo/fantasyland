@@ -7,6 +7,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Popup menu background color. -->
+    <style name="PopupMenuStyle" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <!-- CardView Style. -->
     <style name="cardViewStyle">
         <item name="android:layout_width">@dimen/card_width</item>
         <item name="android:layout_height">@dimen/card_height</item>

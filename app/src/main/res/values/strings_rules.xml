@@ -3,7 +3,7 @@
     <string name="rulesHtml">
         <![CDATA[
 
-        <body style=\"margin:20px auto; padding: 10px; max-width: 900px;\">
+        <body style=\"margin:20px auto; padding: 10px; max-width: 900px; background-color:#90CAF9\">
 
         <h1>Rules</h1>
 
