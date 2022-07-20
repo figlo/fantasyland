@@ -3,15 +3,11 @@
     <string name="rulesHtml">
         <![CDATA[
 
-        <body style=\"margin:20px auto; padding: 10px; max-width: 900px; background-color:#90CAF9\">
+        <body style=\"margin:20px auto; padding: 10px; max-width: 900px; background-color:#BBDEFB\">
 
-        <h1>Pravidlá</h1>
+        <h1>FantasyLand</h1>
 
-        <br>
-
-        <h2>Hra</h2>
-
-        <p>Hra sa hrá s 52 pokrovými kartami.</p>
+        <p>FantasyLand sa hrá s 52 pokrovými kartami.</p>
 
         <p>Úlohou hry je vyskladať 3 pokrové kombinácie, tiež označované ako \"rady\":</p>
         <ul>
@@ -21,7 +17,7 @@
         </ul>
 
         <p>Spodný rad musí mať vyššiu alebo rovnakú pokrovú kombináciu ako stredný rad.
-        <br>Sredný rad musí mať vyššiu alebo rovnakú pokrovú kombináciu ako horný rad.</p>
+        <br>Stredný rad musí mať vyššiu alebo rovnakú pokrovú kombináciu ako horný rad.</p>
 
         <p>Na porovnanie pokrových kombinácií sa používajú štandardné pravidlá Texas Hold\'em pokru.</p>
 

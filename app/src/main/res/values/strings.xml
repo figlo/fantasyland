@@ -7,7 +7,7 @@
     <string name="settings_label">Settings</string>
 
     <!-- Main -->
-    <string name="choose_number_of_cards">Choose number of cards in Fantasy Land:</string>
+    <string name="choose_number_of_cards">Choose number of cards in FantasyLand:</string>
     <string name="cards_13">13</string>
     <string name="cards_14">14</string>
     <string name="cards_15">15</string>

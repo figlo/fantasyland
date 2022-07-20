@@ -3,15 +3,12 @@
     <string name="rulesHtml">
         <![CDATA[
 
-        <body style=\"margin:20px auto; padding: 10px; max-width: 900px; background-color:#90CAF9\">
+        <body style=\"margin:20px auto; padding: 10px; max-width: 900px; background-color:#BBDEFB\">
 
-        <h1>Rules</h1>
 
-        <br>
+        <h1>FantasyLand</h1>
 
-        <h2>Game</h2>
-
-        <p>The game is played with 52-card deck.</p>
+        <p>FantasyLand is played with 52-card deck.</p>
 
         <p>The object of the game is to form three hands, also referred to as "rows":</p>
         <ul>

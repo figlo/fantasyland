@@ -2,12 +2,13 @@
 <resources>
     <color name="colorPrimary">#10316B</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#E25822</color>
-    <color name="background">#90CAF9</color>
+    <color name="colorAccent">#e3f2fd</color>
+    <color name="background">#BBDEFB</color>
+    <color name="textColor">#000000</color>
+    <color name="buttonText">#000000</color>
     <color name="cardViewBackground">#000000</color>
     <color name="cardViewSelected">#ff0000</color>
     <color name="resultOK">#009900</color>
     <color name="resultX">#dd0000</color>
     <color name="newFantasyLand">#000099</color>
-    <!--    <color name="colorBackground">#999999</color>-->
 </resources>

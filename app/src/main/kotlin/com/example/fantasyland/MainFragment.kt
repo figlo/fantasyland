@@ -63,7 +63,7 @@ class MainFragment : Fragment() {
             .computeCurrentWindowMetrics(requireActivity())
             .bounds
         val displayWidth = bounds.width()
-        val buttonWidth: Int = displayWidth / 6                  // empirically found out
+        val buttonWidth: Int = minOf(displayWidth / 6, 240)                  // empirically found out
         val buttonHeight: Int = buttonWidth
 
         // margin must be set again programmatically (allready set in xml)
