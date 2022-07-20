@@ -5,18 +5,18 @@
     <item
         android:id="@+id/gamesArchiveFragment"
         android:menuCategory="secondary"
-        android:title="@string/games_archive"
+        android:title="@string/games_archive_label"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/rulesFragment"
         android:menuCategory="secondary"
-        android:title="@string/rules"
+        android:title="@string/rules_label"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/settingsFragment"
         android:menuCategory="secondary"
-        android:title="@string/settings"
+        android:title="@string/settings_label"
         app:showAsAction="never" />
 </menu>

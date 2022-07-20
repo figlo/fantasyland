@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="game_label">Hra</string>
+    <string name="games_archive_label">Archív hier</string>
+    <string name="rules_label">Pravidlá</string>
+    <string name="settings_label">Nastavenia</string>
+
+    <!-- Main -->
+    <string name="choose_number_of_cards">Zvoľ počet kariet vo Fantasy Land:</string>
+
+    <!-- Game -->
+    <string name="sort">Zotrieď</string>
+    <string name="set_all_cards">Nastav všetky karty</string>
+    <string name="done">Hotovo</string>
+    <string name="new_game">Nová hra</string>
+    <string name="new_fantasyland">Nová FantasyLand!</string>
+    <string name="share">Zdieľaj</string>
+    <string name="share_subject">Môj FantasyLand výsledok</string>
+
+    <string name="nickname_title">Tvoj nick</string>
+</resources>

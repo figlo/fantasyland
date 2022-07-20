@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources>
     <string name="rulesHtml">
         <![CDATA[
 
         <body style=\"margin:20px auto; padding: 10px; max-width: 900px; background-color:#90CAF9\">
 
-        <h1>Rules</h1>
+        <h1>Pravidlá</h1>
 
         <br>
 
-        <h2>Game</h2>
+        <h2>Hra</h2>
 
-        <p>The game is played with 52-card deck.</p>
+        <p>Hra sa hrá s 52 pokrovými kartami.</p>
 
-        <p>The object of the game is to form three hands, also referred to as "rows":</p>
+        <p>Úlohou hry je vyskladať 3 pokrové kombinácie, tiež označované ako \"rady\":</p>
         <ul>
-        <li>Bottom row - 5-card hand</li>
-        <li>Middle row - 5-card hand</li>
-        <li>Top row - 3-card hand</li>
+        <li>Spodný rad - 5 kariet</li>
+        <li>Stredný rad - 5 kariet</li>
+        <li>Horný rad - 3 karty</li>
         </ul>
 
-        <p>Bottom row hand must rank higher of equal to middle row hand.
-        <br>Middle row hand must rank higher of equal to top row hand.</p>
+        <p>Spodný rad musí mať vyššiu alebo rovnakú pokrovú kombináciu ako stredný rad.
+        <br>Sredný rad musí mať vyššiu alebo rovnakú pokrovú kombináciu ako horný rad.</p>
 
-        <p>The regular Texas Hold\'em showdown hand values are used for comparison.</p>
+        <p>Na porovnanie pokrových kombinácií sa používajú štandardné pravidlá Texas Hold\'em pokru.</p>
 
         <br>
 
-        <h2>Scoring</h2>
+        <h2>Bodovanie</h2>
 
         <table border="1">
             <tr>
                 <td></td>
-                <td><b>Bottom Row</b></td>
-                <td><b>Middle Row</b></td>
+                <td><b>Spodný rad</b></td>
+                <td><b>Stredný rad</b></td>
             </tr>
             <tr>
                 <td>Royal flush</td>
@@ -77,7 +77,7 @@
         <table border="1">
             <tr>
                 <td></td>
-                <td><b>Top Row</b></td>
+                <td><b>Horný rad</b></td>
             </tr>
             <tr>
                 <td>Trips AAA</td>

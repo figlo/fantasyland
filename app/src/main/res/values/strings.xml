@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">FantasyLand</string>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <string name="app_name_label">FantasyLand</string>
+    <string name="game_label">Game</string>
+    <string name="games_archive_label">Games Archive</string>
+    <string name="rules_label">Rules</string>
+    <string name="settings_label">Settings</string>
 
     <!-- Main -->
     <string name="choose_number_of_cards">Choose number of cards in Fantasy Land:</string>
@@ -19,11 +23,6 @@
     <string name="new_fantasyland">New FantasyLand!</string>
     <string name="share">Share</string>
     <string name="share_subject">My FantasyLand Result</string>
-
-    <!-- Menu -->
-    <string name="games_archive">Games Archive</string>
-    <string name="rules">Rules</string>
-    <string name="settings">Settings</string>
 
     <!-- Settings -->
     <string name="title_activity_settings">Settings</string>
