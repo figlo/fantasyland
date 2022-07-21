@@ -1,12 +1,13 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
-        app:key="personal"
-        app:title="@string/personal_header">
+        android:layout="@layout/preferences_category"
+        android:title="@string/personal_header">
 
         <EditTextPreference
-            app:key="nickName"
-            app:title="@string/nickname_title"
+            android:key="nickName"
+            android:title="@string/nickname_title"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
