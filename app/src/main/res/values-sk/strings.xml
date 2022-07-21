@@ -17,5 +17,6 @@
     <string name="share">Zdieľaj</string>
     <string name="share_subject">Môj FantasyLand výsledok</string>
 
+    <string name="personal_header">Osobné nastavenia</string>
     <string name="nickname_title">Tvoj nick</string>
 </resources>
