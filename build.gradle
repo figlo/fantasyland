@@ -5,7 +5,7 @@ buildscript {
     ext.lifecycle_version = "2.5.0"
     ext.hilt_version = "2.42"
     ext.room_version = "2.4.2"
-    ext.ksp_version = "1.7.0-1.0.6"
+    ext.ksp_version = "1.7.10-1.0.6"
 
     repositories {
         google()
