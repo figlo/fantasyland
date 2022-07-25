@@ -1,9 +1,9 @@
 package com.example.fantasyland.data
 
-import android.content.Context
-import androidx.room.*
-
-private const val DATABASE_NAME = "fantasy_land_database"
+import androidx.room.AutoMigration
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
 @Database(
     entities = [Game::class],
@@ -16,30 +16,5 @@ private const val DATABASE_NAME = "fantasy_land_database"
 )
 @TypeConverters(Converters::class)
 abstract class FantasyLandDatabase : RoomDatabase() {
-
     abstract val fantasyLandDao: FantasyLandDao
-
-    companion object {
-
-        @Volatile
-        private var INSTANCE: FantasyLandDatabase? = null
-
-        fun getInstance(context: Context): FantasyLandDatabase {
-            synchronized(this) {
-                var instance = INSTANCE
-
-                if (instance == null) {
-                    instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        FantasyLandDatabase::class.java,
-                        DATABASE_NAME
-                    )
-                        .fallbackToDestructiveMigration()
-                        .build()
-                    INSTANCE = instance
-                }
-                return instance
-            }
-        }
-    }
 }
